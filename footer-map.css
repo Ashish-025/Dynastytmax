@@ -1,0 +1,86 @@
+/* Footer office map: Google map screenshot of Odisha with four office pins.
+   Clicking the map opens Google Maps; each pin opens its town. Pin names show on hover. */
+
+.dm-office-gmap {
+    position: relative;
+    width: 100%;
+    max-width: 420px;               /* wide enough for four labels */
+    margin: 0 auto;
+    aspect-ratio: 900 / 467;        /* the screenshot's own size */
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    background: #a8dcef;
+}
+
+/* the whole map is a link */
+.dm-office-gmap-link { position: absolute; inset: 0; display: block; }
+.dm-office-gmap-link img { display: block; width: 100%; height: 100%; object-fit: cover; transition: filter .3s ease; }
+.dm-office-gmap-link:hover img { filter: brightness(1.06) saturate(1.1); }
+.dm-office-gmap-link:focus-visible { outline: 2px solid #e91d2b; outline-offset: 3px; }
+
+.dm-office-map-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 4%;
+    transform: translate(-50%, 6px);
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .75);
+    color: #fff;
+    font: 600 11px/1.2 Arial, Helvetica, sans-serif;
+    letter-spacing: .04em;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+}
+.dm-office-gmap-link:hover .dm-office-map-hint,
+.dm-office-gmap-link:focus-visible .dm-office-map-hint { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- office pins (SVG in the image's 900x467 coordinates) ---------- */
+.dm-office-pins { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.dm-office-pins a { pointer-events: auto; cursor: pointer; }
+.dm-office-pins a:focus-visible { outline: none; }
+.dm-office-pins .hit { fill: transparent; }
+.dm-office-pins .dot { fill: #e91d2b; stroke: #fff; stroke-width: 4; }
+.dm-office-pins .ring {
+    fill: none;
+    stroke: #e91d2b;
+    stroke-width: 3;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: dmRing 2s ease-out infinite;
+}
+.dm-office-pins a:nth-of-type(2) .ring { animation-delay: .5s; }
+.dm-office-pins a:nth-of-type(3) .ring { animation-delay: 1s; }
+.dm-office-pins a:nth-of-type(4) .ring { animation-delay: 1.5s; }
+@keyframes dmRing { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+
+/* names stay hidden; hovering (or keyboard-focusing) a pin reveals its label + leader line */
+.dm-office-pins line { stroke: #e91d2b; stroke-width: 2.5; }
+.dm-office-pins rect { fill: rgba(0, 0, 0, .78); }
+.dm-office-pins text { fill: #fff; font: 700 22px/1 Arial, Helvetica, sans-serif; text-anchor: middle; }
+.dm-office-pins line,
+.dm-office-pins rect,
+.dm-office-pins text { opacity: 0; pointer-events: none; transition: opacity .2s ease, fill .2s ease; }
+.dm-office-pins a:hover line,
+.dm-office-pins a:hover rect,
+.dm-office-pins a:hover text,
+.dm-office-pins a:focus-visible line,
+.dm-office-pins a:focus-visible rect,
+.dm-office-pins a:focus-visible text { opacity: 1; }
+.dm-office-pins a:hover rect,
+.dm-office-pins a:focus-visible rect { fill: #e91d2b; }
+.dm-office-pins a:hover .dot,
+.dm-office-pins a:focus-visible .dot { stroke-width: 5; }
+
+/* dark (futuristic) theme: brand orange */
+[data-theme="dark"] .dm-office-pins line,
+[data-theme="dark"] .dm-office-pins .ring { stroke: #f48c18; }
+[data-theme="dark"] .dm-office-pins .dot { fill: #f48c18; }
+[data-theme="dark"] .dm-office-pins a:hover rect { fill: #f48c18; }
+
+@media (prefers-reduced-motion: reduce) {
+    .dm-office-pins .ring { animation: none; opacity: 0; }
+}

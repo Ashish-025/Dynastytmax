@@ -1,0 +1,221 @@
+/* Digital Branding & Business Solutions page
+   Styled after the "Thomson" about-us layout: white, minimal, Work Sans headings,
+   Lato body copy, one red accent. Scoped to .dbs-page so the shared header/footer are untouched. */
+
+.dbs-page {
+    --dbs-ink: #000;
+    --dbs-text: #818385;
+    --dbs-accent: #f44336;
+    --dbs-line: #dee2e6;
+    --dbs-track: #f7f8f9;
+    --dbs-head: 'Work Sans', sans-serif;
+    --dbs-body: 'Lato', sans-serif;
+
+    background: #fff;
+    color: var(--dbs-text);
+    font-family: var(--dbs-body);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: .166667px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+.dbs-page h1,
+.dbs-page h2,
+.dbs-page h3,
+.dbs-page h4 {
+    margin: 0;
+    font-family: var(--dbs-head);
+    color: var(--dbs-ink);
+    font-weight: 600;
+    letter-spacing: 0;
+}
+.dbs-page p { margin: 0; color: var(--dbs-text); }
+.dbs-page img { display: block; max-width: 100%; }
+
+.dbs-container {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.dbs-section { padding: 120px 0; }
+.dbs-section + .dbs-section { border-top: 1px solid var(--dbs-line); }
+
+.dbs-accent { color: var(--dbs-accent); }
+.dbs-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+.dbs-page figure { margin: 0; }
+
+/* ---------- banner ---------- */
+.dbs-headline {
+    max-width: 950px;
+    margin-bottom: 24px !important;
+    font-size: 42px;
+    line-height: 52px;
+}
+
+/* typing "clip" effect: the word is revealed left-to-right behind a thin caret */
+.dbs-words {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    white-space: nowrap;
+    padding-right: 4px;
+    border-right: 2px solid #aebcb9;
+    transition: width .6s cubic-bezier(.65, 0, .35, 1);
+}
+.dbs-words b {
+    display: none;
+    font-weight: 600;
+}
+.dbs-words b.is-visible { display: inline; }
+
+.dbs-lead {
+    max-width: 950px;
+    margin-bottom: 48px !important;
+}
+
+.dbs-features {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+}
+.dbs-features h4 {
+    margin-bottom: 8px;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+/* ---------- skills ---------- */
+.dbs-skills {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 40px;
+}
+.dbs-skills-img img {
+    width: 100%;
+    aspect-ratio: 531 / 354;
+    object-fit: cover;
+}
+
+.dbs-bar { margin-bottom: 25px; }
+.dbs-bar-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    color: var(--dbs-ink);
+}
+.dbs-bar-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.dbs-bar-value { margin-left: auto; }
+.dbs-bar-track {
+    position: relative;
+    height: 7px;
+    margin-bottom: 35px;
+    background: var(--dbs-track);
+}
+.dbs-bar-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0;
+    background: var(--dbs-ink);
+    transition: width 3s ease-in-out;
+}
+
+/* ---------- testimonials ---------- */
+.dbs-testimonials h2 {
+    margin-bottom: 48px;
+    text-align: center;
+    font-size: 42px;
+    line-height: 52px;
+}
+.dbs-slider {
+    max-width: 760px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.dbs-slides {
+    display: flex;
+    transition: transform .6s ease;
+}
+.dbs-slide {
+    flex: 0 0 100%;
+    padding: 25px;
+    text-align: center;
+}
+.dbs-quote {
+    display: block;
+    height: 60px;
+    color: var(--dbs-accent);
+    font-family: Georgia, serif;
+    font-size: 96px;
+    line-height: 1;
+}
+.dbs-slide p { margin: 30px 0 25px; }
+.dbs-slide h4 {
+    font-size: 20px;
+    line-height: 30px;
+}
+.dbs-slide > span:last-child { font-size: 15px; }
+
+.dbs-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.dbs-dots button {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #d6d6d6;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+.dbs-dots button[aria-current="true"] { background: var(--dbs-ink); }
+.dbs-dots button:focus-visible { outline: 2px solid var(--dbs-accent); outline-offset: 3px; }
+
+/* ---------- scroll reveal (fade in from the left, like AOS fade-right) ---------- */
+.dbs-reveal {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+.dbs-reveal.is-in { opacity: 1; transform: none; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 991px) {
+    .dbs-section { padding: 90px 0; }
+    .dbs-features { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .dbs-skills { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+}
+
+@media (max-width: 575px) {
+    .dbs-section { padding: 70px 0; }
+    .dbs-headline,
+    .dbs-testimonials h2 { font-size: 32px; line-height: 43px; }
+    .dbs-words { white-space: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dbs-reveal { opacity: 1; transform: none; transition: none; }
+    .dbs-bar-fill,
+    .dbs-slides,
+    .dbs-words { transition: none; }
+}

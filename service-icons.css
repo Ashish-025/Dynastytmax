@@ -1,0 +1,77 @@
+/* Futuristic "Our Services" logos: glass core, a rotating scanner arc, a tick-mark dial ring and a
+   soft glow on the logo. Light theme uses the brand red/navy, dark theme the hero orange/blue. */
+
+.dm-service-icon {
+    --si-a: #e91d2b;                    /* arc / glow colour */
+    --si-b: #14244a;                    /* dial ticks */
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+    background: radial-gradient(circle at 35% 30%, #fff 0%, #fff3f2 55%, #ffe1de 100%);
+    box-shadow: inset 0 0 0 1px rgba(233, 29, 43, .22), 0 6px 18px rgba(233, 29, 43, .14);
+}
+
+/* rotating scanner arc just outside the circle */
+.dm-service-icon::before,
+.dm-service-icon::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+}
+.dm-service-icon::before {
+    inset: -7px;
+    background: conic-gradient(from 0deg, transparent 0 55%, var(--si-a) 88%, transparent 100%);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2px));
+    animation: dmSiSpin 4.5s linear infinite;
+}
+/* fine dial ticks, turning slowly the other way */
+.dm-service-icon::after {
+    inset: -13px;
+    background: repeating-conic-gradient(var(--si-b) 0 1.5deg, transparent 1.5deg 15deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3.5px));
+    opacity: .28;
+    animation: dmSiSpin 24s linear infinite reverse;
+}
+
+.dm-service-icon img {
+    filter: drop-shadow(0 0 4px rgba(233, 29, 43, .35));
+    animation: dmSiFloat 3.6s ease-in-out infinite;
+}
+
+/* hover: card turns blue, so the rings go white and spin faster */
+.dm-service-card:hover .dm-service-icon { --si-a: #fff; --si-b: #fff; box-shadow: 0 0 0 1px rgba(255, 255, 255, .5), 0 0 22px rgba(255, 255, 255, .35); }
+.dm-service-card:hover .dm-service-icon::before { animation-duration: 1.6s; }
+.dm-service-card:hover .dm-service-icon::after { opacity: .55; }
+.dm-service-card:hover .dm-service-icon img { filter: drop-shadow(0 0 5px rgba(233, 29, 43, .45)); }
+
+/* dark (futuristic) theme */
+[data-theme="dark"] .dm-service-icon {
+    --si-a: #f48c18;
+    --si-b: #7fb6ff;
+    background: radial-gradient(circle at 35% 30%, rgba(64, 137, 221, .28) 0%, rgba(11, 18, 32, .85) 70%);
+    box-shadow: inset 0 0 0 1px rgba(127, 182, 255, .35), 0 0 24px rgba(244, 140, 24, .18);
+    animation: none;
+}
+[data-theme="dark"] .dm-service-icon img,
+[data-theme="dark"] .dm-service-card:hover .dm-service-icon img {
+    filter: invert(1) hue-rotate(180deg) brightness(1.15) drop-shadow(0 0 5px rgba(127, 182, 255, .7));
+}
+[data-theme="dark"] .dm-service-card:hover .dm-service-icon {
+    --si-a: #7fb6ff;
+    --si-b: #f48c18;
+    background: radial-gradient(circle at 35% 30%, rgba(64, 137, 221, .4) 0%, rgba(11, 18, 32, .85) 70%);
+    box-shadow: inset 0 0 0 1px rgba(127, 182, 255, .6), 0 0 30px rgba(64, 137, 221, .45);
+}
+
+@keyframes dmSiSpin { to { transform: rotate(360deg); } }
+@keyframes dmSiFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+
+@media (prefers-reduced-motion: reduce) {
+    .dm-service-icon::before,
+    .dm-service-icon::after,
+    .dm-service-icon img { animation: none; }
+}

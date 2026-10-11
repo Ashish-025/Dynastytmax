@@ -1,0 +1,39 @@
+/* Rocket particle background for the homepage hero (see hero-rocket.js) */
+.hero-rocket-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.hero-section.has-rocket-animation { background: #000; }
+.hero-section.has-rocket-animation .hero-rocket-canvas { display: block; }
+.hero-section.has-rocket-animation .hero-network,
+.hero-section.has-rocket-animation .hero-particle-canvas { display: none; }
+
+/* small white dot that replaces the pointer over the hero (desktop) */
+.hero-rocket-cursor {
+    position: fixed;
+    z-index: 9998;
+    top: -50px;
+    left: -50px;
+    width: 16px;
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    background: #fff;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .hero-section.has-rocket-animation,
+    .hero-section.has-rocket-animation a,
+    .hero-section.has-rocket-animation button { cursor: none; }
+    .hero-section.has-rocket-animation:hover .hero-rocket-cursor { opacity: 1; }
+}

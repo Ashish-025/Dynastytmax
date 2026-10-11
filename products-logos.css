@@ -1,0 +1,170 @@
+/* =========================================================
+   PRODUCTS - infinite auto-scrolling 3D logo carousel
+   (items are cloned by main.js; track slides by -50%)
+========================================================= */
+
+.logo-marquee {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0 34px;
+    /* soft fade on both edges */
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.logo-marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: logoMarqueeScroll 30s linear infinite;
+}
+
+/* pause while the visitor is pointing at / tabbing through a logo */
+.logo-marquee:hover .logo-marquee-track,
+.logo-marquee:focus-within .logo-marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes logoMarqueeScroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* logo only - no card. Spacing uses margin (not gap) so -50% lands exactly on a logo edge */
+.logo-tile {
+    flex: 0 0 auto;
+    margin-right: 70px;
+    display: block;
+    text-decoration: none;
+    outline: none;
+    perspective: 600px;
+}
+
+.logo-tile:focus-visible .logo-tile-icon {
+    outline: 3px solid #1469e8;
+    outline-offset: 6px;
+}
+
+/* name stays for screen readers only */
+.logo-tile-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ---------- 3D COIN LOGO ---------- */
+
+/* each product gets its own colour (6n keeps clones matching) */
+.logo-tile:nth-child(6n+1) { --c1: #4fa3ff; --c2: #1469e8; --c3: #0a3f94; } /* GPS */
+.logo-tile:nth-child(6n+2) { --c1: #ff8a5c; --c2: #f05223; --c3: #a3300d; } /* CCTV */
+.logo-tile:nth-child(6n+3) { --c1: #ffd25c; --c2: #f4a018; --c3: #a8650a; } /* Branding */
+.logo-tile:nth-child(6n+4) { --c1: #7ce0c3; --c2: #14a37f; --c3: #0b6650; } /* Software */
+.logo-tile:nth-child(6n+5) { --c1: #c592ff; --c2: #8a3ff0; --c3: #561fa3; } /* Social */
+.logo-tile:nth-child(6n+6) { --c1: #6fe3ff; --c2: #10a5d6; --c3: #0a6688; } /* SEO */
+
+.logo-tile-icon {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    /* glossy face: light from the top-left */
+    background:
+        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.75) 0 6%, rgba(255, 255, 255, 0) 38%),
+        radial-gradient(circle at 50% 40%, var(--c1), var(--c2) 58%, var(--c3) 100%);
+    /* stacked shadows = thick coin edge, then a soft drop shadow */
+    box-shadow:
+        inset 0 -8px 14px rgba(0, 0, 0, 0.28),
+        inset 0 5px 8px rgba(255, 255, 255, 0.45),
+        0 1px 0 var(--c3),
+        0 2px 0 var(--c3),
+        0 3px 0 var(--c3),
+        0 4px 0 var(--c3),
+        0 5px 0 var(--c3),
+        0 6px 0 var(--c3),
+        0 7px 0 var(--c3),
+        0 8px 0 var(--c3),
+        0 24px 22px -6px rgba(0, 0, 0, 0.35);
+    transform-style: preserve-3d;
+    animation: logoCoinSway 5s ease-in-out infinite;
+    transition: transform 0.7s cubic-bezier(.2, .8, .2, 1);
+}
+
+/* stagger the sway so the coins don't move in lockstep */
+.logo-tile:nth-child(6n+2) .logo-tile-icon { animation-delay: -0.8s; }
+.logo-tile:nth-child(6n+3) .logo-tile-icon { animation-delay: -1.6s; }
+.logo-tile:nth-child(6n+4) .logo-tile-icon { animation-delay: -2.4s; }
+.logo-tile:nth-child(6n+5) .logo-tile-icon { animation-delay: -3.2s; }
+.logo-tile:nth-child(6n+6) .logo-tile-icon { animation-delay: -4s; }
+
+/* shiny rim */
+.logo-tile-icon::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-bottom-color: rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+}
+
+@keyframes logoCoinSway {
+    0%, 100% { transform: rotateY(-22deg) rotateX(8deg) translateY(0); }
+    50%      { transform: rotateY(22deg) rotateX(-4deg) translateY(-6px); }
+}
+
+/* hover: full 3D flip */
+.logo-tile:hover .logo-tile-icon,
+.logo-tile:focus-visible .logo-tile-icon {
+    animation: none;
+    transform: rotateY(360deg) scale(1.08);
+}
+
+.logo-tile-icon svg {
+    position: relative;
+    width: 58px;
+    height: 58px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /* embossed / raised icon */
+    filter:
+        drop-shadow(0 1px 0 rgba(0, 0, 0, 0.35))
+        drop-shadow(0 2px 0 rgba(0, 0, 0, 0.2))
+        drop-shadow(0 4px 4px rgba(0, 0, 0, 0.3));
+    transform: translateZ(16px);
+}
+
+@media (max-width: 768px) {
+    .logo-tile {
+        margin-right: 40px;
+    }
+
+    .logo-tile-icon {
+        width: 88px;
+        height: 88px;
+    }
+
+    .logo-tile-icon svg {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-marquee-track {
+        animation-duration: 120s !important;
+    }
+
+    .logo-tile-icon {
+        animation: none;
+    }
+}

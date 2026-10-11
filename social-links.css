@@ -1,0 +1,270 @@
+.site-social-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0 0;
+}
+
+.site-social-links a {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, .34);
+    border-radius: 11px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.site-social-links a::after {
+    position: absolute;
+    z-index: -1;
+    inset: 1px;
+    border: 1px solid rgba(142, 171, 255, .2);
+    border-top-color: #a9bdff;
+    border-right-color: rgba(142, 171, 255, .65);
+    border-radius: 9px;
+    opacity: .72;
+    filter: drop-shadow(0 0 3px rgba(113, 148, 255, .45));
+    animation: site-social-glow 5s linear infinite;
+    content: "";
+    pointer-events: none;
+}
+
+.site-social-links a:hover,
+.site-social-links a:focus-visible {
+    transform: translateY(-2px);
+    border-color: #ed2d32;
+    background-color: #ed2d32;
+}
+
+.site-social-links a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+}
+
+.site-social-links svg {
+    display: block;
+    width: 19px;
+    height: 19px;
+    fill: currentColor;
+}
+
+.site-social-links a:last-child svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+}
+
+.site-social-links .site-instagram-dot {
+    fill: currentColor;
+    stroke: none;
+}
+
+.app-page{flex-direction:column;justify-content:space-between}.app-page .app-card{flex:0 0 auto;margin:auto 0}
+
+.site-social-footer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 16px 22px;
+    border-top: 1px solid rgba(255, 255, 255, .14);
+    background: #050505;
+    color: #c5cada;
+    text-align: center;
+    font: 13px/1.5 Arial, Helvetica, sans-serif;
+}
+
+.site-social-footer strong {
+    color: #fff;
+    letter-spacing: .08em;
+}
+
+.site-social-footer .site-social-links {
+    justify-content: center;
+    margin-top: 2px;
+}
+
+@keyframes site-social-glow {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+    .site-social-links a { width: 40px; height: 40px; flex-basis: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-social-links a { transition: none; }
+    .site-social-links a::after { animation: none; opacity: .25; }
+}
+
+/* Reference-inspired social panel; its position stays inside the company footer block. */
+.site-social-links {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    min-height: 58px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 7px;
+    margin: 22px 0 0;
+    padding: 9px 12px;
+    border-radius: 9px;
+    background: transparent;
+}
+
+.dm-company > .site-social-links {
+    justify-content: flex-start;
+    gap: 20px;
+    transform: translateX(-4px);
+}
+
+.dm-company > .site-social-links a:first-of-type {
+    margin-left: 0;
+}
+
+.dm-company > .site-social-links::before {
+    margin-right: -16px;
+}
+
+.dm-company > .site-social-links a:last-of-type {
+    margin-left: 0;
+    margin-right: 50px;
+}
+
+.site-social-links::before {
+    flex: 0 0 auto;
+    color: #fff;
+    content: "FOLLOW FOR MORE";
+    font: 700 8px/1.3 Arial, Helvetica, sans-serif;
+    letter-spacing: .06em;
+    white-space: nowrap;
+    transform: translate(-6px, 7px);
+}
+
+.site-social-links::after {
+    position: static;
+    display: none;
+    width: 48px;
+    height: 2px;
+    flex: 0 1 48px;
+    max-width: 48px;
+    border: 0;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, .95);
+    content: "";
+    opacity: 1;
+    filter: none;
+    animation: none;
+}
+
+.site-social-links a {
+    position: static;
+    isolation: auto;
+    width: 29px;
+    height: 34px;
+    flex: 0 0 29px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #fff;
+}
+
+.site-social-links a::after { content: none; }
+
+.site-social-links a:hover,
+.site-social-links a:focus-visible {
+    transform: translateY(-2px);
+    border: 0;
+    background: transparent;
+    filter: drop-shadow(0 0 4px rgba(239, 30, 58, .95)) drop-shadow(0 0 9px rgba(239, 30, 58, .65));
+}
+
+.site-social-links svg {
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 600px) {
+    .site-social-links {
+        min-height: 54px;
+        gap: 5px;
+        margin-top: 18px;
+        padding: 8px 9px;
+    }
+
+    .site-social-links::before { font-size: 7px; }
+    .site-social-links a { width: 25px; height: 30px; flex-basis: 25px; }
+    .site-social-links svg { width: 21px; height: 21px; }
+    .site-social-links::after { width: 36px; flex-basis: 36px; max-width: 36px; }
+}
+/* Keep floating contact actions clear of footer controls across pages. */
+.ssi-floating-actions {
+    display: block;
+    width: 52px;
+    height: 52px;
+    gap: 0;
+    bottom: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+}
+
+.ssi-floating-actions .ssi-float-whatsapp {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transition: transform .55s cubic-bezier(.22, 1, .36, 1);
+}
+
+@media (max-width: 1000px) {
+    .ssi-floating-actions {
+        bottom: 14px;
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* Keep the page surfaces edge-to-edge; leave inner content layouts unchanged. */
+html,
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+}
+
+body { overflow-x: hidden; }
+
+body > header,
+body > main,
+body > footer,
+main > section,
+main > footer,
+#siteHeader,
+.hero-section,
+.achievements-section,
+.dm-services,
+.products-section,
+.dm-projects,
+.dm-footer,
+.contact-page,
+.security-page,
+.ssi-hero,
+.ssi-services,
+.ssi-products,
+.dbs-page,
+.dbs-section {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+}

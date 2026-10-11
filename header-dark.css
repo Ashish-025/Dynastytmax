@@ -1,0 +1,210 @@
+/* =========================================
+   DARK HEADER (usta.agency-style)
+   Load after style.css; restyles the existing header markup only.
+   ========================================= */
+
+:root {
+    --hdr-h: 64px;
+    --hdr-bg: #000;
+    --hdr-fg: #fff;
+    --hdr-muted: rgba(255, 255, 255, .62);
+    --hdr-line: rgba(255, 255, 255, .12);
+    --hdr-accent: #e91d2b;
+    --hdr-font: 'Montserrat', Arial, Helvetica, sans-serif;
+    --hdr-ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+.site-header {
+    height: var(--hdr-h);
+    background: var(--hdr-bg);
+    border-bottom: 0;
+    box-shadow: none;
+    font-family: var(--hdr-font);
+    animation: hdrIn 1s var(--hdr-ease) .2s both;
+}
+
+@keyframes hdrIn {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.header-container {
+    height: var(--hdr-h);
+    padding: 0 clamp(16px, 4vw, 46px);
+}
+
+/* logo */
+/* wordmark: solid DYNASTY + outlined MAX, set tight */
+.logo { gap: 0; color: var(--hdr-fg); }
+.logo .logo-text {
+    gap: 0;
+    color: var(--hdr-fg);
+    font-family: 'Oswald', var(--hdr-font);
+    font-size: 1.5rem;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: .02em;
+}
+.logo-text strong {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--hdr-fg);
+    font-weight: 700;
+    letter-spacing: .02em;
+}
+
+/* links */
+.desktop-nav { gap: 2rem; margin-right: 2rem; }
+
+.nav-link {
+    color: var(--hdr-fg);
+    font-family: var(--hdr-font);
+    font-size: 1.125rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    transition: opacity .25s ease;
+}
+.nav-link:hover { color: var(--hdr-fg); opacity: .7; }
+.nav-link::after { bottom: 14px; height: 1px; background: var(--hdr-fg); }
+.nav-link:focus-visible { outline-color: var(--hdr-fg); }
+
+/* dropdowns: dark panel, items drop in one after another */
+.dropdown-menu {
+    left: auto;
+    right: -14px;
+    top: 100%;
+    transform: none;
+    min-width: 230px;
+    padding: 10px 0 14px;
+    background: rgba(0, 0, 0, .9);
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: right;
+}
+.nav-item.open .dropdown-menu { transform: none; }
+@media (hover: hover) and (pointer: fine) {
+    .nav-item.has-dropdown:hover > .dropdown-menu,
+    .nav-item.has-dropdown:focus-within > .dropdown-menu { transform: none; }
+}
+
+.dropdown-menu a {
+    padding: 14px 14px;
+    color: var(--hdr-fg);
+    font-family: var(--hdr-font);
+    font-size: 1.05rem;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition:
+        opacity .45s var(--hdr-ease),
+        transform .5s cubic-bezier(.34, 1.56, .64, 1),
+        padding-right .3s ease;
+}
+.nav-item.open .dropdown-menu a,
+.nav-item.has-dropdown:hover .dropdown-menu a,
+.nav-item.has-dropdown:focus-within .dropdown-menu a {
+    opacity: 1;
+    transform: none;
+}
+.dropdown-menu a:nth-child(2) { transition-delay: .05s, .05s, 0s; }
+.dropdown-menu a:nth-child(3) { transition-delay: .1s, .1s, 0s; }
+.dropdown-menu a:nth-child(4) { transition-delay: .15s, .15s, 0s; }
+.dropdown-menu a:hover,
+.dropdown-menu a:focus-visible {
+    color: var(--hdr-fg);
+    transform: none;
+    padding-right: 30px;
+}
+
+/* call to action */
+.app-button {
+    min-width: 0;
+    height: 38px;
+    padding: 0 18px;
+    border: 1px solid var(--hdr-fg);
+    border-radius: 0;
+    color: var(--hdr-fg);
+    font-family: var(--hdr-font);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    box-shadow: none;
+}
+.app-button:hover,
+.app-button:focus-visible {
+    background: var(--hdr-fg);
+    border-color: var(--hdr-fg);
+    color: #000;
+    transform: none;
+}
+
+/* hamburger */
+.mobile-menu-button { border: 0; border-radius: 0; background: transparent; }
+.mobile-menu-button span { background: var(--hdr-fg); }
+
+@media (max-width: 1100px) {
+    .desktop-nav { gap: 1.4rem; margin-right: 1.2rem; }
+    .nav-link { font-size: 1rem; }
+    .app-button { height: 36px; padding: 0 12px; }
+}
+
+@media (max-width: 850px) {
+    :root { --hdr-h: 58px; }
+    .site-header, .header-container { height: var(--hdr-h); }
+    .logo { width: auto; height: auto; }
+
+    .mobile-nav {
+        background: rgba(0, 0, 0, .94);
+        border-top: 1px solid var(--hdr-line);
+        border-bottom: 0;
+        max-height: calc(100vh - var(--hdr-h));
+        font-family: var(--hdr-font);
+        text-align: right;
+    }
+    .mobile-nav-item,
+    .mobile-simple-link { border-bottom-color: var(--hdr-line); }
+    .mobile-dropdown-toggle,
+    .mobile-simple-link {
+        justify-content: flex-end;
+        color: var(--hdr-fg);
+        font-family: var(--hdr-font);
+        font-size: 1.125rem;
+        font-weight: 400;
+    }
+    .mobile-simple-link:hover,
+    .mobile-dropdown a:hover { color: var(--hdr-fg); opacity: .7; }
+    .mobile-dropdown a { color: var(--hdr-muted); font-size: 1rem; padding-right: 0; }
+    .mobile-dropdown-toggle::after,
+    .mobile-simple-link::after { background: var(--hdr-fg); height: 1px; }
+    .mobile-dropdown-toggle:focus-visible { outline-color: var(--hdr-fg); }
+
+    .mobile-app-button {
+        margin-left: auto;
+        border: 1px solid var(--hdr-fg);
+        border-radius: 0;
+        color: var(--hdr-fg);
+        font-family: var(--hdr-font);
+        font-size: .8rem;
+        font-weight: 600;
+        letter-spacing: .14em;
+        box-shadow: none;
+    }
+    .mobile-app-button:hover,
+    .mobile-app-button:focus-visible { background: var(--hdr-fg); border-color: var(--hdr-fg); color: #000; }
+}
+
+@media (max-width: 380px) {
+    .logo { width: auto; height: auto; }
+}
+
+/* the hero sits directly under the slimmer header */
+.hero-section { min-height: calc(100vh - var(--hdr-h)); min-height: calc(100svh - var(--hdr-h)); }
+
+/* pages with their own blue "Our App" button get the same outline button as the rest of the header */
+.site-header .app-button {
+    background: transparent;
+    border: 1px solid #fff;
+    border-radius: 0;
+    color: #fff;
+}
+.site-header .app-button:hover { background: #fff; color: #000; }
