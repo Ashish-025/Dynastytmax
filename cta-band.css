@@ -168,19 +168,19 @@ html[data-theme="dark"] .dm-rating-brand span { color: #c9d3e8; }
 /* "Let's Build Your Success Story" band: white background, red text - in both themes
    (no dark overlay or photo); the white "Talk to an expert" pill becomes a red outline */
 html .dm-cta.dm-cta {                  /* doubled class: outranks the dark theme band */
-    background: #fff;
-    color: #e91d2b;
-    border-top: 1px solid #eceff4;
-    border-bottom: 1px solid #eceff4;
+    background: #f4f4f4;                  /* light grey, as the Send Your Query box */
+    color: #222;
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
 }
 html .dm-cta.dm-cta::before,
 html .dm-cta.dm-cta::after { display: none; }
 html .dm-cta-text h2 { color: #000; }                 /* heading in black */
-html .dm-cta-text p { color: #000; }                  /* line under the heading in black too */
+html .dm-cta-text p { color: #222; }                  /* line under the heading: near-black, as the query box */
 html .dm-cta .dm-cta-btn.is-primary { background: #e91d2b; color: #fff; }
 html .dm-cta .dm-cta-btn.is-primary:hover { background: #f32932; }
 html .dm-cta .dm-cta-btn.is-light {
-    background: #fff;
+    background: transparent;
     color: #e91d2b;
     box-shadow: inset 0 0 0 2px #e91d2b;
 }
