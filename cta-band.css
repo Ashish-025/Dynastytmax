@@ -169,6 +169,11 @@ html[data-theme="dark"] .dm-rating-brand span { color: #c9d3e8; }
    (no dark overlay or photo); the white "Talk to an expert" pill becomes a red outline */
 html .dm-cta.dm-cta {                  /* doubled class: outranks the dark theme band */
     background: #f4f4f4;                  /* light grey, as the Send Your Query box */
+    /* faint check grid, as behind the Mobility page products (light theme) */
+    background-image:
+        linear-gradient(rgba(16, 39, 68, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 39, 68, .06) 1px, transparent 1px);
+    background-size: 34px 34px;
     color: #222;
     border-top: 1px solid #e4e4e4;
     border-bottom: 1px solid #e4e4e4;
