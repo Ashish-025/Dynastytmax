@@ -61,3 +61,34 @@
 @media (prefers-reduced-motion: reduce) {
     .dm-service-icon img { animation: none; }
 }
+
+/* Our Services cards only: the moving glow around the logo
+   - a scanner arc spinning just outside the circle (faster on hover)
+   - the tick-mark dial ring turning slowly the other way
+   - dark theme: the halo pulses orange <-> blue
+   (the light running round the card border stays off) */
+#dm-services .dm-service-icon::before {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+    background: conic-gradient(from 0deg, transparent 0 55%, var(--si-a) 88%, transparent 100%);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2px));
+    animation: dmSiSpin 4.5s linear infinite;
+}
+#dm-services .dm-service-icon::after { animation: dmSiSpin 24s linear infinite reverse; }
+#dm-services .dm-service-card:hover .dm-service-icon::before { animation-duration: 1.6s; }
+[data-theme="dark"] #dm-services .dm-service-icon { animation: dmSiHalo 4s ease-in-out infinite; }
+@keyframes dmSiSpin { to { transform: rotate(360deg); } }
+@keyframes dmSiHalo {
+    0%, 100% { box-shadow: inset 0 0 0 1px rgba(127, 182, 255, .35), 0 0 18px rgba(244, 140, 24, .14); }
+    50%      { box-shadow: inset 0 0 0 1px rgba(64, 137, 221, .45), 0 0 30px rgba(64, 137, 221, .32); }
+}
+@media (prefers-reduced-motion: reduce) {
+    #dm-services .dm-service-icon::before,
+    #dm-services .dm-service-icon::after,
+    [data-theme="dark"] #dm-services .dm-service-icon { animation: none; }
+}
