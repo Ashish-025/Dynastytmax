@@ -277,3 +277,28 @@
         .ssi-product-image { height: 220px; }
     }
 }
+
+/* light theme: the Our Services section is white, with light cards (dark theme unchanged) */
+html:not([data-theme="dark"]) .ssi-services {
+    background: #fff;
+    border-top-color: #e8ebf0;
+    border-bottom-color: #e8ebf0;
+}
+html:not([data-theme="dark"]) .ssi-services .ssi-section-heading-dark .ssi-kicker { color: #e91d2b; }
+html:not([data-theme="dark"]) .ssi-services .ssi-section-heading-dark h2 { color: #101827; }
+html:not([data-theme="dark"]) .ssi-services .ssi-section-heading-dark p { color: #667184; }
+html:not([data-theme="dark"]) .ssi-service-card {
+    border-color: #e6e9ef;
+    background: #fff;
+    box-shadow: 0 7px 22px rgba(20, 32, 52, .07);
+}
+html:not([data-theme="dark"]) .ssi-service-card::after { border-color: rgba(233, 29, 43, .18); }
+html:not([data-theme="dark"]) .ssi-service-card:hover,
+html:not([data-theme="dark"]) .ssi-service-card:focus-within {
+    border-color: rgba(233, 29, 43, .45);
+    box-shadow: 0 16px 34px rgba(20, 32, 52, .14);
+}
+html:not([data-theme="dark"]) .ssi-service-icon { color: #e91d2b; }
+html:not([data-theme="dark"]) .ssi-service-card h3 { color: #101827; }
+html:not([data-theme="dark"]) .ssi-service-card p { color: #5b6b80; }
+html:not([data-theme="dark"]) .ssi-service-more { color: #e91d2b; }
