@@ -279,10 +279,7 @@ body::after {
     background: transparent;
 }
 .dbs-words { border-right-color: rgba(64, 137, 221, .8); }
-.dbs-bar-fill { background: var(--fx-grad); box-shadow: 0 0 14px rgba(64, 137, 221, .45); }
-.dbs-skills-img img { box-shadow: var(--fx-glow); }
-.dbs-dots button { background: rgba(255, 255, 255, .25); }
-.dbs-dots button[aria-current="true"] { background: var(--fx-orange); }
+
 
 /* ---------------------------------------------------------
    APP PAGE
@@ -310,10 +307,7 @@ body::after {
 .app-page .store-btn:not(.secondary) { background: linear-gradient(135deg, #f48c18, #4089dd); }
 
 /* simple social footer used on some pages */
-.site-social-footer {
-    background: linear-gradient(180deg, rgba(0, 0, 0, .3), rgba(0, 0, 0, .8));
-    border-top: 1px solid var(--fx-line);
-}
+
 
 /* ---------------------------------------------------------
    MOBILITY / GPS DEVICES PAGE

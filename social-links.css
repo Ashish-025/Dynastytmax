@@ -68,30 +68,6 @@
 
 .app-page{flex-direction:column;justify-content:space-between}.app-page .app-card{flex:0 0 auto;margin:auto 0}
 
-.site-social-footer {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    padding: 18px 16px 22px;
-    border-top: 1px solid rgba(255, 255, 255, .14);
-    background: #050505;
-    color: #c5cada;
-    text-align: center;
-    font: 13px/1.5 Arial, Helvetica, sans-serif;
-}
-
-.site-social-footer strong {
-    color: #fff;
-    letter-spacing: .08em;
-}
-
-.site-social-footer .site-social-links {
-    justify-content: center;
-    margin-top: 2px;
-}
 
 @keyframes site-social-glow {
     to { transform: rotate(360deg); }

@@ -111,14 +111,7 @@ html {
 }
 
 .site-contact-strip { scroll-snap-align: none; }
-.page-snap-marker {
-    position: absolute;
-    left: 0;
-    width: 1px;
-    height: 1px;
-    scroll-snap-align: start;
-    pointer-events: none;
-}
+
 
 body {
     position: relative;

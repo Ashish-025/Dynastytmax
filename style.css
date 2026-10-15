@@ -311,23 +311,6 @@ body {
     outline: none;
 }
 
-.app-icon {
-    width: 18px;
-    height: 18px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.app-icon svg {
-    width: 18px;
-    height: 18px;
-
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-}
 
 /* =========================================
    MOBILE BUTTON
@@ -892,81 +875,6 @@ body {
         background 0.2s ease;
 }
 
-.btn-primary {
-
-    min-width: 227px;
-
-    color: #ffffff;
-
-    background:
-        linear-gradient(
-            135deg,
-            #167ef5,
-            #0868e8
-        );
-
-    box-shadow:
-        0 7px 20px
-        rgba(
-            0,
-            110,
-            255,
-            0.22
-        );
-}
-
-.btn-primary:hover {
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 10px 25px
-        rgba(
-            0,
-            110,
-            255,
-            0.35
-        );
-}
-
-.btn-outline {
-
-    min-width: 190px;
-
-    color: #ffffff;
-
-    border:
-        2px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.55
-        );
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.01
-        );
-}
-
-.btn-outline:hover {
-
-    transform:
-        translateY(-2px);
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.06
-        );
-}
 
 /* =========================================================
    TRUSTED CLIENTS
@@ -1014,10 +922,6 @@ body {
     50% { opacity: .9; filter: brightness(1.5); }
 }
 
-@keyframes heroNodeFloat {
-    0%, 100% { translate: 0 0; }
-    50% { translate: 0 -8px; }
-}
 
 @media (prefers-reduced-motion: reduce) {
     .hero-section .network-line,
@@ -1338,24 +1242,6 @@ body {
    TECHNOLOGY NODES
 ========================================================= */
 
-@keyframes nodePulse {
-
-    0%,
-    100% {
-        opacity: 0;
-        transform: scale(.92);
-    }
-
-    45% {
-        opacity: .75;
-        transform: scale(1.08);
-    }
-
-    75% {
-        opacity: 0;
-        transform: scale(1.2);
-    }
-}
 
 /* =========================================================
    NODE POSITIONS
@@ -2572,36 +2458,6 @@ body {
 
 /* ---------- CAROUSEL ---------- */
 
-.products-carousel {
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.products-viewport {
-    width: 100%;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.products-track {
-    display: flex;
-    gap: 0;
-    width: max-content;
-    will-change: transform;
-    animation: productTrackScroll 42s linear infinite;
-}
-
-@keyframes productTrackScroll {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        transform: translate3d(-50%, 0, 0);
-    }
-}
 
 /* ---------- PRODUCT CARD ---------- */
 
@@ -2628,20 +2484,6 @@ body {
 
 /* ---------- DARK GRADIENT ---------- */
 
-.product-overlay {
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(3, 23, 44, 0) 25%,
-            rgba(3, 23, 44, 0.15) 40%,
-            rgba(3, 23, 44, 0.88) 100%
-        );
-
-    pointer-events: none;
-}
 
 /* ---------- HOVER IMAGE EFFECT ---------- */
 
@@ -2846,11 +2688,6 @@ body {
 
 /* Four mosaic panels cycle between project images and reveal a caption. */
 
-@keyframes dm-showcase-image {
-    0%, 42% { opacity: 1; }
-    50%, 92% { opacity: 0; }
-    100% { opacity: 1; }
-}
 
 /* =========================================================
    INFO TILE
@@ -2872,95 +2709,11 @@ body {
    PROJECT LIST
 ========================================================= */
 
-.dm-project-item {
-    position: relative;
-
-    display: grid;
-
-    grid-template-columns:
-        42px
-        1fr
-        25px;
-
-    align-items: center;
-
-    width: 100%;
-
-    min-height: 74px;
-
-    padding: 8px;
-
-    border: 0;
-
-    border-bottom: 1px solid #e5e7e9;
-
-    background: transparent;
-
-    color: #102238;
-
-    font-family: inherit;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    transition:
-        background 0.35s ease,
-        color 0.35s ease,
-        transform 0.35s ease;
-}
-
-.dm-project-item:hover {
-    background: #fafbfc;
-
-    transform: translateX(2px);
-}
-
-.dm-project-item.is-active {
-    margin: 0 0 2px;
-
-    border-radius: 3px;
-
-    background: #ef1e3a;
-
-    color: #ffffff;
-
-    border-bottom-color: #ef1e3a;
-}
 
 /* =========================================================
    PROGRESS
 ========================================================= */
 
-.dm-progress-number {
-    color: #ef1e3a;
-
-    font-size: 16px;
-}
-
-.dm-progress-track {
-    position: relative;
-
-    flex: 1;
-
-    height: 4px;
-
-    overflow: hidden;
-
-    background: #e5e7e9;
-}
-
-.dm-progress-track span {
-    display: block;
-
-    width: 16.66%;
-
-    height: 100%;
-
-    background: #ef1e3a;
-
-    transition: width 0.45s ease;
-}
 
 /* =========================================================
    RIGHT DETAILS
@@ -2970,137 +2723,16 @@ body {
    IMAGE
 ========================================================= */
 
-.dm-project-image {
-    position: relative;
-
-    width: 100%;
-
-    aspect-ratio: 1.75 / 1;
-
-    overflow: hidden;
-
-    background: #e9ecef;
-}
-
-.dm-project-image img {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-
-    transition:
-        opacity 0.45s ease,
-        transform 0.65s ease;
-}
-
-.dm-project-image.is-changing img {
-    opacity: 0.25;
-
-    transform: scale(1.035);
-}
-
-.dm-image-counter {
-    position: absolute;
-
-    left: 10px;
-    bottom: 10px;
-
-    padding: 8px 11px;
-
-    background: rgba(10, 20, 30, 0.86);
-
-    color: #ffffff;
-
-    font-size: 11px;
-
-    font-weight: 700;
-}
 
 /* =========================================================
    PROJECT CONTENT
 ========================================================= */
 
-.dm-project-content {
-    padding: 15px 8px 0;
-}
-
-.dm-project-content h3 {
-    margin: 0 0 9px;
-
-    color: #102238;
-
-    font-size: clamp(26px, 2.2vw, 31px);
-
-    line-height: 1.1;
-
-    font-weight: 800;
-}
-
-.dm-project-content > p {
-    min-height: 52px;
-
-    margin: 0;
-
-    color: #7e8791;
-
-    font-size: 13px;
-
-    line-height: 1.45;
-}
 
 /* =========================================================
    STATS
 ========================================================= */
 
-.dm-stat {
-    position: relative;
-
-    display: grid;
-
-    grid-template-columns: 1fr;
-
-    grid-template-rows: auto auto;
-
-    column-gap: 5px;
-
-    min-width: 0;
-
-    padding: 0 10px;
-
-    border-right: 1px solid #e5e7e9;
-}
-
-.dm-stat:last-child {
-    border-right: 0;
-}
-
-.dm-stat-icon {
-    grid-row: 1 / span 2;
-
-    color: #e3263b;
-
-    font-size: 20px;
-}
-
-.dm-stat strong {
-    color: #102238;
-
-    font-size: 18px;
-
-    line-height: 1;
-}
-
-.dm-stat small {
-    margin-top: 3px;
-
-    color: #8b929a;
-
-    font-size: 9px;
-
-    line-height: 1.2;
-}
 
 /* =========================================================
    BUTTON
@@ -3110,24 +2742,6 @@ body {
    CONTENT TRANSITION
 ========================================================= */
 
-.dm-project-content.is-changing {
-    animation:
-        dmProjectFade 0.45s ease both;
-}
-
-@keyframes dmProjectFade {
-
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
 
 /* =========================================================
    LARGE LAPTOP
@@ -3140,13 +2754,9 @@ body {
         padding-right: 14px;
     }
 
-    .dm-project-item {
-        min-height: 62px;
-    }
+    
 
-    .dm-project-content h3 {
-        font-size: 26px;
-    }
+    
 }
 
 /* =========================================================
@@ -3173,15 +2783,9 @@ body {
         padding-bottom: 55px;
     }
 
-    .dm-project-item {
-        min-height: 68px;
+    
 
-        border: 1px solid #e5e7e9;
-    }
-
-    .dm-project-item.is-active {
-        margin: 0;
-    }
+    
 
 }
 
@@ -3206,59 +2810,29 @@ body {
        PROJECT NAVIGATION
     ----------------------------------------- */
 
-    .dm-project-item {
-        grid-template-columns:
-            35px
-            minmax(0, 1fr)
-            25px;
-
-        min-height: 59px;
-    }
+    
 
     /* -----------------------------------------
        RIGHT CONTENT
     ----------------------------------------- */
 
-    .dm-project-image {
-        aspect-ratio: 1.45 / 1;
-    }
+    
 
-    .dm-image-counter {
-        bottom: 7px;
-        left: 7px;
+    
 
-        padding: 6px 8px;
-    }
+    
 
-    .dm-project-content {
-        padding: 14px 5px 5px;
-    }
+    
 
-    .dm-project-content h3 {
-        font-size: 26px;
-    }
+    
 
-    .dm-project-content > p {
-        min-height: auto;
+    
 
-        font-size: 13px;
-    }
+    
 
-    .dm-stat {
-        padding: 0 5px;
-    }
+    
 
-    .dm-stat-icon {
-        font-size: 16px;
-    }
-
-    .dm-stat strong {
-        font-size: 15px;
-    }
-
-    .dm-stat small {
-        font-size: 8px;
-    }
+    
 
 }
 
@@ -3273,17 +2847,9 @@ body {
         padding-right: 7px;
     }
 
-    .dm-stat {
-        border-right: 0;
+    
 
-        border-bottom: 1px solid #eeeeee;
-
-        padding-bottom: 10px;
-    }
-
-    .dm-stat:last-child {
-        border-bottom: 0;
-    }
+    
 
 }
 
@@ -4512,30 +4078,6 @@ body {
     color: #19344c;
 }
 
-.dm-project-item {
-    grid-template-columns: 34px minmax(0, 1fr) 20px;
-    min-height: 58px;
-    padding: 7px 8px;
-    border-bottom: 1px solid #e0e7ed;
-    color: #23445f;
-    transition: background-color .18s ease, color .18s ease;
-}
-
-.dm-project-item:hover {
-    transform: none;
-    background: #edf5fa;
-}
-
-.dm-project-item.is-active {
-    margin: 2px 0;
-    border-radius: 2px;
-    border-bottom-color: #1d628f;
-    background: #1d628f;
-    color: #fff;
-}
-
-.dm-project-content h3 { color: #173e5e; font-size: clamp(22px, 2vw, 28px); }
-.dm-project-content > p { color: #586b7b; }
 
 @media (max-width: 760px) {
     .dm-projects { padding: 28px 14px 36px; }
