@@ -169,17 +169,31 @@ html[data-theme="dark"] .dm-rating-brand span { color: #c9d3e8; }
    (no dark overlay or photo); the white "Talk to an expert" pill becomes a red outline */
 html .dm-cta.dm-cta {                  /* doubled class: outranks the dark theme band */
     background: #f4f4f4;                  /* light grey, as the Send Your Query box */
-    /* faint check grid, as behind the Mobility page products (light theme) */
-    background-image:
-        linear-gradient(rgba(16, 39, 68, .06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16, 39, 68, .06) 1px, transparent 1px);
-    background-size: 34px 34px;
     color: #222;
     border-top: 1px solid #e4e4e4;
     border-bottom: 1px solid #e4e4e4;
 }
 html .dm-cta.dm-cta::before,
 html .dm-cta.dm-cta::after { display: none; }
+/* light theme: the Mobility page's faint check grid behind the content, strongest on the
+   left and fading away to the right */
+html:not([data-theme="dark"]) .dm-cta.dm-cta::before {
+    display: block;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 1;
+    filter: none;
+    background: none;
+    background-image:
+        linear-gradient(rgba(16, 39, 68, .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 39, 68, .07) 1px, transparent 1px);
+    background-size: 34px 34px;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, .55) 45%, transparent 85%);
+    mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, .55) 45%, transparent 85%);
+    pointer-events: none;
+}
 html .dm-cta-text h2 { color: #000; }                 /* heading in black */
 html .dm-cta-text p { color: #222; }                  /* line under the heading: near-black, as the query box */
 html .dm-cta .dm-cta-btn.is-primary { background: #e91d2b; color: #fff; }
