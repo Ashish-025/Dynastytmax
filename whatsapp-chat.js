@@ -1,16 +1,20 @@
 /*  WhatsApp chat assistant.
-    A moment after the visitor arrives, a small greeting strip slides out beside the WhatsApp button
-    ("Hello, welcome to DMAX"); clicking it (or the button) opens a compact chat that answers common
+    A moment after the visitor arrives, a greeting slides out beside the WhatsApp button: a message
+    bubble (avatar with a green online dot, "Chat with us about ..." and a close x) and a small
+    "We're available across Odisha, India!" pill under it (styled like omnicomm.com's).
+    Clicking either (or the button) opens a compact chat that answers common
     questions from a keyword list and hands the conversation to WhatsApp (wa.me) with the message pre-filled.
     Self-contained: injects its own styles and works on any page with .ssi-float-whatsapp.
     Same WhatsApp look in light and dark themes. */
 (function () {
     'use strict';
-    var PHONE = '919937020631';
+    var PHONE = '919937020621';
     var GREETING = 'Hello 👋 Welcome to DMAX!';
     var OPEN_DELAY = 2500;                 // ms after load before the greeting pops up
     var SEEN_KEY = 'dm-wa-greeted';        // greet automatically once per browser session
     var STRIP_TIME = 12000;                // ms the greeting strip stays before tucking away
+    var BUBBLE_TEXT = '👋 Chat with us about GPS tracking, CCTV &amp; more';   // greeting bubble
+    var PILL_TEXT = '📍 We&rsquo;re available across Odisha, India!';         // small pill under it
 
     var button = document.querySelector('.ssi-float-whatsapp');
     if (!button) return;
@@ -25,10 +29,10 @@
           a: 'Our digital team handles branding, digital marketing, website and app development and business automation to help your business grow online.' },
         { k: ['price', 'cost', 'rate', 'quote', 'charges', 'budget'],
           a: 'Pricing depends on the quantity and setup you need. Tap “Continue on WhatsApp” and our team will send you a quote quickly.' },
-        { k: ['where', 'location', 'office', 'address', 'cuttack', 'bhubaneswar', 'puri', 'chandikhol'],
-          a: 'We serve clients across Odisha with offices in Cuttack, Bhubaneswar, Puri and Chandikhol.' },
+        { k: ['where', 'location', 'office', 'address', 'odisha', 'orissa', 'india', 'based', 'state', 'city', 'cuttack', 'bhubaneswar', 'puri', 'chandikhol'],
+          a: 'We are from Odisha, India 🇮🇳 — with offices in Cuttack, Bhubaneswar, Puri and Chandikhol, serving clients across Odisha.' },
         { k: ['contact', 'call', 'phone', 'number', 'email', 'mail'],
-          a: 'Call us on +91 99370 20631 or email ashish2@gmail.com — or just continue here on WhatsApp.' },
+          a: 'Call us on +91 99370 20621 or email admin@dynastymax.in — or just continue here on WhatsApp.' },
         { k: ['hi', 'hello', 'hey', 'namaste', 'good morning', 'good evening'],
           a: 'Hello! 😊 How can we help you today?' },
         { k: ['thank', 'thanks', 'ok', 'okay'],
@@ -75,20 +79,29 @@
         '.dm-wa-form input{flex:1;min-width:0;border:0;border-radius:999px;padding:10px 14px;font:14px Arial,sans-serif;background:#fff;color:#1b1f24;outline:none}',
         '.dm-wa-form button{flex:0 0 40px;height:40px;border:0;border-radius:50%;background:#075e54;color:#fff;cursor:pointer;display:grid;place-items:center}',
         '.dm-wa-form button svg{width:18px;height:18px;fill:currentColor}',
-        /* compact greeting strip beside the WhatsApp button (keeps the page animation visible) */
-        '.dm-wa-strip{position:fixed;z-index:9989;display:flex;align-items:center;gap:8px;height:42px;max-width:calc(100vw - 96px);padding:0 6px 0 5px;border-radius:999px;',
-        'background:#fff;color:#1b1f24;box-shadow:0 6px 22px rgba(0,0,0,.25);font:13px/1.2 Arial,Helvetica,sans-serif;cursor:pointer;',
-        'opacity:0;transform:translateX(12px);pointer-events:none;transition:opacity .35s ease,transform .35s ease}',
-        '.dm-wa-strip.is-on{opacity:1;transform:none;pointer-events:auto}',
-        '.dm-wa-strip .dm-wa-avatar{flex:0 0 32px;height:32px;font-size:8px;background:#075e54;color:#fff}',
-        '.dm-wa-strip-text{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
-        '.dm-wa-strip-text b{font-weight:700}.dm-wa-strip-text span{color:#075e54;font-weight:700;margin-left:6px}',
-        '.dm-wa-strip-x{flex:0 0 24px;height:24px;border:0;border-radius:50%;background:rgba(0,0,0,.06);color:inherit;font-size:16px;line-height:1;cursor:pointer}',
-        '.dm-wa-strip-x:hover{background:rgba(0,0,0,.14)}',
-        '@media (max-width:480px){.dm-wa-strip-text span{display:none}}',
+        /* greeting beside the WhatsApp button: a white message bubble (avatar with a green
+           "online" dot, wave + message, close x) with a small "available" pill under it */
+        '.dm-wa-strip{position:fixed;z-index:9989;display:flex;flex-direction:column;align-items:flex-end;gap:10px;max-width:calc(100vw - 96px);',
+        'font:15px/1.35 Arial,Helvetica,sans-serif;color:#1b1f24;pointer-events:none}',
+        '.dm-wa-bubble,.dm-wa-pill{background:#fff;box-shadow:0 8px 28px rgba(16,24,40,.18);cursor:pointer;opacity:0;transform:translateY(10px) scale(.96);transform-origin:bottom right;',
+        'transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1)}',
+        '.dm-wa-strip.is-on .dm-wa-bubble,.dm-wa-strip.is-on .dm-wa-pill{opacity:1;transform:none;pointer-events:auto}',
+        '.dm-wa-strip.is-on .dm-wa-pill{transition-delay:.25s}',
+        '.dm-wa-bubble{position:relative;display:flex;align-items:center;gap:12px;width:300px;max-width:100%;box-sizing:border-box;padding:14px 34px 14px 14px;border-radius:16px}',
+        '.dm-wa-face{position:relative;flex:0 0 46px;height:46px}',
+        '.dm-wa-face .dm-wa-avatar{width:46px;height:46px;font-size:10px;background:#075e54;color:#fff}',
+        '.dm-wa-online{position:absolute;right:0;bottom:1px;width:12px;height:12px;border-radius:50%;background:#25d366;border:2px solid #fff;animation:dmWaPulse 2s ease-in-out infinite}',
+        '.dm-wa-bubble-text{min-width:0}',
+        '.dm-wa-strip-x{position:absolute;top:8px;right:8px;width:22px;height:22px;border:0;border-radius:50%;background:transparent;color:#8a94a6;font-size:18px;line-height:1;cursor:pointer}',
+        '.dm-wa-strip-x:hover{background:rgba(0,0,0,.07);color:#1b1f24}',
+        '.dm-wa-pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-size:14px;white-space:nowrap}',
+        '.dm-wa-bubble:hover,.dm-wa-pill:hover{box-shadow:0 10px 32px rgba(16,24,40,.26)}',
+        '.dm-wa-bubble:focus-visible,.dm-wa-pill:focus-visible{outline:3px solid #25d366;outline-offset:2px}',
+        '@keyframes dmWaPulse{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}50%{box-shadow:0 0 0 5px rgba(37,211,102,0)}}',
+        '@media (max-width:480px){.dm-wa-bubble{width:250px;font-size:14px}.dm-wa-pill{font-size:13px}}',
         '@keyframes dmWaIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}',
         '@keyframes dmWaDot{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-3px)}}',
-        '@media (prefers-reduced-motion:reduce){.dm-wa,.dm-wa-msg,.dm-wa-typing i{transition:none;animation:none}}'
+        '@media (prefers-reduced-motion:reduce){.dm-wa,.dm-wa-msg,.dm-wa-typing i,.dm-wa-bubble,.dm-wa-pill,.dm-wa-online{transition:none;animation:none}}'
     ].join('');
     var style = document.createElement('style');
     style.textContent = css;
@@ -172,26 +185,27 @@
         if (started) return;
         started = true;
         botSay(GREETING, function () {
-            botSay('I’m the DMAX assistant. How can we help you today?', showChips);
+            botSay('I’m the DMAX assistant, from Odisha, India. How can we help you today?', showChips);
         });
     }
 
     // small greeting strip beside the button; the full chat opens only when the visitor asks for it
     var strip = document.createElement('div');
     strip.className = 'dm-wa-strip';
-    strip.setAttribute('role', 'button');
-    strip.setAttribute('tabindex', '0');
-    strip.setAttribute('aria-label', 'Hello, welcome to DMAX. Open the AI assistant chat');
-    strip.innerHTML = '<div class="dm-wa-avatar">DMAX</div>' +
-        '<div class="dm-wa-strip-text"><b>Hello 👋 Welcome to DMAX!</b><span>Ask our AI ›</span></div>' +
-        '<button type="button" class="dm-wa-strip-x" aria-label="Dismiss">&times;</button>';
+    strip.innerHTML =
+        '<div class="dm-wa-bubble" role="button" tabindex="0" aria-label="Chat with us about GPS, CCTV and more. Open the DMAX assistant">' +
+            '<span class="dm-wa-face" aria-hidden="true"><span class="dm-wa-avatar">DMAX</span><i class="dm-wa-online"></i></span>' +
+            '<span class="dm-wa-bubble-text">' + BUBBLE_TEXT + '</span>' +
+            '<button type="button" class="dm-wa-strip-x" aria-label="Dismiss">&times;</button>' +
+        '</div>' +
+        '<div class="dm-wa-pill" role="button" tabindex="0">' + PILL_TEXT + '</div>';
     document.body.appendChild(strip);
 
     function placeStrip() {
         var r = button.getBoundingClientRect();
         if (!r.width) return;
         strip.style.right = (window.innerWidth - r.left + 10) + 'px';
-        strip.style.bottom = (window.innerHeight - r.bottom + (r.height - 42) / 2) + 'px';
+        strip.style.bottom = (window.innerHeight - r.bottom) + 'px';
     }
     function showStrip() { placeStrip(); strip.classList.add('is-on'); }
     function hideStrip() { strip.classList.remove('is-on'); }
@@ -201,6 +215,7 @@
         open(true);
     });
     strip.addEventListener('keydown', function (e) {
+        if (e.target.closest('.dm-wa-strip-x')) return;
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(true); }
     });
 

@@ -34,7 +34,7 @@
     }
 
     /* ---- scroll-triggered: reveal blocks and fill skill bars once ---- */
-    var targets = document.querySelectorAll('.dbs-reveal, .dbs-bar-fill');
+    var targets = document.querySelectorAll('.dbs-reveal, .dbs-bar-fill, .dbs-fade-left');
     var show = function (el) {
         if (el.classList.contains('dbs-bar-fill')) {
             el.style.width = (parseFloat(el.getAttribute('data-percent')) || 0) + '%';
@@ -84,5 +84,34 @@
         slider.addEventListener('mouseleave', restart);
         go(0);
         restart();
+    }
+
+    /* ---- portfolio filter (like the theme's Shuffle grid): non-matching items shrink and
+            fade out, then leave the grid so the rest close up; matching ones fade back in ---- */
+    var filterBox = document.querySelector('.dbs-filters');
+    if (filterBox) {
+        var items = Array.prototype.slice.call(document.querySelectorAll('.dbs-work'));
+        filterBox.addEventListener('click', function (e) {
+            var btn = e.target.closest('button[data-filter]');
+            if (!btn) return;
+            Array.prototype.forEach.call(filterBox.children, function (b) {
+                b.classList.toggle('is-active', b === btn);
+                b.setAttribute('aria-pressed', String(b === btn));
+            });
+            var f = btn.getAttribute('data-filter');
+            items.forEach(function (item) {
+                var show = f === 'all' || (' ' + item.getAttribute('data-groups') + ' ').indexOf(' ' + f + ' ') > -1;
+                if (show) {
+                    item.classList.remove('is-hidden');
+                    void item.offsetWidth;                      // restart the fade-in
+                    item.classList.remove('is-hiding');
+                } else if (!item.classList.contains('is-hidden')) {
+                    item.classList.add('is-hiding');
+                    setTimeout(function () {
+                        if (item.classList.contains('is-hiding')) item.classList.add('is-hidden');
+                    }, reduce ? 0 : 350);
+                }
+            });
+        });
     }
 }());

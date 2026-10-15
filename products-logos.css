@@ -1,26 +1,37 @@
 /* =========================================================
-   PRODUCTS - infinite auto-scrolling 3D logo carousel
-   (items are cloned by main.js; track slides by -50%)
+   PRODUCTS - infinite auto-scrolling marquee of product cards.
+   The cards reuse the Our Services card design (.dm-service-card in style.css,
+   site-futuristic.css and service-icons.css): white card, icon dial, red line,
+   check list - and on hover the real product photo appears under a dark overlay.
+   main.js clones the cards; the track slides by -50% for a seamless loop.
 ========================================================= */
 
 .logo-marquee {
     position: relative;
     width: 100%;
     overflow: hidden;
-    padding: 20px 0 34px;
-    /* soft fade on both edges */
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    padding: 32px 0 30px;   /* just enough room for the press/hover zoom, the lift and the shadow */
+    /* spotlight fade: the card in the middle is fully clear (the solid band is about one
+       card wide); cards fade out gradually the further they move from the centre */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .12) 10%, rgba(0, 0, 0, .45) 25%, #000 37%, #000 63%, rgba(0, 0, 0, .45) 75%, rgba(0, 0, 0, .12) 90%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .12) 10%, rgba(0, 0, 0, .45) 25%, #000 37%, #000 63%, rgba(0, 0, 0, .45) 75%, rgba(0, 0, 0, .12) 90%, transparent 100%);
 }
 
 .logo-marquee-track {
     display: flex;
+    align-items: stretch;
     width: max-content;
     will-change: transform;
     animation: logoMarqueeScroll 30s linear infinite;
 }
+/* press / hover zoom: instant (no transition on `scale`); the row holds still meanwhile.
+   `scale` is separate from the card's own hover `transform` (lift), so both apply */
+.logo-marquee .dm-product-card { position: relative; }
+.logo-marquee .dm-product-card:hover,
+.logo-marquee .dm-product-card.is-pressed { scale: 1.08; z-index: 5; }
+.logo-marquee.is-holding .logo-marquee-track { animation-play-state: paused; }
 
-/* pause while the visitor is pointing at / tabbing through a logo */
+/* pause while the visitor is pointing at / tabbing through a card */
 .logo-marquee:hover .logo-marquee-track,
 .logo-marquee:focus-within .logo-marquee-track {
     animation-play-state: paused;
@@ -31,140 +42,155 @@
     to   { transform: translate3d(-50%, 0, 0); }
 }
 
-/* logo only - no card. Spacing uses margin (not gap) so -50% lands exactly on a logo edge */
-.logo-tile {
-    flex: 0 0 auto;
-    margin-right: 70px;
-    display: block;
-    text-decoration: none;
-    outline: none;
-    perspective: 600px;
+/* card size in the row; margin (not gap) keeps the -50% loop exact.
+   max-width / grid-column undo the services grid's tablet rules for its last card */
+.logo-marquee .dm-product-card {
+    flex: 0 0 360px;
+    width: 360px;
+    max-width: none;
+    margin: 0 4px 0 0;
+    grid-column: auto;
+    justify-self: auto;
 }
+/* tall enough for both layouts (icon + text, and photo frame + text) so the row never jumps */
+.logo-marquee .dm-product-card .dm-card-content { min-height: 440px; }
 
-.logo-tile:focus-visible .logo-tile-icon {
-    outline: 3px solid #1469e8;
-    outline-offset: 6px;
-}
-
-/* name stays for screen readers only */
-.logo-tile-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-}
-
-/* ---------- 3D COIN LOGO ---------- */
-
-/* each product gets its own colour (6n keeps clones matching) */
-.logo-tile:nth-child(6n+1) { --c1: #4fa3ff; --c2: #1469e8; --c3: #0a3f94; } /* GPS */
-.logo-tile:nth-child(6n+2) { --c1: #ff8a5c; --c2: #f05223; --c3: #a3300d; } /* CCTV */
-.logo-tile:nth-child(6n+3) { --c1: #ffd25c; --c2: #f4a018; --c3: #a8650a; } /* Branding */
-.logo-tile:nth-child(6n+4) { --c1: #7ce0c3; --c2: #14a37f; --c3: #0b6650; } /* Software */
-.logo-tile:nth-child(6n+5) { --c1: #c592ff; --c2: #8a3ff0; --c3: #561fa3; } /* Social */
-.logo-tile:nth-child(6n+6) { --c1: #6fe3ff; --c2: #10a5d6; --c3: #0a6688; } /* SEO */
-
-.logo-tile-icon {
+/* inline SVG icons inside the services-style icon dial */
+.dm-product-card .dm-service-icon svg {
     position: relative;
-    width: 120px;
-    height: 120px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    color: #ffffff;
-    /* glossy face: light from the top-left */
-    background:
-        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.75) 0 6%, rgba(255, 255, 255, 0) 38%),
-        radial-gradient(circle at 50% 40%, var(--c1), var(--c2) 58%, var(--c3) 100%);
-    /* stacked shadows = thick coin edge, then a soft drop shadow */
-    box-shadow:
-        inset 0 -8px 14px rgba(0, 0, 0, 0.28),
-        inset 0 5px 8px rgba(255, 255, 255, 0.45),
-        0 1px 0 var(--c3),
-        0 2px 0 var(--c3),
-        0 3px 0 var(--c3),
-        0 4px 0 var(--c3),
-        0 5px 0 var(--c3),
-        0 6px 0 var(--c3),
-        0 7px 0 var(--c3),
-        0 8px 0 var(--c3),
-        0 24px 22px -6px rgba(0, 0, 0, 0.35);
-    transform-style: preserve-3d;
-    animation: logoCoinSway 5s ease-in-out infinite;
-    transition: transform 0.7s cubic-bezier(.2, .8, .2, 1);
-}
-
-/* stagger the sway so the coins don't move in lockstep */
-.logo-tile:nth-child(6n+2) .logo-tile-icon { animation-delay: -0.8s; }
-.logo-tile:nth-child(6n+3) .logo-tile-icon { animation-delay: -1.6s; }
-.logo-tile:nth-child(6n+4) .logo-tile-icon { animation-delay: -2.4s; }
-.logo-tile:nth-child(6n+5) .logo-tile-icon { animation-delay: -3.2s; }
-.logo-tile:nth-child(6n+6) .logo-tile-icon { animation-delay: -4s; }
-
-/* shiny rim */
-.logo-tile-icon::before {
-    content: "";
-    position: absolute;
-    inset: 7px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.35);
-    border-bottom-color: rgba(0, 0, 0, 0.15);
-    pointer-events: none;
-}
-
-@keyframes logoCoinSway {
-    0%, 100% { transform: rotateY(-22deg) rotateX(8deg) translateY(0); }
-    50%      { transform: rotateY(22deg) rotateX(-4deg) translateY(-6px); }
-}
-
-/* hover: full 3D flip */
-.logo-tile:hover .logo-tile-icon,
-.logo-tile:focus-visible .logo-tile-icon {
-    animation: none;
-    transform: rotateY(360deg) scale(1.08);
-}
-
-.logo-tile-icon svg {
-    position: relative;
-    width: 58px;
-    height: 58px;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
     fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
+    stroke: #14244a;
+    stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
-    /* embossed / raised icon */
-    filter:
-        drop-shadow(0 1px 0 rgba(0, 0, 0, 0.35))
-        drop-shadow(0 2px 0 rgba(0, 0, 0, 0.2))
-        drop-shadow(0 4px 4px rgba(0, 0, 0, 0.3));
-    transform: translateZ(16px);
+    transition: stroke .35s ease;
+}
+/* on hover the dial turns white (light theme), so the icon stays dark to remain visible */
+html[data-theme="dark"] .dm-product-card .dm-service-icon svg { stroke: #e6eefc; }
+
+/* =========================================================
+   NORMAL STATE (not hovered): the Mobility-page product-card layout -
+   the real photo sits in a rounded frame across the top of the card and
+   the title, description and feature list move down below it, in their
+   normal colours (instead of the services card's full-card photo + dark overlay).
+========================================================= */
+.logo-marquee .dm-product-card .dm-card-image {
+    transition: opacity .45s ease, transform .6s ease, inset .45s ease, height .45s ease, border-radius .45s ease;
+}
+.logo-marquee .dm-product-card .dm-card-content {
+    transition: padding-top .45s cubic-bezier(.2, .8, .2, 1);
+}
+.logo-marquee .dm-product-card .dm-service-icon {
+    transition: opacity .3s ease, transform .3s ease, height .35s ease, margin .35s ease;
+}
+
+.logo-marquee .dm-product-card:not(:hover) .dm-card-image {
+    inset: 14px 14px auto 14px;          /* framed photo at the top, like .product-image-area */
+    height: 170px;
+    z-index: 1;
+    border-radius: 10px;
+    opacity: 1;
+    transform: none;
+    box-shadow: 0 6px 18px rgba(16, 39, 68, .18);
+}
+.logo-marquee .dm-product-card:not(:hover) .dm-card-overlay { opacity: 0; }
+
+/* the icon dial steps aside to make room for the photo */
+.logo-marquee .dm-product-card:not(:hover) .dm-service-icon {
+    height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+    transform: scale(.6);
+}
+.logo-marquee .dm-product-card:not(:hover) .dm-card-content {
+    padding-top: 202px;                  /* photo frame (14 + 170) + breathing room */
+}
+
+/* keep the normal text colours (the services hover turns them white for the overlay) */
+.logo-marquee .dm-product-card:not(:hover) .dm-card-content h3 { color: #102744; }
+.logo-marquee .dm-product-card:not(:hover) .dm-card-content p,
+.logo-marquee .dm-product-card:not(:hover) .dm-service-list li { color: #5b6b80; }
+.logo-marquee .dm-product-card:not(:hover) .dm-service-list li::before { color: #e91d2b; border-color: #e91d2b; }
+.logo-marquee .dm-product-card:not(:hover) .dm-card-line { background: #ff3b35; }
+html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-card-content h3 { color: #ffffff; }
+html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-card-content p,
+html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-service-list li { color: rgba(255, 255, 255, .72); }
+html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-service-list li::before { color: #f48c18; border-color: #f48c18; }
+
+/* GPS device cards: product photos are on white, so show the whole device (not cropped) */
+.logo-marquee .dm-device-card:not(:hover) .dm-card-image {
+    background-color: #ffffff;
+    background-size: contain;
+    background-origin: content-box;
+    padding: 10px;
+    box-sizing: border-box;
+}
+/* badge from the Mobility page (Best Seller / New / AIS140) */
+.dm-device-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 3;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: #e91d2b;
+    color: #ffffff;
+    font: 700 11px/1 'Montserrat', Arial, Helvetica, sans-serif;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(233, 29, 43, .3);
+}
+html[data-theme="dark"] .dm-device-badge { background: #f48c18; box-shadow: 0 4px 12px rgba(244, 140, 24, .3); }
+/* four features per device: a neat 2 x 2 grid (the 3-column grid wrapped them onto 3 lines) */
+.logo-marquee .dm-device-card .dm-service-list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 8px; margin-bottom: 8px; }
+/* device photo frame a little shorter than the category cards', so all the text fits */
+.logo-marquee .dm-device-card:not(:hover) .dm-card-image { height: 150px; }
+.logo-marquee .dm-device-card:not(:hover) .dm-card-content { padding-top: 178px; }
+.logo-marquee .dm-device-card:not(:hover) .dm-card-content p { margin-bottom: 14px; }
+.logo-marquee .dm-device-card:not(:hover) .dm-device-badge { top: 24px; right: 24px; }
+
+@media (max-width: 768px) {
+    .logo-marquee .dm-product-card:not(:hover) .dm-card-image { height: 140px; }
+    .logo-marquee .dm-product-card:not(:hover) .dm-card-content { padding-top: 170px; }
+    .logo-marquee .dm-device-card:not(:hover) .dm-card-image { height: 130px; }
+    .logo-marquee .dm-device-card:not(:hover) .dm-card-content { padding-top: 156px; }
 }
 
 @media (max-width: 768px) {
-    .logo-tile {
-        margin-right: 40px;
+    .logo-marquee {
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 8%, #000 18%, #000 82%, rgba(0, 0, 0, .35) 92%, transparent 100%);
+        mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 8%, #000 18%, #000 82%, rgba(0, 0, 0, .35) 92%, transparent 100%);
     }
-
-    .logo-tile-icon {
-        width: 88px;
-        height: 88px;
-    }
-
-    .logo-tile-icon svg {
-        width: 44px;
-        height: 44px;
+    .logo-marquee .dm-product-card {
+        flex-basis: 280px;
+        width: 280px;
+        margin-right: 4px;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .logo-marquee-track {
-        animation-duration: 120s !important;
-    }
-
-    .logo-tile-icon {
-        animation: none;
-    }
+    .logo-marquee-track { animation-duration: 120s !important; }
 }
+
+/* section: same pure white as Our Services in the light theme (the dark theme
+   makes it transparent in site-futuristic.css), and no extra space below the row */
+.products-section { background: #ffffff; padding-bottom: 0; }
+html[data-theme="dark"] .products-section { background: transparent; }
+@media (max-width: 768px) {
+    .products-section { padding-bottom: 0; }
+}
+
+/* HOVER: the Our Services card effect (style.css .dm-service-card:hover) - the photo grows to
+   fill the whole card under the dark blue overlay, the text turns white and the icon dial
+   comes back. The photo frame morphs smoothly between the two states. */
+.logo-marquee .dm-product-card:hover .dm-card-image { inset: 0; height: 100%; border-radius: 0; box-shadow: none; }
+.logo-marquee .dm-product-card:hover .dm-service-icon svg { stroke: #14244a; }
+
+/* each card's own photo shows in the normal state (set inline as --photo); on hover the
+   card takes the matching Our Services card's photo + overlay instead:
+   GPS cards -> Mobility & Vehicle (vehicles, blue), CCTV -> Security (blue),
+   Branding / Software / Social Media / SEO -> Digital Branding (business, purple) */
+.logo-marquee .dm-product-card:not(:hover) .dm-card-image { background-image: var(--photo); }

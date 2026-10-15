@@ -1,0 +1,31 @@
+/* =========================================================
+   HOME PAGE type tweaks. Each section keeps its own original font sizes
+   (set in style.css); this file only makes the Our Projects heading use the
+   same font as the Our Services heading (the projects area itself uses Segoe UI).
+   Load LAST on index.html.
+========================================================= */
+.dm-projects-heading,
+.dm-projects-heading h2 { font-family: Arial, Helvetica, sans-serif; }
+
+/* every section heading uses the Our Services heading's font style
+   (Arial, bold 700, normal letter spacing; each section keeps its own size) */
+.products-heading h2,
+.products-heading h2 .products-accent,
+.dm-cta-text h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    letter-spacing: normal;
+}
+html:not([data-theme="dark"]) .products-heading h2 { color: #101a42; }   /* same navy as Our Services */
+
+
+/* every section's main heading: same font style AND size as the Our Services title
+   (style.css .dm-services-heading h2: clamp(30px, 4vw, 48px) / 1.15, 29px <=700px, 26px <=420px) */
+.products-heading h2 {
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.15;
+}
+@media (max-width: 1100px) { .products-heading h2 { font-size: clamp(30px, 4vw, 48px); } }
+@media (max-width: 768px)  { .products-heading h2 { font-size: clamp(29px, 4vw, 48px); } }
+@media (max-width: 700px)  { .products-heading h2 { font-size: 29px; line-height: 1.2; } }
+@media (max-width: 420px)  { .products-heading h2 { font-size: 26px; } }

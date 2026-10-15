@@ -233,35 +233,102 @@
     #dm-projects .dm-i3ms-login { display: block; height: 485px; overflow: hidden; }
 }
 
-/* ---------- smaller screens: same tiles and colours, fluid grid ---------- */
+/* ---------- smaller screens: same tiles, colours and pairings as desktop ---------- */
 @media (max-width: 999px) {
     #dm-projects .dm-i3ms-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3px; height: auto !important; padding: 0 10px; }
-    #dm-projects .dm-i3ms-mosaic {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-template-rows: none;
-        grid-auto-rows: 119px;
-        grid-auto-flow: row dense;
-        gap: 3px;
-        min-height: 0;
-    }
-    #dm-projects .dm-i3ms-tile { grid-area: auto !important; }
-    #dm-projects .dm-i3ms-stakeholder,
-    #dm-projects .dm-i3ms-mdcc,
-    #dm-projects .dm-i3ms-reports,
-    #dm-projects .dm-i3ms-mine-photo,
-    #dm-projects .dm-i3ms-integration { grid-column: span 2 !important; }
-    #dm-projects .dm-i3ms-know { grid-column: span 3 !important; grid-row: span 2 !important; }
-    #dm-projects .dm-i3ms-transit,
-    #dm-projects .dm-i3ms-grant { grid-row: span 2 !important; }
+    #dm-projects .dm-i3ms-mosaic { display: grid; gap: 3px; min-height: 0; }
+    #dm-projects .dm-i3ms-tile { position: relative; overflow: hidden; }
+
+    /* "Projects Completed" panel: two even columns, comfortable tap height */
     #dm-projects .dm-i3ms-login nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    #dm-projects .dm-i3ms-login nav a { font-size: 13px; border-right: 1px solid #4d4d4d; }
+    #dm-projects .dm-i3ms-login nav a {
+        min-height: 44px;
+        padding: 8px 9px;
+        border-right: 1px solid #4d4d4d;
+        font-size: 13px;
+        line-height: 17px;
+    }
+    #dm-projects .dm-i3ms-login nav a:nth-child(2n) { border-right: 0; }
+    #dm-projects .dm-i3ms-login nav a.is-muted { color: #c4c4c4; }
+    #dm-projects .dm-i3ms-login nav a:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; }
+    #dm-projects .dm-i3ms-login nav a b { flex: 0 0 auto; }
 }
-@media (max-width: 420px) {
-    #dm-projects .dm-i3ms-mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    #dm-projects .dm-i3ms-know { grid-column: span 2 !important; }
-    #dm-projects .dm-i3ms-int-left { flex-basis: 84px; }
-    #dm-projects .dm-i3ms-integration .dm-i3ms-icon { left: 30px; }
+
+/* tablets: the desktop i3MS grid, stretched to the width */
+@media (min-width: 760px) and (max-width: 999px) {
+    #dm-projects .dm-i3ms-mosaic {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        grid-template-rows: repeat(4, 119px);
+    }
+    #dm-projects .dm-i3ms-stakeholder  { grid-area: 1 / 1 / 2 / 3; }
+    #dm-projects .dm-i3ms-mining-photo { grid-area: 1 / 3 / 2 / 4; }
+    #dm-projects .dm-i3ms-mdcc         { grid-area: 1 / 4 / 2 / 6; }
+    #dm-projects .dm-i3ms-transit      { grid-area: 1 / 6 / 3 / 7; }
+    #dm-projects .dm-i3ms-weigh        { grid-area: 2 / 1 / 3 / 2; }
+    #dm-projects .dm-i3ms-permit       { grid-area: 2 / 2 / 3 / 3; }
+    #dm-projects .dm-i3ms-grant        { grid-area: 2 / 3 / 4 / 4; }
+    #dm-projects .dm-i3ms-know         { grid-area: 2 / 4 / 4 / 6; }
+    #dm-projects .dm-i3ms-reports      { grid-area: 3 / 1 / 4 / 3; }
+    #dm-projects .dm-i3ms-transporter  { grid-area: 3 / 6 / 4 / 7; }
+    #dm-projects .dm-i3ms-rfid         { grid-area: 4 / 1 / 5 / 2; }
+    #dm-projects .dm-i3ms-truck        { grid-area: 4 / 2 / 5 / 3; }
+    #dm-projects .dm-i3ms-mine-photo   { grid-area: 4 / 3 / 5 / 5; }
+    #dm-projects .dm-i3ms-integration  { grid-area: 4 / 5 / 5 / 7; }
+    #dm-projects .dm-i3ms-login nav { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    #dm-projects .dm-i3ms-login nav a:nth-child(2n) { border-right: 1px solid #4d4d4d; }
+    #dm-projects .dm-i3ms-login nav a:nth-child(3n) { border-right: 0; }
+    #dm-projects .dm-i3ms-login nav a:last-child:nth-child(odd) { grid-column: auto; }
+}
+
+/* phones: a fixed 3 x 8 Metro block of ~120px tiles (the desktop tile size), every
+   tile in place - no long stack, no stretched photos */
+@media (max-width: 759px) {
+    #dm-projects .dm-i3ms-mosaic {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: repeat(8, clamp(96px, 29vw, 116px));
+        grid-template-areas:
+            "stake  stake  mphoto"
+            "mdcc   mdcc   transit"
+            "weigh  permit transit"
+            "grant  know   know"
+            "grant  know   know"
+            "report report trans"
+            "rfid   mine   mine"
+            "truck  integ  integ";
+    }
+    #dm-projects .dm-i3ms-stakeholder  { grid-area: stake !important; }
+    #dm-projects .dm-i3ms-mining-photo { grid-area: mphoto !important; }
+    #dm-projects .dm-i3ms-mdcc         { grid-area: mdcc !important; }
+    #dm-projects .dm-i3ms-transit      { grid-area: transit !important; }
+    #dm-projects .dm-i3ms-weigh        { grid-area: weigh !important; }
+    #dm-projects .dm-i3ms-permit       { grid-area: permit !important; }
+    #dm-projects .dm-i3ms-grant        { grid-area: grant !important; }
+    #dm-projects .dm-i3ms-know         { grid-area: know !important; }
+    #dm-projects .dm-i3ms-reports      { grid-area: report !important; }
+    #dm-projects .dm-i3ms-transporter  { grid-area: trans !important; }
+    #dm-projects .dm-i3ms-rfid         { grid-area: rfid !important; }
+    #dm-projects .dm-i3ms-truck        { grid-area: truck !important; }
+    #dm-projects .dm-i3ms-mine-photo   { grid-area: mine !important; }
+    #dm-projects .dm-i3ms-integration  { grid-area: integ !important; }
+
+    /* labels + icons sized for the smaller tiles */
+    #dm-projects .dm-i3ms-label { left: 8px; right: 6px; bottom: 7px; font-size: 13px; line-height: 17px; }
+    #dm-projects .dm-i3ms-icon { top: 14px; width: 40px; height: 40px; }
+    #dm-projects .dm-i3ms-weigh .dm-i3ms-icon { top: 20px; width: 48px; height: 30px; }
+    #dm-projects .dm-i3ms-truck .dm-i3ms-icon { top: 18px; width: 46px; height: 32px; }
+    #dm-projects .dm-i3ms-transit .dm-i3ms-icon { width: 44px; height: 36px; margin-top: -30px; }
+    #dm-projects .dm-i3ms-grant .dm-i3ms-icon { width: 32px; height: 36px; margin-top: -40px; }
+    #dm-projects .dm-i3ms-know-title { font-size: 17px; }
+    #dm-projects .dm-i3ms-know-title span { width: 40px; height: 40px; font-size: 32px; line-height: 40px; }
+    #dm-projects .dm-i3ms-reports-panel strong { font-size: 16px; }
+    #dm-projects .dm-i3ms-int-left { flex-basis: 80px; }
+    #dm-projects .dm-i3ms-integration .dm-i3ms-icon { top: 18px; left: 26px; width: 26px; height: 26px; }
+    #dm-projects .dm-i3ms-integration ul { margin: 6px 6px 0 0; padding-left: 14px; font-size: 11px; line-height: 15.5px; }
+}
+@media (max-width: 359px) {
+    #dm-projects .dm-i3ms-label { font-size: 12px; line-height: 15px; }
+    #dm-projects .dm-i3ms-icon { width: 34px; height: 34px; }
+    #dm-projects .dm-i3ms-login nav a { font-size: 12px; padding: 8px 6px; }
 }
 
 /* ---------- query box (right of the panel) ---------- */
@@ -287,9 +354,10 @@
     line-height: 30px;
 }
 #dm-projects .dm-query-intro { margin: 0 0 10px; font-size: 13px; line-height: 1.4; color: #555; }
-#dm-projects .dm-query-form { display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 0; }
+#dm-projects .dm-query-form { display: flex; flex-direction: column; gap: 9px; flex: 1; min-height: 0; }
 #dm-projects .dm-query-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; color: #333; }
 #dm-projects .dm-query-form input,
+#dm-projects .dm-query-form select,
 #dm-projects .dm-query-form textarea {
     box-sizing: border-box;
     width: 100%;
@@ -304,8 +372,21 @@
 }
 #dm-projects .dm-query-form textarea { resize: none; min-height: 90px; }
 #dm-projects .dm-query-form input:focus,
+#dm-projects .dm-query-form select:focus,
 #dm-projects .dm-query-form textarea:focus { outline: 2px solid var(--i3-blue); outline-offset: -1px; border-color: var(--i3-blue); }
 #dm-projects .dm-query-form .is-invalid { border-color: #c00; }
+/* dropdowns: same box as the inputs, with a small chevron */
+#dm-projects .dm-query-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 30px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 12 8%27%3E%3Cpath d=%27M1 1l5 5 5-5%27 fill=%27none%27 stroke=%27%23666%27 stroke-width=%271.6%27/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px 8px;
+    cursor: pointer;
+}
+#dm-projects .dm-query-form select:disabled { color: #999; background-color: #ececec; cursor: not-allowed; }
 #dm-projects .dm-query-form button {
     margin-top: auto;
     padding: 10px;
@@ -325,7 +406,9 @@
 [data-theme="dark"] #dm-projects .dm-query-intro { color: #bbb; }
 [data-theme="dark"] #dm-projects .dm-query-form label { color: #ddd; }
 [data-theme="dark"] #dm-projects .dm-query-form input,
-[data-theme="dark"] #dm-projects .dm-query-form textarea { background: #1d1d1d; border-color: #555; color: #eee; }
+[data-theme="dark"] #dm-projects .dm-query-form select,
+[data-theme="dark"] #dm-projects .dm-query-form textarea { background-color: #1d1d1d; border-color: #555; color: #eee; }
+[data-theme="dark"] #dm-projects .dm-query-form select:disabled { background-color: #262626; color: #777; }
 
 @media (max-width: 999px) {
     #dm-projects .dm-query-box { height: auto; margin: 12px 0 0; }

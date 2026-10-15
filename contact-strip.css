@@ -12,15 +12,10 @@
     background: #e91d2b;
     color: #f5f7fc;
     font: 12px/1.4 Arial, Helvetica, sans-serif;
-    transition: transform .38s cubic-bezier(.22, 1, .36, 1);
 }
 
+/* the strip stays pinned at the top while scrolling; the header sticks just below it */
 .site-contact-strip + .site-header { top: 30px; }
-.site-contact-strip.is-hidden { transform: translateY(-100%); }
-.site-contact-strip.is-hidden + .site-header { top: 0; }
-.site-contact-strip + .site-header {
-    transition: top .38s cubic-bezier(.22, 1, .36, 1);
-}
 
 .site-contact-strip a {
     display: inline-flex;
@@ -78,23 +73,23 @@
     transform: scale(1.12);
 }
 
+/* phones: number, email and the social icons all on one line (smaller text + icons) */
 @media (max-width: 520px) {
     .site-contact-strip {
-        min-height: 52px;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        column-gap: 14px;
-        row-gap: 4px;
-        padding: 5px 10px;
-        font-size: 11px;
+        min-height: 30px;
+        flex-wrap: nowrap;
+        gap: clamp(8px, 2.6vw, 14px);
+        padding: 5px clamp(8px, 2.6vw, 12px);
+        font-size: clamp(9.5px, 2.75vw, 11px);
     }
-    .site-contact-strip + .site-header { top: 52px; }
-    .site-contact-social {
-        flex: 0 0 100%;
-        justify-content: flex-start;
-        margin-left: 5px;
-        gap: 15px;
-    }
+    .site-contact-strip a { gap: 4px; transform: none; }
+    .site-contact-strip > a:hover,
+    .site-contact-strip > a:focus-visible { transform: none; }   /* glow only, no slide */
+    .contact-strip-icon { width: 12px; height: 12px; flex-basis: 12px; }
+    .site-contact-strip + .site-header { top: 30px; }
+    .site-contact-social { flex: 0 0 auto; margin-left: auto; gap: clamp(7px, 2.4vw, 12px); }
+    .site-contact-social a,
+    .site-contact-social svg { width: 13px; height: 13px; }
 }
 
 /* Full-bleed page shells; inner content containers retain their own sizing. */
@@ -155,5 +150,29 @@ body > main {
     border-radius: 0 !important;
 }
 
-/* Leave a clear gutter between the edge-to-edge services mosaic and footer. */
-main > section.dm-projects { margin-bottom: 24px !important; }
+/* Same 30px breathing space above the footer as below the Our Products cards. */
+main > section.dm-projects { margin-bottom: 0 !important; padding-bottom: 30px !important; }
+
+
+/* hover: the item only glows - it brightens to white with a soft white glow, no sliding,
+   underline or zoom. Number, email + social icons. */
+.site-contact-strip a {
+    color: rgba(255, 255, 255, .86);
+    transition: color .2s ease, text-shadow .2s ease, filter .2s ease;
+}
+.site-contact-strip > a:hover,
+.site-contact-strip > a:focus-visible {
+    color: #fff;
+    text-decoration: none;
+    transform: translateX(5px);                 /* stays where it rests */
+    text-shadow: 0 0 6px rgba(255, 255, 255, .85);
+}
+.site-contact-strip > a:hover .contact-strip-icon,
+.site-contact-strip > a:focus-visible .contact-strip-icon { filter: drop-shadow(0 0 3px rgba(255, 255, 255, .9)); }   /* the phone / mail icon glows too */
+.site-contact-social a:hover,
+.site-contact-social a:focus-visible {
+    color: #fff;
+    text-decoration: none;
+    transform: none;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, .95));
+}

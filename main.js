@@ -3,24 +3,32 @@
 
     document.addEventListener("DOMContentLoaded", function () {
 
-        const productTrack = document.getElementById("productsTrack");
+        /* =====================================
+           INFINITE MARQUEE (product cards)
+           Repeat the set until one half of the track is wider than the
+           screen, then double it: the CSS animation slides by -50%, so the
+           second half lands exactly where the first began (seamless loop).
+           ===================================== */
 
-        if (productTrack) {
-            const productCards = Array.from(productTrack.children);
+        function setupMarquee(track, pxPerSecond) {
+            if (!track) return;
+            const items = Array.from(track.children);
 
-            // Repeat the set until one half of the track is wider than the
-            // screen, then double it: the CSS animation slides by -50%, so the
-            // second half lands exactly where the first began (seamless loop).
             function appendClones() {
-                productCards.forEach(function (card) {
-                    const clone = card.cloneNode(true);
+                items.forEach(function (item) {
+                    const clone = item.cloneNode(true);
                     clone.setAttribute("aria-hidden", "true");
                     clone.setAttribute("tabindex", "-1");
-                    productTrack.appendChild(clone);
+                    clone.querySelectorAll("a, button").forEach(function (el) {
+                        el.setAttribute("tabindex", "-1");
+                    });
+                    // copies are never watched by the scroll-reveal script, so show them as-is
+                    clone.classList.remove("fx-rise");
+                    track.appendChild(clone);
                 });
             }
 
-            const setWidth = productTrack.scrollWidth || 1;
+            const setWidth = track.scrollWidth || 1;
             const minWidth = Math.max(window.innerWidth, screen.width || 0);
             let copies = 1;
 
@@ -33,9 +41,47 @@
                 appendClones();
             }
 
-            // Keep a steady speed (~40px/s) however many tiles there are.
-            productTrack.style.animationDuration =
-                Math.round((setWidth * copies) / 40) + "s";
+            // Keep a steady speed however many items there are.
+            track.style.animationDuration =
+                Math.round((setWidth * copies) / pxPerSecond) + "s";
+        }
+
+        setupMarquee(document.getElementById("productsTrack"), 90);   // px per second
+        setupPressZoom(document.getElementById("productsTrack"));
+
+        /* =====================================
+           PRESS-TO-ZOOM (product cards)
+           Cards all stay the same size in one straight row. Putting a finger
+           (or pressing the mouse) on a card zooms it in instantly and holds the
+           row still until the finger is lifted; hover does the same on desktop
+           (see products-logos.css). One listener on the track also covers the
+           cloned cards.
+           ===================================== */
+
+        function setupPressZoom(track) {
+            if (!track) return;
+            const wrap = track.parentElement;
+            let pressed = null;
+
+            function release() {
+                if (pressed) pressed.classList.remove("is-pressed");
+                pressed = null;
+                wrap.classList.remove("is-holding");
+            }
+
+            track.addEventListener("pointerdown", function (e) {
+                const card = e.target.closest(".dm-product-card");
+                if (!card) return;
+                release();
+                pressed = card;
+                card.classList.add("is-pressed");
+                wrap.classList.add("is-holding");
+            });
+            ["pointerup", "pointercancel", "pointerleave"].forEach(function (type) {
+                track.addEventListener(type, release);
+            });
+            // a touch that turns into a sideways/vertical scroll should not leave the card zoomed
+            window.addEventListener("scroll", release, { passive: true });
         }
 
         /* =====================================
@@ -324,7 +370,16 @@
 
         const revealItems = document.querySelectorAll(".dm-reveal");
 
-        if (revealItems.length) {
+        // on the home page, wait for the preloader to finish so the hero animates in view
+        function whenPageReady(start) {
+            if (document.documentElement.classList.contains("dm-loading")) {
+                document.addEventListener("dm:ready", start, { once: true });
+            } else {
+                start();
+            }
+        }
+
+        if (revealItems.length) whenPageReady(function () {
             const revealObserver = new IntersectionObserver(
                 function (entries) {
                     entries.forEach(function (entry) {
@@ -335,42 +390,52 @@
                     });
                 },
                 {
-                    threshold: 0.15
+                    // reveal once the element's top is ~12% of the screen into view. (A ratio
+                    // threshold never fired for sections taller than the screen - e.g. the
+                    // Mobility products on a phone - so they stayed invisible.)
+                    threshold: 0,
+                    rootMargin: "0px 0px -12% 0px"
                 }
             );
 
             revealItems.forEach(function (item) {
                 revealObserver.observe(item);
             });
-        }
+        });
 
         /* =====================================
            ACHIEVEMENT COUNTERS
+           Count up from 0 like a real counter: every number ticks through (3,000 shows
+           1, 2 ... 2,999), fast at first and slowing into the final value. Starts once
+           the strip is well in view (after the preloader), the cards a beat apart, and
+           counts again each time the strip is scrolled back into view.
            ===================================== */
 
-        function animateCounter(counter) {
-            if (!counter || counter.dataset.animated === "true") {
-                return;
-            }
+        const COUNT_TIME = 2600;
+        const countFormat = new Intl.NumberFormat("en-IN");
 
+        function showCount(counter, value) {
+            counter.textContent = countFormat.format(value) + (counter.dataset.suffix || "");
+        }
+
+        function animateCounter(counter, delay) {
             const target = Number(counter.dataset.target || 0);
-            const suffix = counter.dataset.suffix || "";
-            const duration = 1600;
-            const startTime = performance.now();
+            const run = ++counter.countRun;                      // a newer run cancels this one
+            let startTime = 0;
 
-            counter.dataset.animated = "true";
+            showCount(counter, 0);
 
-            function updateCounter(currentTime) {
-                const progress = Math.min((currentTime - startTime) / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 3);
-                const currentValue = Math.round(target * eased);
-
-                counter.textContent = currentValue + suffix;
+            function updateCounter(now) {
+                if (run !== counter.countRun) return;
+                if (!startTime) startTime = now + delay;
+                const progress = Math.max(0, Math.min((now - startTime) / COUNT_TIME, 1));
+                const eased = 1 - Math.pow(1 - progress, 2.2);   // steady ticking, easing off at the end
+                showCount(counter, Math.floor(target * eased));
 
                 if (progress < 1) {
                     requestAnimationFrame(updateCounter);
                 } else {
-                    counter.textContent = target + suffix;
+                    showCount(counter, target);
                 }
             }
 
@@ -380,23 +445,44 @@
         const achievementCounters = document.querySelectorAll(".stat-number");
 
         if (achievementCounters.length) {
-            const counterObserver = new IntersectionObserver(
-                function (entries) {
-                    entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
-                            animateCounter(entry.target);
-                            counterObserver.unobserve(entry.target);
-                        }
-                    });
-                },
-                {
-                    threshold: 0.35
-                }
-            );
+            achievementCounters.forEach(function (counter, index) {
+                counter.countRun = 0;
+                counter.countIndex = index;
+                showCount(counter, 0);
+            });
 
-            achievementCounters.forEach(function (counter) {
-                counter.textContent = "0" + (counter.dataset.suffix || "");
-                counterObserver.observe(counter);
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            whenPageReady(function () {
+                if (reduceMotion || !("IntersectionObserver" in window)) {
+                    achievementCounters.forEach(function (counter) {
+                        showCount(counter, Number(counter.dataset.target || 0));
+                    });
+                    return;
+                }
+
+                const counterObserver = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            const counter = entry.target;
+                            if (entry.intersectionRatio >= 0.6 && !counter.counting) {
+                                counter.counting = true;
+                                animateCounter(counter, counter.countIndex * 140);
+                            } else if (!entry.isIntersecting && counter.counting) {
+                                counter.counting = false;    // off screen: ready to count again
+                                counter.countRun++;
+                                showCount(counter, 0);
+                            }
+                        });
+                    },
+                    {
+                        threshold: [0, 0.6]
+                    }
+                );
+
+                achievementCounters.forEach(function (counter) {
+                    counterObserver.observe(counter);
+                });
             });
         }
 

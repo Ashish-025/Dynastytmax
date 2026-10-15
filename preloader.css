@@ -1,0 +1,55 @@
+/* Page preloader (home page), like usta.agency - see preloader.js:
+     a black screen with a small, thin, wide-spaced "DYNASTYMAX 0%" counting to 100%,
+     then the letters drop away one after another and the page's intro starts.
+   Only shown while <html> has .dm-loading (set by an inline head script), so the
+   page is never blocked if JavaScript is off. */
+
+.dm-preloader { display: none; }
+
+html.dm-loading,
+html.dm-loading body { overflow: hidden; }
+
+/* hold the hero's rotating words still until the preloader has gone */
+html.dm-loading .hero-rotator > span { animation-play-state: paused !important; }
+
+html.dm-loading .dm-preloader,
+.dm-preloader.is-leaving {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    background: #000;
+    transition: opacity .35s ease;
+}
+.dm-preloader.is-gone { opacity: 0; pointer-events: none; }
+
+/* "DYNASTYMAX 0%" - small, extra-light, spaced out */
+.dm-pl-load {
+    display: flex;
+    align-items: baseline;
+    color: #fff;
+    font: 200 20px/1 Montserrat, Arial, sans-serif;
+    letter-spacing: 4px;
+    white-space: nowrap;
+}
+.dm-pl-name { margin-right: .5em; }
+.dm-pl-name em { font-style: normal; color: #e91d2b; }
+.dm-pl-count { font-variant-numeric: tabular-nums; }
+
+/* exit: every letter falls 200px and fades, one after another (delays set in preloader.js) */
+.dm-pl-ch {
+    display: inline-block;
+    white-space: pre;
+    transition: transform .8s cubic-bezier(.6, -.28, .735, .045), opacity .8s ease-in;
+}
+.dm-preloader.is-dropping .dm-pl-ch { transform: translateY(200px); opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+    .dm-pl-ch { transition: none; }
+}
+
+/* the hero sits under the preloader, so it is fully shown from the start (no scroll-in fade) */
+.hero-section.dm-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }

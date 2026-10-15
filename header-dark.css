@@ -46,9 +46,10 @@
     letter-spacing: .02em;
 }
 .logo-text strong {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--hdr-fg);
-    font-weight: 700;
+    /* solid red "MAX" (brand red), a little thinner than "DYNASTY" */
+    color: #e91d2b;
+    -webkit-text-stroke: 0;
+    font-weight: 500;   /* a little thinner than DYNASTY */
     letter-spacing: .02em;
 }
 

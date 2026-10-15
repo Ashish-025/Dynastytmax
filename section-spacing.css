@@ -1,0 +1,35 @@
+/* =========================================================
+   HOME PAGE: equal spacing between sections
+   Every white gap between two blocks is the same: 60px on desktop, 40px on phones.
+   Where two white sections meet, each gives half (30px + 30px); next to a coloured
+   band (achievements strip, CTA band) the white section gives the full gap itself.
+   Load LAST on index.html (overrides style.css, products-logos.css, contact-strip.css).
+========================================================= */
+:root { --sec-gap: 60px; --sec-half: 30px; }
+@media (max-width: 768px) { :root { --sec-gap: 40px; --sec-half: 20px; } }
+
+/* Our Services: after the dark achievements strip (full gap), before Our Products (half) */
+#dm-services.dm-services {
+    padding-top: var(--sec-gap) !important;
+    padding-bottom: var(--sec-half) !important;
+}
+
+/* Our Products: half above (heading), half below (the card row keeps room for the zoom) */
+#products-section.products-section {
+    padding-top: calc(var(--sec-half) - 15px) !important;   /* the heading label already sits 15px down */
+    padding-bottom: 0 !important;
+}
+#products-section .logo-marquee { padding-bottom: var(--sec-half); }
+
+/* Projects tiles: half above, full gap before the coloured CTA band */
+main > section#dm-projects.dm-projects {
+    padding-top: var(--sec-half) !important;
+    padding-bottom: var(--sec-gap) !important;
+}
+
+/* phones: the products heading sits 11px down and the tiles layout leaves 16px
+   below itself, so trim those paddings to keep every gap at exactly 40px */
+@media (max-width: 768px) {
+    #products-section.products-section { padding-top: calc(var(--sec-half) - 11px) !important; }
+    main > section#dm-projects.dm-projects { padding-bottom: calc(var(--sec-gap) - 16px) !important; }
+}

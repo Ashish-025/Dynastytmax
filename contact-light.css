@@ -1,0 +1,77 @@
+/* =========================================================
+   CONTACT US - light theme
+   Same layout as before, in the site's light colours: white page, soft grey hero
+   with a faint grid, white form card, navy text, brand-red accents.
+   Only applies when the light theme is on (the dark theme is unchanged).
+   Load after style.css and theme-light.css.
+========================================================= */
+
+html:not([data-theme="dark"]) .contact-page {
+    color: #102744;
+    background: #ffffff;
+    border-top: 1px solid #eef1f5;
+}
+
+/* hero: soft grey with a faint grid and a red glow, like the dark one's cyan glow */
+html:not([data-theme="dark"]) .contact-hero {
+    background:
+        radial-gradient(ellipse at 12% 100%, rgba(233, 29, 43, .08), transparent 45%),
+        linear-gradient(rgba(16, 39, 68, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 39, 68, .045) 1px, transparent 1px),
+        #f8fafc;
+    background-size: auto, 42px 42px, 42px 42px, auto;
+    border-bottom: 1px solid #e5e9f0;
+}
+html:not([data-theme="dark"]) .contact-eyebrow {
+    color: #e91d2b;
+    border-color: rgba(233, 29, 43, .3);
+    background: rgba(233, 29, 43, .06);
+}
+html:not([data-theme="dark"]) .contact-hero h1 { color: #102744; }
+html:not([data-theme="dark"]) .contact-hero p { color: #5b6b80; }
+
+/* left column: office details */
+html:not([data-theme="dark"]) .contact-detail h2,
+html:not([data-theme="dark"]) .contact-detail-note strong { color: #102744; }
+html:not([data-theme="dark"]) .contact-detail p,
+html:not([data-theme="dark"]) .contact-detail-note p { color: #5b6b80; }
+html:not([data-theme="dark"]) .contact-detail-note {
+    background: #f8fafc;
+    border: 1px solid #e5e9f0;
+    border-left: 3px solid #e91d2b;
+}
+
+/* form card */
+html:not([data-theme="dark"]) .contact-form {
+    background: #ffffff;
+    border: 1px solid #e5e9f0;
+    box-shadow: 0 18px 44px rgba(16, 39, 68, .10);
+}
+html:not([data-theme="dark"]) .contact-form-heading h2 { color: #102744; }
+html:not([data-theme="dark"]) .contact-form-heading p { color: #5b6b80; }
+html:not([data-theme="dark"]) .contact-fields label { color: #3d4a5c; }
+
+html:not([data-theme="dark"]) .contact-fields input,
+html:not([data-theme="dark"]) .contact-fields textarea,
+html:not([data-theme="dark"]) .contact-fields select {
+    color: #102744;
+    background: #f8fafc;
+    border-color: #d8dee8;
+}
+html:not([data-theme="dark"]) .contact-fields input::placeholder,
+html:not([data-theme="dark"]) .contact-fields textarea::placeholder { color: #8a96a8; }
+html:not([data-theme="dark"]) .contact-fields input:focus,
+html:not([data-theme="dark"]) .contact-fields textarea:focus,
+html:not([data-theme="dark"]) .contact-fields select:focus {
+    background: #ffffff;
+    border-color: #e91d2b;
+    box-shadow: 0 0 0 3px rgba(233, 29, 43, .12);
+}
+
+/* send button: brand red (dark theme keeps its orange -> blue gradient) */
+html:not([data-theme="dark"]) .contact-submit {
+    color: #ffffff;
+    background: #e91d2b;
+    box-shadow: 0 10px 24px rgba(233, 29, 43, .25);
+}
+html:not([data-theme="dark"]) .contact-submit:hover { background: #f32932; filter: none; }

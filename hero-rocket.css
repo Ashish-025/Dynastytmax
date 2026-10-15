@@ -36,3 +36,10 @@
     .hero-section.has-rocket-animation button { cursor: none; }
     .hero-section.has-rocket-animation:hover .hero-rocket-cursor { opacity: 1; }
 }
+
+/* phones: the headline sits at the bottom of the hero so the animation has the open space
+   above it (hero-rocket.js centres and sizes the shape in that space) */
+@media (max-width: 768px) {
+    .hero-section.has-rocket-animation { min-height: calc(100vh - var(--hero-top, 110px)); min-height: calc(100svh - var(--hero-top, 110px)); }
+    .hero-section.has-rocket-animation .hero-container { align-items: flex-end; padding-bottom: 28px; }
+}

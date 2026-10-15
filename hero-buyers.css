@@ -1,0 +1,71 @@
+/* Hero "recent clients" slider - small round client picture + who bought which device and
+   at what time. One client on screen at a time; every few seconds it slides out to the left
+   as the next one slides in from the right (hero-buyers.js).
+   The hero is dark in both themes, so one look serves both. */
+.hero-buyers {
+    width: min(440px, 100%);
+    height: 50px;                          /* fixed: the page never jumps */
+    margin-top: 24px;
+    overflow: hidden;
+    color: #fff;
+    font-family: Montserrat, Arial, sans-serif;
+}
+
+.hb-track {
+    display: flex;
+    height: 100%;
+}
+.hb-track.is-moving { transition: transform .6s cubic-bezier(.45, 0, .2, 1); }
+
+.hb-item {
+    display: flex;
+    flex: 0 0 100%;                        /* one client fills the slot: one on screen at a time */
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 0 16px 0 4px;                 /* left: room for the picture's ring, kept inside each slide */
+    box-sizing: border-box;
+}
+
+/* round picture (initials when no photo is given) */
+.hb-face {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(244, 140, 24, .85);
+    color: #fff;
+    font: 700 13px/1 Montserrat, Arial, sans-serif;
+    letter-spacing: .02em;
+}
+.hb-face img { width: 100%; height: 100%; object-fit: cover; }
+
+.hb-line {
+    margin: 0;
+    min-width: 0;
+    font-size: 13px;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, .78);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.hb-line strong { color: #fff; font-weight: 700; }
+.hb-what { display: block; overflow: hidden; text-overflow: ellipsis; }
+.hb-what b { color: #f48c18; font-weight: 700; }
+
+/* light theme: the product name in the site red, like the hero's rotating word */
+html:not([data-theme="dark"]) .hb-what b { color: #ff4d57; }
+
+@media (max-width: 600px) {
+    .hero-buyers { height: 46px; margin-top: 18px; }
+    .hb-face { width: 34px; height: 34px; font-size: 11px; }
+    .hb-line { font-size: 11.5px; }
+    .hb-item { gap: 9px; padding-right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hb-track.is-moving { transition: none; }
+}

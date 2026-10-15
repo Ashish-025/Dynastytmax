@@ -778,14 +778,15 @@ body {
 .hero-content h1 .hero-rotator > span {
     grid-area: 1 / 1;
     white-space: nowrap;
-    animation: heroWordCycle 24s linear infinite;
+    animation: heroWordCycle 15s linear infinite;   /* 5 words x 3s; each flip takes 0.5s */
     backface-visibility: hidden;
     transform-origin: center center;
 }
 
-.hero-content h1 .hero-rotator > span:nth-child(2) { animation-delay: -18s; }
-.hero-content h1 .hero-rotator > span:nth-child(3) { animation-delay: -12s; }
+.hero-content h1 .hero-rotator > span:nth-child(2) { animation-delay: -12s; }
+.hero-content h1 .hero-rotator > span:nth-child(3) { animation-delay: -9s; }
 .hero-content h1 .hero-rotator > span:nth-child(4) { animation-delay: -6s; }
+.hero-content h1 .hero-rotator > span:nth-child(5) { animation-delay: -3s; }
 
 .hero-rotator__sr {
     position: absolute;
@@ -810,13 +811,13 @@ body {
 
 @keyframes heroWordCycle {
     0% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
-    20% {
+    16.67% {
         opacity: 1;
         transform: translate3d(0, 0, 0) rotateX(0deg);
         animation-timing-function: cubic-bezier(.65, 0, .35, 1);
     }
-    25% { opacity: 0; transform: translate3d(0, -32px, 0) rotateX(90deg); }
-    95% {
+    20% { opacity: 0; transform: translate3d(0, -32px, 0) rotateX(90deg); }
+    96.67% {
         opacity: 0;
         transform: translate3d(0, 32px, 0) rotateX(-90deg);
         animation-timing-function: cubic-bezier(.65, 0, .35, 1);
@@ -1753,7 +1754,7 @@ body {
 
     height: 5px;
 
-    margin: 25px auto 0;
+    margin: 2px auto 22px;   /* sits just under the OUR SERVICES label, above the title */
 
     background: #ff3b35;
 
@@ -2376,7 +2377,7 @@ body {
 
     .dm-heading-line {
 
-        margin-top: 20px;
+        margin-top: 6px;
     }
 
     .dm-services-grid {
@@ -2557,8 +2558,8 @@ body {
     color: #102744;
 }
 
-.products-heading h2 span {
-    color: #1469e8;
+.products-heading h2 .products-accent {
+    color: #f32932;
 }
 
 .products-heading p {
@@ -3364,7 +3365,7 @@ body {
     pointer-events: none;
 
     background-image:
-        url("images/map%20(1).svg");
+        url("images/footer-world-map.png");
 
     background-repeat: no-repeat;
 
@@ -4047,12 +4048,14 @@ body {
     background: #050505;
 }
 
+/* dotted world map, same image and placement as the reference footer (centred, fitted
+   inside the footer); the image is already faint white dots, so it is used at full opacity */
 .dm-world-map {
-    background-image: url("images/map%20(1).svg");
+    background-image: url("images/footer-world-map.png");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100% auto;
-    opacity: .24;
+    background-size: contain;
+    opacity: 1;
 }
 
 .dm-footer-main {
@@ -4064,23 +4067,23 @@ body {
     gap: 34px;
 }
 
+/* same top-left alignment and heading style as POPULAR LINKS / OUR SERVICES */
 .dm-office-map-slot {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
+    align-items: stretch;
+    justify-content: flex-start;
     min-width: 0;
-    min-height: 250px;
 }
 
 .dm-office-map-slot h3 {
-    margin: 0;
-    color: #dce3f7;
-    font-size: 13px;
+    margin: 2px 0 20px;
+    color: #fff;
+    font-size: 17px;
     line-height: 1.3;
-    letter-spacing: .08em;
+    font-weight: 700;
 }
+.dm-office-map-slot .dm-office-gmap { margin: 0; }
 
 .dm-footer-nav-columns {
     display: grid;
@@ -4156,15 +4159,15 @@ body {
         gap: 36px 28px;
     }
     .dm-footer-nav-columns { grid-column: 1 / -1; }
-    .dm-office-map-slot { grid-column: 1 / -1; min-height: 230px; }
+    .dm-office-map-slot { grid-column: 1 / -1; }
     .dm-footer-bottom { width: calc(100% - 56px); }
 }
 
 @media (max-width: 600px) {
     .dm-world-map {
-        background-size: auto 360px;
-        background-position: center 10px;
-        opacity: .2;
+        background-size: contain;
+        background-position: center center;
+        opacity: 1;
     }
 
     .dm-footer-main {
@@ -4174,7 +4177,7 @@ body {
         gap: 30px;
         padding: 42px 0 32px;
     }
-    .dm-office-map-slot { min-height: 210px; }
+
     .dm-footer-nav-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
     .dm-company { padding: 0; text-align: left; }
     .dm-logo { font-size: 32px; }
@@ -4184,7 +4187,8 @@ body {
     .dm-links nav a { margin: 0; font-size: 15px; }
     
     .dm-links h3,
-    #footer-services h3 { margin-bottom: 15px; font-size: 16px; }
+    #footer-services h3,
+    .dm-office-map-slot h3 { margin-bottom: 15px; font-size: 16px; }
     .dm-footer-bottom { width: calc(100% - 40px); }
     .dm-footer-bottom-inner { align-items: flex-start; text-align: left; }
     .dm-copyright { text-align: left; }
@@ -4800,3 +4804,195 @@ body {
         font-size: clamp(11px, 1.1vw, 14px);
     }
 }
+
+/* achievement counters: fixed-width digits so the cards don't jiggle while counting */
+.stat-number { font-variant-numeric: tabular-nums; }
+
+/* =========================================================
+   ACHIEVEMENTS under the hero (as setblue's "Journey" block):
+   a hero-style dark starry band with a centred heading, and a white rounded card that overlaps the
+   band's bottom edge, holding the counters (big red numbers, grey labels, thin dividers).
+   "html body" outranks the dark theme's strip styles in site-futuristic.css.
+========================================================= */
+html body .achievements-section {
+    position: relative;
+    isolation: isolate;
+    padding: 46px clamp(16px, 4vw, 48px) 14px;
+    overflow: visible;
+    border: 0;
+    background: #fff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    color: #101827;
+}
+[data-theme="dark"] body .achievements-section { background: transparent; }
+/* the band: the hero's look continued - black, fine dotted grain, scattered orange / blue /
+   white stars and soft glows; a gentle curve at its bottom. ::after = a second set of stars
+   that twinkles. */
+html body .achievements-section::before,
+html body .achievements-section::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 auto;
+    height: calc(100% - 96px);
+    border-radius: 0 0 50% 50% / 0 0 34px 34px;
+    pointer-events: none;
+}
+html body .achievements-section::before {
+    background:
+        radial-gradient(1.9px 1.9px at 28.9% 21.1%, rgba(244,140,24,0.88), transparent),
+        radial-gradient(1.3px 1.3px at 75.2% 75.5%, rgba(255,255,255,0.79), transparent),
+        radial-gradient(1.6px 1.6px at 81.7% 24.2%, rgba(255,255,255,0.72), transparent),
+        radial-gradient(1.7px 1.7px at 5.4% 68.4%, rgba(255,255,255,0.76), transparent),
+        radial-gradient(1.8px 1.8px at 12.3% 51.3%, rgba(255,255,255,0.97), transparent),
+        radial-gradient(1.6px 1.6px at 57.7% 91.2%, rgba(255,255,255,0.96), transparent),
+        radial-gradient(1.3px 1.3px at 83.7% 33.2%, rgba(64,137,221,0.62), transparent),
+        radial-gradient(1.4px 1.4px at 29.5% 93.7%, rgba(64,137,221,0.80), transparent),
+        radial-gradient(1.9px 1.9px at 5.9% 27.3%, rgba(255,255,255,0.80), transparent),
+        radial-gradient(1.4px 1.4px at 19.3% 90.9%, rgba(255,255,255,0.57), transparent),
+        radial-gradient(1.3px 1.3px at 66.4% 92.4%, rgba(64,137,221,0.78), transparent),
+        radial-gradient(1.4px 1.4px at 28.4% 36.4%, rgba(244,140,24,0.74), transparent),
+        radial-gradient(1.5px 1.5px at 61.4% 23.3%, rgba(64,137,221,0.96), transparent),
+        radial-gradient(1.9px 1.9px at 63.5% 63.4%, rgba(64,137,221,0.78), transparent),
+        radial-gradient(1.7px 1.7px at 94.0% 39.7%, rgba(255,255,255,0.87), transparent),
+        radial-gradient(1.6px 1.6px at 35.1% 33.1%, rgba(64,137,221,0.73), transparent),
+        radial-gradient(1.9px 1.9px at 11.1% 81.9%, rgba(255,255,255,0.58), transparent),
+        radial-gradient(1.2px 1.2px at 7.8% 99.6%, rgba(64,137,221,0.65), transparent),
+        radial-gradient(1.1px 1.1px at 45.7% 59.3%, rgba(255,255,255,0.61), transparent),
+        radial-gradient(1.9px 1.9px at 89.1% 88.5%, rgba(255,255,255,0.96), transparent),
+        radial-gradient(1.3px 1.3px at 1.0% 24.8%, rgba(255,255,255,0.58), transparent),
+        radial-gradient(1.6px 1.6px at 23.1% 74.1%, rgba(244,140,24,0.77), transparent),
+        radial-gradient(1.2px 1.2px at 88.2% 23.5%, rgba(255,255,255,0.72), transparent),
+        radial-gradient(1.1px 1.1px at 48.9% 0.3%, rgba(255,255,255,0.96), transparent),
+        radial-gradient(1.9px 1.9px at 2.1% 90.0%, rgba(255,255,255,0.63), transparent),
+        radial-gradient(1.6px 1.6px at 67.9% 26.6%, rgba(255,255,255,0.65), transparent),
+        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, .09) 1px, transparent 1.6px) 0 0 / 7px 7px,
+        radial-gradient(55% 120% at 82% 0%, rgba(64, 137, 221, .16), transparent 62%),
+        radial-gradient(45% 120% at 12% 100%, rgba(244, 140, 24, .12), transparent 62%),
+        #000;
+}
+html body .achievements-section::after {
+    background:
+        radial-gradient(2.4px 2.4px at 5.2% 76.9%, rgba(244,140,24,0.87), transparent),
+        radial-gradient(2.3px 2.3px at 3.3% 11.0%, rgba(255,255,255,0.96), transparent),
+        radial-gradient(2.6px 2.6px at 89.3% 3.7%, rgba(244,140,24,0.95), transparent),
+        radial-gradient(3.0px 3.0px at 95.4% 76.5%, rgba(255,255,255,0.74), transparent),
+        radial-gradient(2.6px 2.6px at 88.2% 39.8%, rgba(244,140,24,0.66), transparent),
+        radial-gradient(2.8px 2.8px at 55.9% 35.1%, rgba(64,137,221,0.83), transparent),
+        radial-gradient(2.1px 2.1px at 72.5% 42.3%, rgba(255,255,255,0.64), transparent),
+        radial-gradient(3.0px 3.0px at 99.4% 63.2%, rgba(64,137,221,0.94), transparent),
+        radial-gradient(1.9px 1.9px at 64.5% 13.5%, rgba(255,255,255,0.77), transparent),
+        radial-gradient(2.7px 2.7px at 94.6% 48.2%, rgba(255,255,255,0.63), transparent),
+        radial-gradient(1.8px 1.8px at 66.3% 52.2%, rgba(64,137,221,0.80), transparent),
+        radial-gradient(2.7px 2.7px at 36.2% 75.1%, rgba(255,255,255,0.56), transparent),
+        radial-gradient(2.4px 2.4px at 20.3% 72.3%, rgba(64,137,221,0.68), transparent),
+        radial-gradient(2.5px 2.5px at 42.9% 7.5%, rgba(244,140,24,0.90), transparent);
+    animation: achTwinkle 3.2s ease-in-out infinite alternate;
+}
+@keyframes achTwinkle { from { opacity: .25; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+    html body .achievements-section::after { animation: none; }
+}
+.achievements-head {
+    max-width: 760px;
+    margin: 0 auto 30px;
+    text-align: center;
+    color: #fff;
+}
+.achievements-head h2 {
+    margin: 0 0 10px;
+    color: #fff;
+    font: 700 clamp(26px, 3vw, 40px)/1.2 Arial, Helvetica, sans-serif;
+    letter-spacing: -.01em;
+}
+.achievements-head p {
+    margin: 0;
+    color: rgba(255, 255, 255, .92);
+    font-size: clamp(15px, 1.3vw, 19px);
+    line-height: 1.55;
+}
+
+/* the white card */
+html body .achievements-section .achievements-container {
+    max-width: 1180px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 30px 0;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 22px 50px rgba(16, 24, 40, .14), 0 2px 6px rgba(16, 24, 40, .05);
+}
+html body .achievements-section .stat-card {
+    min-height: 0;
+    padding: 10px 14px;
+    border-left: 1px solid #eceff4;
+    background: transparent;
+    color: #101827;
+}
+html body .achievements-section .stat-card:first-child { border-left: 0; }
+html body .achievements-section .stat-card:hover { background: transparent; }
+html body .achievements-section .stat-number {
+    background: none;
+    -webkit-text-fill-color: #e91d2b;
+    color: #e91d2b;
+    filter: none;
+    font: 700 clamp(34px, 4vw, 58px)/1.05 Arial, Helvetica, sans-serif;
+    letter-spacing: -.01em;
+}
+html body .achievements-section .stat-card h3 {
+    margin-top: 10px;
+    color: #7c8493;
+    font-size: clamp(13px, 1.1vw, 17px);
+    font-weight: 500;
+}
+
+@media (max-width: 760px) {
+    html body .achievements-section { padding: 36px 16px 10px; }
+    html body .achievements-section::before,
+    html body .achievements-section::after { height: calc(100% - 120px); }
+    .achievements-head { margin-bottom: 22px; }
+    html body .achievements-section .achievements-container { padding: 14px 6px; }
+    html body .achievements-section .stat-card { padding: 14px 6px; border-left: 0; }
+    html body .achievements-section .stat-card h3 { font-size: 12.5px; }
+}
+@media (max-width: 420px) {
+    /* 2 per row on small phones: the odd last one (24/7) sits centred on its own row */
+    html body .achievements-section .stat-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+
+/* dark theme: the stats section shows the site's animated space background (site-space.js)
+   behind it - no fixed starfield band - and the card turns to dark glass (red numbers stay) */
+html[data-theme="dark"] body .achievements-section::before,
+html[data-theme="dark"] body .achievements-section::after { display: none; }
+html[data-theme="dark"] body .achievements-section { background: transparent; }
+html[data-theme="dark"] body .achievements-section .achievements-container {
+    background: rgba(8, 14, 28, .6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .09), 0 22px 50px rgba(0, 0, 0, .45);
+}
+html[data-theme="dark"] body .achievements-section .stat-card { border-color: rgba(255, 255, 255, .1); }
+html[data-theme="dark"] body .achievements-section .stat-card h3 { color: #b8c2d6; }
+/* dark theme: the numbers are an animated blue <-> gold gradient that keeps sweeping across */
+html[data-theme="dark"] body .achievements-section .stat-number {
+    background: linear-gradient(90deg, #4089dd 0%, #8cc4ff 22%, #ffd77a 45%, #f4b018 55%, #8cc4ff 78%, #4089dd 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 0 10px rgba(244, 176, 24, .22));
+    animation: statBlueGold 4s linear infinite;
+}
+@keyframes statBlueGold { from { background-position: 0% 0; } to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) {
+    html[data-theme="dark"] body .achievements-section .stat-number { animation: none; }
+}
+
+/* Contact page form: invalid fields + the status line under the button (contact-form.js) */
+.contact-form .is-invalid { border-color: #e91d2b !important; box-shadow: 0 0 0 3px rgba(233, 29, 43, .15) !important; }
+.contact-status { min-height: 18px; margin: 12px 0 0; color: #2b8a3e; font-size: 13px; font-weight: 600; }
+.contact-status.is-error { color: #e91d2b; }
+[data-theme="dark"] .contact-status { color: #6fd68a; }
+[data-theme="dark"] .contact-status.is-error { color: #ff6b74; }

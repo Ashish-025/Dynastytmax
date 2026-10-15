@@ -228,9 +228,8 @@
     .ssi-contact-inner { align-items: flex-start; flex-direction: column; }
 }
 
-@media (hover: none), (max-width: 760px) {
-    .ssi-product-overlay { inset: auto 0 0; min-height: 74%; opacity: 1; transform: none; background: linear-gradient(180deg, transparent, rgba(5,12,24,.94) 54%); }
-}
+/* phones / touch: the product overlay is revealed on tap exactly like hover on desktop
+   (touch-hover.js turns the first tap into the hover state) */
 
 @media (max-width: 480px) {
     .ssi-shell { width: calc(100% - 32px); }

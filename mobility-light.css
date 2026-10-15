@@ -1,0 +1,141 @@
+/* =========================================================
+   MOBILITY & VEHICLE SOLUTIONS - light theme
+   Same design as the dark theme (site-futuristic.css: aligned intro, pill label,
+   framed cards with a gradient top edge and a light running round the border,
+   lift on hover) but in the site's light colours: white page, white cards,
+   navy text and brand-red accents. Only applies when the light theme is on.
+   Load after mobility-products.css and theme-light.css.
+========================================================= */
+
+html:not([data-theme="dark"]) {
+    --mob-red: #e91d2b;
+    --mob-navy: #102744;
+    --mob-text: #5b6b80;
+    --mob-line: #e5e9f0;
+}
+
+/* ---------- page ---------- */
+html:not([data-theme="dark"]) .products-section:has(.products-intro) {
+    background: #ffffff;
+}
+/* faint grid, like the dark theme's, in light grey */
+html:not([data-theme="dark"]) .products-section:has(.products-intro)::before {
+    display: block;
+    background-image:
+        linear-gradient(rgba(16, 39, 68, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 39, 68, .045) 1px, transparent 1px);
+    background-size: 34px 34px;
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
+    mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
+}
+
+/* ---------- intro: aligned with the card grid, as in the dark theme ---------- */
+html:not([data-theme="dark"]) .products-section .products-intro {
+    width: min(1250px, calc(100% - 40px)) !important;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-top: 40px;
+}
+html:not([data-theme="dark"]) .products-intro .section-label {
+    color: var(--mob-red);
+    border-color: rgba(233, 29, 43, .35);
+    background: rgba(233, 29, 43, .06);
+}
+html:not([data-theme="dark"]) .products-intro .section-label span {
+    background: var(--mob-red);
+    box-shadow: 0 0 8px rgba(233, 29, 43, .5);
+}
+html:not([data-theme="dark"]) .products-intro h1,
+html:not([data-theme="dark"]) .products-intro h1 * { color: var(--mob-navy); }
+html:not([data-theme="dark"]) .products-intro p { color: var(--mob-text); }
+
+/* ---------- product cards ---------- */
+html:not([data-theme="dark"]) .products-grid .product-card {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid var(--mob-line);
+    box-shadow: 0 10px 28px rgba(16, 39, 68, .07);
+    transition: transform .35s cubic-bezier(.16, 1, .3, 1), box-shadow .35s ease, border-color .35s ease;
+}
+/* thin gradient edge along the top (brand red -> navy) */
+html:not([data-theme="dark"]) .products-grid .product-card::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--mob-red), #f25b33 40%, #1469e8);
+    opacity: .85;
+}
+/* light running round the border, as in the dark theme */
+@property --mob-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+html:not([data-theme="dark"]) .products-grid .product-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    padding: 1.5px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(from var(--mob-angle), transparent 0 70%, rgba(233, 29, 43, .9) 80%, rgba(20, 105, 232, .9) 90%, transparent 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    opacity: .4;
+    animation: mobBorderRun 6s linear infinite;
+    transition: opacity .35s ease;
+}
+@keyframes mobBorderRun { to { --mob-angle: 360deg; } }
+
+html:not([data-theme="dark"]) .products-grid .product-card:hover,
+html:not([data-theme="dark"]) .products-grid .product-card:focus-within {
+    transform: translateY(-5px);
+    border-color: rgba(233, 29, 43, .35);
+    background: #ffffff;
+    box-shadow: 0 18px 40px rgba(16, 39, 68, .14);
+}
+html:not([data-theme="dark"]) .products-grid .product-card:hover::before { opacity: 1; animation-duration: 2.5s; }
+
+/* image frame */
+html:not([data-theme="dark"]) .products-grid .product-image-area {
+    background: #f6f8fb;
+    border-bottom: 1px solid var(--mob-line);
+}
+html:not([data-theme="dark"]) .products-grid .product-image-area img { border-radius: 10px; }
+html:not([data-theme="dark"]) .products-grid .product-image-area:hover,
+html:not([data-theme="dark"]) .products-grid .product-image-area:focus-within {
+    background: #fff5f5;
+    border-color: rgba(233, 29, 43, .55);
+    box-shadow: 0 0 0 2px rgba(233, 29, 43, .12), 0 8px 18px rgba(233, 29, 43, .1);
+}
+
+/* text */
+html:not([data-theme="dark"]) .product-content h2 { color: var(--mob-navy); }
+html:not([data-theme="dark"]) .product-content p { color: var(--mob-text); }
+html:not([data-theme="dark"]) .product-content li { color: #3d4a5c; }
+html:not([data-theme="dark"]) .product-content li::before { color: var(--mob-red); }
+html:not([data-theme="dark"]) .products-grid .details,
+html:not([data-theme="dark"]) :where(.product-content) a.details { color: var(--mob-red); }
+
+/* badges: white pill with a coloured outline (dark theme: dark pill + orange/blue outline) */
+html:not([data-theme="dark"]) .badge.green,
+html:not([data-theme="dark"]) .badge.blue,
+html:not([data-theme="dark"]) .badge.yellow {
+    background: #ffffff;
+    border: 1px solid rgba(233, 29, 43, .55);
+    color: var(--mob-red);
+    box-shadow: 0 3px 10px rgba(16, 39, 68, .1);
+}
+html:not([data-theme="dark"]) .badge.blue { border-color: rgba(20, 105, 232, .55); color: #1469e8; }
+
+@media (prefers-reduced-motion: reduce) {
+    html:not([data-theme="dark"]) .products-grid .product-card::before { animation: none; }
+}

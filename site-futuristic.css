@@ -63,7 +63,7 @@ body::after {
 
 /* shared gradient-text helper used by headings below */
 
-.products-heading h2 span {
+.products-heading h2 .products-accent {
     background: var(--fx-grad);
     -webkit-background-clip: text;
     background-clip: text;
@@ -202,7 +202,6 @@ body::after {
 --------------------------------------------------------- */
 .dm-footer {
     background: linear-gradient(180deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, .8));
-    border-top: 1px solid var(--fx-line);
 }
 
 /* ---------------------------------------------------------
@@ -487,8 +486,7 @@ body::after {
 .ssi-product-card:hover,
 .products-grid .product-card:hover { transform: var(--tilt, none) translateY(-5px); }
 
-/* animated light running around the card border */
-.dm-service-card::after,
+/* animated light running around the card border (not on the Our Services cards) */
 .products-grid .product-card::before,
 .app-page .app-card::after {
     content: "";
@@ -506,7 +504,6 @@ body::after {
     animation: fxSpin 6s linear infinite;
     transition: opacity .35s ease;
 }
-.dm-service-card:hover::after,
 .products-grid .product-card:hover::before,
 .app-page .app-card:hover::after { opacity: 1; animation-duration: 2.5s; }
 @keyframes fxSpin { to { --fx-angle: 360deg; } }
@@ -517,12 +514,6 @@ body::after {
 }
 .achievements-section .stat-card:hover { background: rgba(255, 255, 255, .03); }
 
-/* icon halo pulses gently */
-.dm-service-icon { animation: fxHalo 4s ease-in-out infinite; }
-@keyframes fxHalo {
-    0%, 100% { box-shadow: inset 0 0 0 1px var(--fx-line), 0 0 18px rgba(244, 140, 24, .12); }
-    50% { box-shadow: inset 0 0 0 1px rgba(64, 137, 221, .4), 0 0 30px rgba(64, 137, 221, .3); }
-}
 
 /* buttons and CTAs glow */
 .app-button:hover,
@@ -600,7 +591,14 @@ body::after {
     border-image: var(--fx-grad) 1;
 }
 .site-contact-strip a:hover,
-.site-contact-strip a:focus-visible { color: var(--fx-orange-hi); }
+.site-contact-strip a:focus-visible { color: var(--fx-orange); }   /* dark theme: orange, like the footer Popular Links */
+/* dark theme hover: the glow is orange to match */
+.site-contact-strip > a:hover,
+.site-contact-strip > a:focus-visible { text-shadow: 0 0 6px rgba(244, 140, 24, .85); }
+.site-contact-strip > a:hover .contact-strip-icon,
+.site-contact-strip > a:focus-visible .contact-strip-icon { filter: drop-shadow(0 0 3px rgba(244, 140, 24, .9)); }
+.site-contact-social a:hover,
+.site-contact-social a:focus-visible { filter: drop-shadow(0 0 3px rgba(244, 140, 24, .95)); }
 
 /* footer */
 .dm-logo span,

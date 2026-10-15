@@ -2,11 +2,11 @@
     - scroll progress bar
     - cursor spotlight + gentle 3D tilt on cards
     - staggered rise-in for cards as they scroll into view
-    Respects prefers-reduced-motion and touch devices. */
+    On touch screens the finger acts like the mouse (spotlight + tilt follow it, then ease back).
+    Respects prefers-reduced-motion. */
 (function () {
     'use strict';
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     var root = document.documentElement;
     root.classList.add('fx-on');
 
@@ -15,17 +15,21 @@
     bar.className = 'fx-progress';
     bar.setAttribute('aria-hidden', 'true');
     document.body.appendChild(bar);
-    var ticking = false;
+    var ticking = false, max = 0;
+    // page height is measured only when it can change (load / resize / every 2s), not on every scroll:
+    // reading scrollHeight while scrolling forces a full layout
+    function measure() { max = root.scrollHeight - window.innerHeight; progress(); }
     function progress() {
-        var max = root.scrollHeight - window.innerHeight;
         bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.pageYOffset / max) : 0) + ')';
         ticking = false;
     }
     window.addEventListener('scroll', function () {
         if (!ticking) { ticking = true; requestAnimationFrame(progress); }
     }, { passive: true });
-    window.addEventListener('resize', progress);
-    progress();
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    setInterval(measure, 2000);
+    measure();
 
     /* ---------- cards: spotlight, tilt, staggered reveal ---------- */
     var CARD = [
@@ -33,22 +37,35 @@
         '.ssi-service-card', '.ssi-product-card', '.products-grid .product-card',
         '.contact-form', '.contact-detail-note', '.app-card', '.dbs-features > div', '.dbs-bars'
     ].join(',');
-    var TILT = '.dm-service-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .app-card';
+    var TILT = '.ssi-service-card, .ssi-product-card, .app-card';   // Mobility cards: lift only, no tilt (as iconcox.in)
     var cards = Array.prototype.slice.call(document.querySelectorAll(CARD));
 
     cards.forEach(function (card) {
         card.classList.add('fx-card');
-        if (!finePointer || reduce) return;
-        var tilt = card.matches(TILT);
-        card.addEventListener('pointermove', function (e) {
+        if (reduce) return;
+        var tilt = card.matches(TILT), release = 0;
+        function aim(e) {
             var r = card.getBoundingClientRect();
             var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
             card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
             card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
             if (tilt) card.style.setProperty('--tilt', 'perspective(900px) rotateX(' + ((.5 - y) * 6).toFixed(2) + 'deg) rotateY(' + ((x - .5) * 8).toFixed(2) + 'deg)');
+        }
+        function untilt() { card.style.removeProperty('--tilt'); }
+        card.addEventListener('pointermove', aim);
+        card.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') untilt(); });
+        // touch / pen: the card reacts where the finger lands, then eases back after it lifts
+        card.addEventListener('pointerdown', function (e) {
+            if (e.pointerType === 'mouse') return;
+            clearTimeout(release);
+            aim(e);
         });
-        card.addEventListener('pointerleave', function () {
-            card.style.removeProperty('--tilt');
+        ['pointerup', 'pointercancel'].forEach(function (n) {
+            card.addEventListener(n, function (e) {
+                if (e.pointerType === 'mouse') return;
+                clearTimeout(release);
+                release = setTimeout(untilt, 700);
+            });
         });
     });
 

@@ -277,6 +277,14 @@
         mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true;
     }, { passive: true });
     document.addEventListener('mouseleave', function () { mouse.on = false; });
+    // touch screens: a finger on the screen pulls the network like the mouse does on desktop
+    function touchAt(e) {
+        var t = e.touches && e.touches[0];
+        if (t) { mouse.x = t.clientX; mouse.y = t.clientY; mouse.on = true; }
+    }
+    window.addEventListener('touchstart', touchAt, { passive: true });
+    window.addEventListener('touchmove', touchAt, { passive: true });
+    window.addEventListener('touchend', function (e) { if (!e.touches.length) mouse.on = false; }, { passive: true });
     window.addEventListener('pointerdown', function (e) {
         if (reduce) return;
         waves.push({ x: e.clientX, y: e.clientY, r: 0, max: Math.max(w, h) * .45 });

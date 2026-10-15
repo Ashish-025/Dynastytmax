@@ -1,0 +1,114 @@
+/* =========================================================
+   MOBILITY & VEHICLE SOLUTIONS - card behaviour (both themes)
+   Matches the product cards on iconcox.in/products.html:
+     - scroll-in: each card fades in and scales up from 92% (0.8s, ease-out)
+     - hover: the card lifts 8px with a stronger border and a large soft shadow
+     - the product photo zooms to 108% inside its frame
+     - the "View Details" arrow slides right
+     - the whole card is clickable
+   Colours stay as each theme sets them. Load LAST on the page
+   (after site-futuristic.css and mobility-light.css).
+========================================================= */
+
+.products-grid .product-card {
+    --mc-ease: cubic-bezier(.22, 1, .36, 1);
+    position: relative;
+    transition:
+        opacity .8s var(--mc-ease),
+        scale .8s var(--mc-ease),
+        transform .35s var(--mc-ease),
+        border-color .35s ease,
+        box-shadow .35s ease !important;
+}
+
+/* ---------- scroll-in (main.js adds .dm-visible when a card enters the screen) ---------- */
+.products-grid .product-card.dm-reveal {
+    opacity: 0 !important;
+    scale: .92;
+    transform: none;
+    translate: none !important;        /* no slide: the reference only fades + scales */
+}
+.products-grid .product-card.dm-reveal.dm-visible {
+    opacity: 1 !important;
+    scale: 1;
+}
+
+/* ---------- hover: lift + stronger border + big soft shadow ---------- */
+.products-grid .product-card:hover,
+.products-grid .product-card:focus-within {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 24px 60px -16px rgba(16, 39, 68, .28) !important;
+}
+html[data-theme="dark"] .products-grid .product-card:hover,
+html[data-theme="dark"] .products-grid .product-card:focus-within {
+    border-color: rgba(255, 255, 255, .16);
+    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, .5), 0 0 0 1px rgba(64, 137, 221, .25) !important;
+}
+html:not([data-theme="dark"]) .products-grid .product-card:hover,
+html:not([data-theme="dark"]) .products-grid .product-card:focus-within {
+    border-color: rgba(15, 23, 42, .16);
+}
+
+/* ---------- photo zooms inside its frame when the CARD is hovered ---------- */
+.products-grid .product-image-area { overflow: hidden; }
+.products-grid .product-image-area img {
+    transition: transform .6s var(--mc-ease), filter .6s ease;
+}
+.products-grid .product-card:hover .product-image-area img,
+.products-grid .product-card:focus-within .product-image-area img {
+    transform: scale(1.08);
+    filter: none;
+}
+/* the frame itself no longer reacts on its own (the whole card does) */
+.products-grid .product-image-area:hover,
+.products-grid .product-image-area:focus-within {
+    box-shadow: none;
+}
+html[data-theme="dark"] .products-grid .product-image-area:hover,
+html[data-theme="dark"] .products-grid .product-image-area:focus-within {
+    background: transparent;
+    border-color: transparent;
+}
+html:not([data-theme="dark"]) .products-grid .product-image-area:hover,
+html:not([data-theme="dark"]) .products-grid .product-image-area:focus-within {
+    background: #f6f8fb;
+    border-color: transparent;
+}
+
+/* ---------- "View Details" arrow slides right on card hover ---------- */
+.products-grid .details span { display: inline-block; transition: transform .18s ease; }
+.products-grid .product-card:hover .details span,
+.products-grid .product-card:focus-within .details span { transform: translateX(4px); }
+
+/* ---------- whole card is clickable: stretch the View Details link over it ---------- */
+.products-grid .product-card .details::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+}
+.products-grid .product-card { cursor: pointer; }
+.products-grid .product-card .details:focus-visible { outline: none; }
+.products-grid .product-card:has(.details:focus-visible) {
+    outline: 3px solid #e91d2b;
+    outline-offset: 3px;
+}
+html[data-theme="dark"] .products-grid .product-card:has(.details:focus-visible) { outline-color: #f48c18; }
+
+@media (prefers-reduced-motion: reduce) {
+    .products-grid .product-card.dm-reveal { opacity: 1 !important; scale: 1; }
+    .products-grid .product-card,
+    .products-grid .product-image-area img { transition: none !important; }
+}
+
+/* "Explore our GPS tracking solutions": same size + style as the Security page's
+   "Explore our security systems" heading (.ssi-section-heading h2) */
+main .products-intro h1 {
+    max-width: 760px;
+    font-size: clamp(29px, 4vw, 43px);
+    font-weight: 700;
+    line-height: 1.07;
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+}
+main .products-intro h1 .heading-line { white-space: normal; }

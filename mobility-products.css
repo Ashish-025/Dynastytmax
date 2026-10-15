@@ -1012,3 +1012,12 @@
 @media (max-width: 380px) { :where(.product-content) a.details { font-size: 8px; } }
 :where(.product-content) a.details span { margin-left: 0; }
 @media (max-width: 380px) { :where(.product-content) a.details span { font-size: 14px; } }
+
+/* breathing space between the last row of product cards and the section below
+   (the "Let's Build Your Success Story" band) - both themes */
+/* (the section is the <main> element, whose padding is forced to 0 elsewhere,
+   so the space goes on the bottom of the grid) */
+.products-section:has(.products-intro) .products-grid { padding-bottom: 64px; }
+@media (max-width: 600px) {
+    .products-section:has(.products-intro) .products-grid { padding-bottom: 44px; }
+}

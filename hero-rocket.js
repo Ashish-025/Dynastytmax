@@ -1,5 +1,5 @@
 /*  Particle background for the homepage hero (usta.agency-style motion).
-    The particles form a rocket, car + GPS pin, CCTV camera and responsive devices in step with
+    The particles form a rocket, GPS pin, CCTV camera, design tools and an IT cloud in step with
     the rotating hero words, bursting apart and re-forming at each word change.
     Needs three.js r128 loaded first.
     Markup: <section class="hero-section"><canvas class="hero-rocket-canvas"></canvas> ...content... </section>
@@ -184,53 +184,123 @@ function cctv(n){
   ],n),7.4,[.12,-.32,0]);
 }
 
-// Branding: responsive devices (monitor, tablet, phone) matching the reference icon, hologram style.
-// Measured on the 512px icon (centre 256,256; 100px = 1 unit). The devices are layered in depth
-// (monitor at the back, phone at the front) so the group reads as 3D when it sways.
-function devices(n){
-  // rounded rect from (x0,y0) bottom-left to (x1,y1) top-right; P = THREE.Shape or THREE.Path
-  const rr=(P,x0,y0,x1,y1,r)=>{const s=new P();s.moveTo(x0+r,y0);s.lineTo(x1-r,y0);s.quadraticCurveTo(x1,y0,x1,y0+r);s.lineTo(x1,y1-r);s.quadraticCurveTo(x1,y1,x1-r,y1);s.lineTo(x0+r,y1);s.quadraticCurveTo(x0,y1,x0,y1-r);s.lineTo(x0,y0+r);s.quadraticCurveTo(x0,y0,x0+r,y0);return s;};
-  const DEPTH=.22,BEV=.05;
-  // device body = bezel with the screen cut out; returns the solid, its crisp edges and the screen-front depth
-  function device(o,i,r,z){
-    const s=rr(THREE.Shape,...o,r),hole=rr(THREE.Path,...i,r*.5);s.holes.push(hole);
-    const g=new THREE.ExtrudeGeometry(s,{depth:DEPTH,bevelEnabled:true,bevelThickness:BEV,bevelSize:.04,bevelSegments:2,curveSegments:16});
-    g.translate(0,0,z-DEPTH/2);
-    const front=z+DEPTH/2+BEV,back=z-DEPTH/2-BEV,outer=s.getPoints(16),inner=hole.getPoints(16);
-    const edges=mergeGeos([outline(outer,front,.035),outline(outer,back,.035),outline(inner,front,.028)]);
-    return {g,edges,front};
+// Branding: design icon matching the reference - a colour-wheel ring (8 segments) crossed on
+// the diagonal by a pencil (bottom-left) and a fountain-pen nib (top-right), hologram style.
+// Measured on the 512px icon (centre 256,256; 100px = 1 unit). Kept deliberately clean for
+// particles: thin flat faces carry a light fill, and most particles go to crisp outlines.
+// The tools are built along a local x axis (x = along the diagonal, y = across it), turned
+// 45 degrees and floated in front of the ring so the group reads as 3D when it sways.
+function design(n){
+  const poly=pts=>new THREE.Shape(pts.map(([x,y])=>new THREE.Vector2(x,y)));
+  const circle=(cx,cy,r,P=THREE.Path)=>{const p=new P();p.absarc(cx,cy,r,0,Math.PI*2,true);return p;};
+  const face=(sh,z)=>{const g=new THREE.ShapeGeometry(sh,32);g.translate(0,0,z);return g;};
+  // evenly spaced points keep straight edges straight (corner-only points get rounded by the spline)
+  const rim=(sh,z,r=.03)=>outline(sh.getSpacedPoints(120),z,r);
+
+  // colour-wheel ring: outer r 2.42, centre hole r 1.1, eight segment dividers
+  const RO=2.42,RI=1.1,RZ=.12;
+  const ringShape=new THREE.Shape();ringShape.absarc(0,0,RO,0,Math.PI*2,false);ringShape.holes.push(circle(0,0,RI));
+  const ringFill=mergeGeos([face(ringShape,RZ),face(ringShape,-RZ)]);
+  const ringRims=mergeGeos([outline(circle(0,0,RO).getPoints(128),RZ,.04),outline(circle(0,0,RO).getPoints(128),-RZ,.03),
+    outline(circle(0,0,RI).getPoints(80),RZ,.04),outline(circle(0,0,RI).getPoints(80),-RZ,.03)]);
+  const dividers=mergeGeos([0,1,2,3,4,5,6,7].map(k=>{const a=Math.PI/8+k*Math.PI/4;
+    return limb([Math.cos(a)*(RI+.05),Math.sin(a)*(RI+.05),RZ],[Math.cos(a)*(RO-.05),Math.sin(a)*(RO-.05),RZ],.022,6);}));
+
+  // tools in the local frame: slimmer than the icon so the ring and its hole stay readable
+  const TZ=.8,W=.5;
+  const body=poly([[-1.9,-W],[-.25,-W],[-.25,W],[-1.9,W]]);                              // pencil barrel
+  const cone=poly([[-3.05,-.14],[-1.9,-W],[-1.9,W],[-3.05,.14]]);                        // sharpened wood
+  const lead=poly([[-3.45,0],[-3.05,-.14],[-3.05,.14]]);                                 // graphite tip
+  const ferrule=poly([[-.25,-W-.08],[.5,-W-.08],[.5,W+.08],[-.25,W+.08]]);              // metal band
+  const nib=new THREE.Shape();                                                           // pen nib + breather hole
+  nib.moveTo(.5,-.42);nib.lineTo(1.15,-.56);nib.quadraticCurveTo(2.15,-.46,3.3,0);nib.quadraticCurveTo(2.15,.46,1.15,.56);nib.lineTo(.5,.42);nib.lineTo(.5,-.42);
+  const hole=circle(1.45,0,.15);nib.holes.push(hole);
+
+  const toolFill=mergeGeos([face(body,TZ),face(cone,TZ),face(ferrule,TZ+.02),face(nib,TZ+.04)]);
+  const toolRims=mergeGeos([rim(body,TZ+.01),rim(cone,TZ+.01),rim(ferrule,TZ+.03),rim(nib,TZ+.05),
+    limb([-1.9,0,TZ+.01],[-.25,0,TZ+.01],.02,6)]);                                        // centre facet line on the barrel
+  const accents=mergeGeos([face(lead,TZ+.01),rim(lead,TZ+.02,.035),                     // bright graphite tip
+    outline(hole.getPoints(24),TZ+.05,.035),limb([1.6,0,TZ+.05],[3.2,0,TZ+.05],.022,6)]); // nib hole + slit
+  [toolFill,toolRims,accents].forEach(g=>g.rotateZ(Math.PI/4));
+
+  // the ring is hidden behind the tools (like the icon), so the two never blur into each other:
+  // ring points under the pencil/nib silhouette are dropped and resampled elsewhere
+  const C=Math.SQRT1_2;
+  function behindTools(x,y){
+    const u=(x+y)*C,v=Math.abs(y-x)*C;                 // into the tools' diagonal frame
+    let w;
+    if(u<-3.45||u>3.3)return false;
+    if(u<-3.05)w=.14*(u+3.45)/.4;                      // graphite tip
+    else if(u<-1.9)w=.14+(W-.14)*(u+3.05)/1.15;        // sharpened cone
+    else if(u<.5)w=W+.08;                              // barrel + metal band
+    else if(u<1.15)w=.42+(.56-.42)*(u-.5)/.65;         // nib shoulder
+    else w=.56*(3.3-u)/2.15;                           // nib point
+    return v<w+.1;
   }
-  // filled screen element (bar / card) with an outline so it stays crisp
-  const tile=(x0,y0,x1,y1,r,z)=>{const s=rr(THREE.Shape,x0,y0,x1,y1,r),g=new THREE.ShapeGeometry(s,8);g.translate(0,0,z);return mergeGeos([g,outline(s.getPoints(8),z+.01,.025)]);};
-  const dashes=(y,xs,z)=>mergeGeos(xs.map(x=>limb([x,y,z],[x+.12,y,z],.035,6)));
-  // 4-point sparkle
-  const star=(cx,cy,s,z)=>{const pts=[];for(let k=0;k<8;k++){const a=Math.PI/2+k*Math.PI/4,d=k%2?s*.28:s;pts.push(new THREE.Vector2(cx+Math.cos(a)*d,cy+Math.sin(a)*d));}
-    const sh=new THREE.Shape(pts),g=new THREE.ShapeGeometry(sh);g.translate(0,0,z);return mergeGeos([g,outline(pts,z,.02)]);};
-  const dot=(cx,cy,r,z)=>{const g=new THREE.CircleGeometry(r,20);g.translate(cx,cy,z);return g;};
+  function ringPoints(g,count){
+    const out=new Float32Array(count*3);let k=0;
+    while(k<count){
+      const s=sampleParts([{g}],Math.ceil((count-k)*1.5)+16);
+      for(let i=0;i<s.length&&k<count;i+=3){if(behindTools(s[i],s[i+1]))continue;out[k*3]=s[i];out[k*3+1]=s[i+1];out[k*3+2]=s[i+2];k++;}
+    }
+    return out;
+  }
+  const parts=[
+    [ringFill,.18,true],[ringRims,.2,true],[dividers,.08,true],
+    [toolFill,.1],[toolRims,.34],[accents,.1]   // light fill on the tools: dense fills glare under additive glow
+  ];
+  const counts=parts.map(([,s])=>Math.floor(s*n));counts[0]+=n-counts.reduce((a,b)=>a+b,0);
+  const out=new Float32Array(n*3);let at=0;
+  parts.forEach(([g,,ring],i)=>{out.set(ring?ringPoints(g,counts[i]):sampleParts([{g}],counts[i]),at*3);at+=counts[i];});
+  // turned only slightly, so the icon reads face-on while it sways
+  return fit(out,7.4,[.1,-.2,0]);
+}
 
-  const mon=device([-2.46,-1.32,2.02,1.86],[-2.30,-.84,1.86,1.68],.24,0);
-  const tab=device([-.42,-2.30,1.92,.96],[-.26,-2.14,1.76,.80],.24,.5);
-  const pho=device([1.08,-2.30,2.50,.06],[1.22,-2.16,2.36,-.08],.22,1);
-  const stand=mergeGeos([
-    new THREE.ExtrudeGeometry(rr(THREE.Shape,-.80,-1.86,-.56,-1.32,.02),{depth:.14,bevelEnabled:false}),
-    new THREE.ExtrudeGeometry(rr(THREE.Shape,-1.20,-2.10,.08,-1.86,.12),{depth:.18,bevelEnabled:false})
-  ]);stand.translate(0,0,-.2);
+// IT Solutions: a laptop showing glowing "</>" code, synced with a cloud above it by
+// upload/download arrows (software + cloud services), hologram style. Kept bold and simple:
+// particles drift a little, so thin or busy details smear at hero size. Thin flat faces carry
+// a light fill; most particles go to crisp outlines, the brightest to the code and arrows.
+function itSolutions(n){
+  const D=Math.PI/180;
+  const face=(sh,z)=>{const g=new THREE.ShapeGeometry(sh,48);g.translate(0,0,z);return g;};
+  const rim=(sh,z,r=.05)=>outline(sh.getSpacedPoints(160),z,r);
+  const line=(pts,z,r=.07)=>mergeGeos(pts.slice(1).map((p,i)=>limb([pts[i][0],pts[i][1],z],[p[0],p[1],z],r,8)));
+  const rrect=(x0,y0,x1,y1,r)=>{const s=new THREE.Shape();s.moveTo(x0+r,y0);s.lineTo(x1-r,y0);s.quadraticCurveTo(x1,y0,x1,y0+r);s.lineTo(x1,y1-r);s.quadraticCurveTo(x1,y1,x1-r,y1);s.lineTo(x0+r,y1);s.quadraticCurveTo(x0,y1,x0,y1-r);s.lineTo(x0,y0+r);s.quadraticCurveTo(x0,y0,x0+r,y0);return s;};
 
-  const mf=mon.front,tf=tab.front,pf=pho.front;
-  const monScreen=mergeGeos([tile(-2.28,1.48,1.84,1.64,.03,mf),dashes(1.2,[-1.94,-1.60,-1.26],mf),
-    tile(-2.08,-.70,-1.28,.28,.08,mf),tile(-1.08,-.70,-.28,.28,.08,mf)]);
-  const tabScreen=mergeGeos([dashes(.51,[-.08,.26,.62],tf),
-    tile(.04,-.46,1.28,-.02,.08,tf),tile(.04,-1.14,1.28,-.70,.08,tf),tile(.04,-1.82,1.28,-1.38,.08,tf)]);
-  const phoScreen=mergeGeos([tile(1.56,-.22,2.02,-.08,.06,pf),limb([1.98,-.46,pf],[2.10,-.46,pf],.03,6),
-    tile(1.44,-.98,2.16,-.72,.06,pf),tile(1.44,-1.42,2.16,-1.16,.06,pf),tile(1.44,-1.86,2.16,-1.60,.06,pf)]);
-  const sparkles=mergeGeos([star(.10,2.22,.2,.4),star(2.40,.98,.2,.6),dot(-.39,2.14,.07,.4),dot(2.27,.62,.07,.6),dot(-2.07,-1.82,.07,.4),
-    limb([-1.55,-1.80,.4],[-1.55,-2.12,.4],.04,6),limb([-1.71,-1.96,.4],[-1.39,-1.96,.4],.04,6)]);
+  // laptop: screen bezel around the display, and a keyboard base in front
+  const LZ=.1;
+  const bezel=rrect(-2.2,-1.2,2.2,1.45,.18),display=rrect(-1.95,-.95,1.95,1.2,.08);
+  const base=new THREE.Shape();base.moveTo(-2.4,-1.32);base.lineTo(2.4,-1.32);base.lineTo(2.8,-1.75);
+  base.quadraticCurveTo(2.8,-1.88,2.62,-1.88);base.lineTo(-2.62,-1.88);base.quadraticCurveTo(-2.8,-1.88,-2.8,-1.75);base.lineTo(-2.4,-1.32);
+  const laptopFill=mergeGeos([face(display,LZ-.04),face(base,LZ)]);
+  const laptopRims=mergeGeos([rim(bezel,LZ),rim(display,LZ,.04),rim(base,LZ),line([[-.55,-1.72],[.55,-1.72]],LZ,.04)]);
+
+  // "</>" large on the display, raised so it glows on its own layer
+  const KZ=LZ+.2;
+  const code=mergeGeos([
+    line([[-.7,.62],[-1.35,.12],[-.7,-.38]],KZ,.1),
+    line([[.7,.62],[1.35,.12],[.7,-.38]],KZ,.1),
+    line([[.32,.82],[-.32,-.58]],KZ,.1)
+  ]);
+
+  // cloud above the laptop
+  const CY=2.95,cloud=new THREE.Shape();
+  cloud.moveTo(-1.25,CY-.62);cloud.lineTo(1.4,CY-.62);
+  cloud.absarc(1.4,CY-.05,.57,-90*D,100*D,false);
+  cloud.absarc(.12,CY+.34,.98,10*D,160*D,false);
+  cloud.absarc(-1.25,CY,.62,60*D,270*D,false);
+  const cloudFill=face(cloud,0),cloudRims=mergeGeos([rim(cloud,.06),rim(cloud,-.06,.035)]);
+
+  // data sync: an up arrow and a down arrow between the laptop and the cloud
+  const arrows=mergeGeos([
+    line([[-.5,1.62],[-.5,2.22]],.05,.08),line([[-.8,1.95],[-.5,2.25],[-.2,1.95]],.05,.08),   // upload
+    line([[.5,2.22],[.5,1.62]],.05,.08),line([[.2,1.89],[.5,1.59],[.8,1.89]],.05,.08)          // download
+  ]);
 
   return fit(byShares([
-    [mon.g,.15],[tab.g,.11],[pho.g,.08],[stand,.04],
-    [mergeGeos([mon.edges,tab.edges,pho.edges]),.26],
-    [monScreen,.13],[tabScreen,.11],[phoScreen,.08],[sparkles,.04]
-  ],n),7.8,[.16,-.38,0]);
+    [laptopFill,.05],[laptopRims,.33],[code,.24],
+    [cloudFill,.08],[cloudRims,.16],[arrows,.14]
+  ],n),7.2,[.1,-.24,0]);
 }
 
 /* ---------------- shaders ---------------- */
@@ -240,19 +310,22 @@ attribute float scale;
 attribute vec3 position2;
 attribute vec3 position3;
 attribute vec3 position4;
+attribute vec3 position5;
 attribute float delay;
 uniform float uTime;
 uniform vec2 uCursor;
 uniform vec4 uFrom;   // one-hot: which shape we are leaving
 uniform vec4 uTo;     // one-hot: which shape we are forming
+uniform float uFrom5; // 5th shape (IT Solutions) does not fit in the vec4s
+uniform float uTo5;
 uniform float uMorph; // 0..1 progress between them
 varying float vOpacity;
 varying float vScale;
 varying vec3 vPos;
 varying float vWave;
 void main(){
-  vec3 a=position*uFrom.x+position2*uFrom.y+position3*uFrom.z+position4*uFrom.w;
-  vec3 b=position*uTo.x+position2*uTo.y+position3*uTo.z+position4*uTo.w;
+  vec3 a=position*uFrom.x+position2*uFrom.y+position3*uFrom.z+position4*uFrom.w+position5*uFrom5;
+  vec3 b=position*uTo.x+position2*uTo.y+position3*uTo.z+position4*uTo.w+position5*uTo5;
 
   // each particle starts a little later than the last, so the shape flows apart instead of popping
   float m=clamp((uMorph-delay*.3)/.7,0.,1.);
@@ -340,17 +413,30 @@ void main(){
 
 // objects sit toward the right of the hero (clear of the text), but never past the right edge:
 // visible half-width at the resting camera distance (z 12, fov 60) minus the shape's half-size
+// phones: the headline sits at the bottom of the hero and the shape is centred in the open
+// space above it, sized to fit there completely (measured from the page, so it suits any phone)
+function placeShip(){
+  if(!ship)return;
+  if(!isMobile){ship.position.set(shipX(),0,0);ship.scale.setScalar(1);return;}
+  const content=hero.querySelector('.hero-content');
+  const top=content?content.getBoundingClientRect().top-hero.getBoundingClientRect().top:size.h*.55;
+  const free=Math.max(140,Math.min(size.h,top)-12);              // px above the headline
+  const unit=2*12*Math.tan(Math.PI/6)/size.h;                    // scene units per px at the resting camera
+  ship.position.set(0,(size.h/2-free/2)*unit,0);                 // centre of the free space
+  ship.scale.setScalar(Math.min(1,free*.7*unit/7.2));           // the shapes are ~7.2 units tall
+}
 function shipX(){
-  if(isMobile)return 1.5;
+  if(isMobile)return 0;
   const halfW=12*Math.tan(Math.PI/6)*(size.w/size.h);
   return Math.max(3,Math.min(6.5,halfW-4.4));
 }
 
 /* ---------------- scene ---------------- */
 const shared={
-  uOpacity:{value:isMobile?.5:1},uIntro:{value:0},uTime:{value:0},
+  uOpacity:{value:1},   // same brightness on phones as on desktop
+  uIntro:{value:0},uTime:{value:0},
   uCursor:{value:new THREE.Vector2()},uColorA:{value:PALETTE[0]},uColorB:{value:PALETTE[1]},
-  uFrom:{value:new THREE.Vector4(1,0,0,0)},uTo:{value:new THREE.Vector4(1,0,0,0)},uMorph:{value:0}
+  uFrom:{value:new THREE.Vector4(1,0,0,0)},uTo:{value:new THREE.Vector4(1,0,0,0)},uFrom5:{value:0},uTo5:{value:0},uMorph:{value:0}
 };
 const scene=new THREE.Scene();
 const size={w:1,h:1};
@@ -362,17 +448,17 @@ renderer.setClearColor(0x000000,1);
 const rtType=renderer.capabilities.isWebGL2?THREE.HalfFloatType:THREE.UnsignedByteType;
 const rt=new THREE.WebGLRenderTarget(1,1,{type:rtType});
 const post=new THREE.ShaderMaterial({
-  uniforms:{tDiffuse:{value:rt.texture},uTime:{value:0},uIntro:{value:0},uResolution:{value:new THREE.Vector2(1,1)},uSize:{value:300},dpr:{value:Math.min(devicePixelRatio,2)}},
+  uniforms:{tDiffuse:{value:rt.texture},uTime:{value:0},uIntro:{value:0},uResolution:{value:new THREE.Vector2(1,1)},uSize:{value:300},dpr:{value:Math.min(devicePixelRatio,1.5)}},
   vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}',
   fragmentShader:POST_FRAG,depthTest:false,depthWrite:false
 });
 const postScene=new THREE.Scene(),postCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
 postScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),post));
 
-// shapes: [position, position2, position3, position4] (pass the same array 4x for a static cloud)
+// shapes: [position .. position5] (pass the same array 5x for a static cloud)
 function makePoints(shapes,scaleMax,uniforms){
   const n=shapes[0].length/3,g=new THREE.BufferGeometry(),nrm=new Float32Array(n*3),v=new V3();
-  ['position','position2','position3','position4'].forEach((k,i)=>g.setAttribute(k,new THREE.BufferAttribute(shapes[i],3)));
+  ['position','position2','position3','position4','position5'].forEach((k,i)=>g.setAttribute(k,new THREE.BufferAttribute(shapes[i],3)));
   for(let i=0;i<n;i++){v.set(R()*2-1,R()*2-1,R()*2-1);if(!v.lengthSq())v.set(0,1,0);v.normalize();nrm.set([v.x,v.y,v.z],i*3);}
   g.setAttribute('normal',new THREE.BufferAttribute(nrm,3));
   g.setAttribute('opacity',new THREE.BufferAttribute(new Float32Array(n).fill(1),1));
@@ -383,14 +469,14 @@ function makePoints(shapes,scaleMax,uniforms){
 
 // ambient dust (never morphs, so it gets its own morph uniforms)
 const dustPos=Float32Array.from({length:700*3},()=>R()*20-10);
-const dust=makePoints([dustPos,dustPos,dustPos,dustPos],2,{...shared,uFrom:{value:new THREE.Vector4(1,0,0,0)},uTo:{value:new THREE.Vector4(1,0,0,0)},uMorph:{value:0}});
+const dust=makePoints([dustPos,dustPos,dustPos,dustPos,dustPos],2,{...shared,uFrom:{value:new THREE.Vector4(1,0,0,0)},uTo:{value:new THREE.Vector4(1,0,0,0)},uFrom5:{value:0},uTo5:{value:0},uMorph:{value:0}});
 scene.add(dust);
 
 // invisible plane the cursor ray hits (z = 1)
 const CURSOR_Z=1;
 const cursorPlane=new THREE.Plane(new V3(0,0,1),-CURSOR_Z);
 const raycaster=new THREE.Raycaster(),hit=new V3();
-const mouse=new THREE.Vector2(-.85,-.45);
+const mouse=isMobile?new THREE.Vector2(0,0):new THREE.Vector2(-.85,-.45);   // phones: straight-on view
 
 // soft disc that trails the cursor (desktop)
 let glow=null;
@@ -399,41 +485,49 @@ function glowTexture(){
   const g=x.createRadialGradient(128,128,0,128,128,128);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.7,'rgba(255,255,255,.9)');g.addColorStop(1,'rgba(255,255,255,0)');
   x.fillStyle=g;x.fillRect(0,0,256,256);return new THREE.CanvasTexture(c);
 }
-if(!isMobile){glow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTexture(),transparent:true,opacity:.15}));glow.scale.setScalar(0);scene.add(glow);}
+// soft glow under the pointer (desktop) or finger (touch, see touchstart below)
+glow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTexture(),transparent:true,opacity:.15}));glow.scale.setScalar(0);scene.add(glow);
 
 let ship=null;
 function buildRocket(){
-  const n=innerWidth>768?30000:15000;
-  // the rocket is shown first, so build only it now (fast first frame); the other three shapes are
+  const n=30000;   // same particle density on phones as on desktop
+  // the rocket is shown first, so build only it now (fast first frame); the other four shapes are
   // only needed at the first word change, so they are filled in right after the first frames
   const first=rocket(n);
-  ship=makePoints([first,first.slice(),first.slice(),first.slice()],1,shared);
-  ship.position.set(shipX(),0,0);
+  ship=makePoints([first,first.slice(),first.slice(),first.slice(),first.slice()],1,shared);
+  placeShip();
   scene.add(ship);
-  // same order as the rotating hero words: Smart Technology, Vehicle Tracking, Surveillance, Branding
-  const later=[['position2',vehicle],['position3',cctv],['position4',devices]];
+  // same order as the rotating hero words: Smart Technology, Vehicle Tracking, Surveillance, Branding, IT Solutions
+  const later=[['position2',vehicle],['position3',cctv],['position4',design],['position5',itSolutions]];
   const idle=window.requestIdleCallback||function(cb){return setTimeout(cb,60);};
-  (function next(){
+  // with the preloader on, build them while it shows the (static) name, not during its busy start
+  const waitMs=document.querySelector('.dm-preloader')?1700:0;
+  setTimeout(function next(){
     const job=later.shift();if(!job)return;
     idle(function(){
       const attr=ship.geometry.getAttribute(job[0]);
       attr.array.set(job[1](n));attr.needsUpdate=true;
       next();
     },{timeout:400});
-  })();
+  },waitMs);
 }
 
 function resize(){
-  isMobile=innerWidth<=768;size.w=hero.clientWidth||innerWidth;size.h=hero.clientHeight||innerHeight;
+  isMobile=innerWidth<=768;
+  // phones: the hero fills exactly the screen below the header + contact strip (their height
+  // varies), so the headline at its bottom is always in view (used by hero-rocket.css)
+  const heroTop=Math.round(hero.getBoundingClientRect().top+(window.scrollY||0));
+  if(hero.style.getPropertyValue('--hero-top')!==heroTop+'px')hero.style.setProperty('--hero-top',heroTop+'px');
+  size.w=hero.clientWidth||innerWidth;size.h=hero.clientHeight||innerHeight;
   camera.aspect=size.w/size.h;camera.updateProjectionMatrix();
-  const dpr=Math.min(devicePixelRatio,2);
+  const dpr=Math.min(devicePixelRatio,1.5);   // 2x drew 78% more pixels for little visible gain
   renderer.setPixelRatio(dpr);renderer.setSize(size.w,size.h,false);
   rt.setSize(Math.floor(size.w*dpr),Math.floor(size.h*dpr));
   post.uniforms.uResolution.value.set(size.w,size.h);post.uniforms.dpr.value=dpr;
   post.uniforms.uSize.value=size.w<540?40:size.w<768?80:size.w<1020?120:size.w<1400?200:300;
-  if(ship)ship.position.x=shipX();
+  placeShip();
 }
-addEventListener('resize',resize);if(window.ResizeObserver)new ResizeObserver(resize).observe(hero);resize();
+addEventListener('resize',resize);if(window.ResizeObserver){const hc=hero.querySelector('.hero-content');if(hc)new ResizeObserver(placeShip).observe(hc);}if(window.ResizeObserver)new ResizeObserver(resize).observe(hero);resize();
 
 
 hero.classList.add('has-rocket-animation');
@@ -450,47 +544,86 @@ hero.addEventListener('mousemove',e=>{
   mouse.x=2*(e.clientX-r.left)/r.width-1;mouse.y=-2*(e.clientY-r.top)/r.height+1;
   if(cursorEl){cursorEl.style.left=e.clientX+'px';cursorEl.style.top=e.clientY+'px';}
 });
+// touch screens: a finger on the hero acts like the desktop mouse - the camera follows it,
+// the particles are pushed away from it and the soft glow trails it while it is down
+function touchAt(t){
+  const r=hero.getBoundingClientRect();
+  mouse.x=2*(t.clientX-r.left)/r.width-1;mouse.y=-2*(t.clientY-r.top)/r.height+1;
+}
+hero.addEventListener('touchstart',e=>{if(e.touches[0]){touchAt(e.touches[0]);overHero=true;glowTarget=1;}},{passive:true});
+hero.addEventListener('touchmove',e=>{if(e.touches[0])touchAt(e.touches[0]);},{passive:true});
+// when the finger lifts, the camera eases back to the straight-on view
+hero.addEventListener('touchend',()=>{overHero=false;glowTarget=0;if(isMobile)mouse.set(0,0);},{passive:true});
+hero.addEventListener('touchcancel',()=>{overHero=false;glowTarget=0;if(isMobile)mouse.set(0,0);},{passive:true});
 hero.querySelectorAll('a,button').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cursorTarget=parseFloat(el.dataset.cursor)||100;glowTarget=0;});
   el.addEventListener('mouseleave',()=>{cursorTarget=16;glowTarget=overHero?1:0;});
 });
 
 /* ---------------- intro: fade the particles in while the camera flies in ---------------- */
-const introStart=performance.now()/1000;
-const easeOut4=x=>1-Math.pow(1-Math.min(1,Math.max(0,x)),4);
+// on the home page the intro waits for the preloader to finish (it fires 'dm:ready')
+let introStart=null;
+const startIntro=()=>{introStart=performance.now()/1000;};
+// starts the instant the preloader vanishes: particles fade in over 0.5s and the camera flies in over 0.8s
+// both with GSAP's Power4.easeOut (a quintic ease-out)
+if(document.documentElement.classList.contains('dm-loading'))document.addEventListener('dm:ready',startIntro,{once:true});
+else startIntro();
+const easeOut4=x=>1-Math.pow(1-Math.min(1,Math.max(0,x)),5);
 function intro(now){
-  const s=now-introStart;
-  // quick entrance: particles fade in and the camera flies in together, settled in ~1.6s
-  shared.uIntro.value=post.uniforms.uIntro.value=easeOut4(s/1.2);
-  camera.position.z=60-48*easeOut4(s/1.6);
+  const s=introStart===null?0:now-introStart;
+  shared.uIntro.value=post.uniforms.uIntro.value=easeOut4(s/.5);
+  camera.position.z=60-48*easeOut4(s/.8);
 }
 
 /* ---------------- shape follows the rotating hero word ----------------
    The words cycle with a CSS animation (heroWordCycle); we read its clock so the
    burst-and-reform always lands on the word change, even after the tab was hidden. */
 const firstWord=hero.querySelector('.hero-rotator > span');
-const SHAPES=4,HOT=[new THREE.Vector4(1,0,0,0),new THREE.Vector4(0,1,0,0),new THREE.Vector4(0,0,1,0),new THREE.Vector4(0,0,0,1)];
+// one-hot per shape: [vec4 for shapes 1-4, float for shape 5]
+const SHAPES=5,HOT=[[new THREE.Vector4(1,0,0,0),0],[new THREE.Vector4(0,1,0,0),0],[new THREE.Vector4(0,0,1,0),0],[new THREE.Vector4(0,0,0,1),0],[new THREE.Vector4(0,0,0,0),1]];
+let wordAnim=null,wordDur=0,wordSync=-1e9,wordBase=0,wordBaseAt=0,wordRunning=false;
 function wordClock(){
   if(!firstWord||!firstWord.getAnimations)return null;
-  const a=firstWord.getAnimations()[0],dur=parseFloat(getComputedStyle(firstWord).animationDuration);
-  if(!a||a.currentTime==null||!(dur>=1))return null; // reduced motion: words don't rotate
-  return {time:a.currentTime/1000,dur};
+  // reading the CSS animation's clock is costly (it can force a style recalculation), so read it
+  // once a second and run our own clock in between
+  const nowMs=performance.now();
+  if(nowMs-wordSync>1000){
+    wordSync=nowMs;
+    if(!wordAnim||wordAnim.playState==='idle'){
+      wordAnim=firstWord.getAnimations().find(x=>x.animationName==='heroWordCycle')||null;
+      wordDur=parseFloat(getComputedStyle(firstWord).animationDuration);
+    }
+    if(wordAnim&&wordAnim.currentTime!=null){
+      wordBase=wordAnim.currentTime;wordBaseAt=nowMs;wordRunning=wordAnim.playState==='running';
+    }
+  }
+  if(!wordAnim||!(wordDur>=1))return null; // reduced motion: words don't rotate
+  const ms=wordBase+(wordRunning?nowMs-wordBaseAt:0);
+  return {time:ms/1000,dur:wordDur};
 }
 function syncShape(){
   const c=wordClock();let from=0,to=0,f=0;
   if(c){
     // each word holds for dur/4 and swaps ~90% into its slot; a half-slot morph centred on that swap
-    const slot=c.dur/SHAPES,start=slot*.65,len=slot*.5;
+    // each word holds for 2.5s, then flips over 0.5s (2.5s-3.0s of its 3s turn, see heroWordCycle);
+    // the shapes burst apart and re-form in that same window, centred on the flip (2.4s-3.1s)
+    const slot=c.dur/SHAPES,start=slot*.8,len=slot*.2333;
     const q=((c.time-start)%c.dur+c.dur)%c.dur,k=Math.floor(q/slot),local=q-k*slot;
     if(local<len){from=k;to=(k+1)%SHAPES;f=local/len;}else{from=to=(k+1)%SHAPES;}
   }
-  shared.uFrom.value.copy(HOT[from]);shared.uTo.value.copy(HOT[to]);shared.uMorph.value=f;
+  shared.uFrom.value.copy(HOT[from][0]);shared.uFrom5.value=HOT[from][1];
+  shared.uTo.value.copy(HOT[to][0]);shared.uTo5.value=HOT[to][1];shared.uMorph.value=f;
 }
 
 /* ---------------- render loop (paused while the hero is off-screen) ---------------- */
-const clock=new THREE.Clock();let last=0,raf=0,visible=true;
+const clock=new THREE.Clock();let last=0,raf=0,visible=true,warmedUp=false;
 const lerp=(a,b,t)=>a+(b-a)*Math.min(1,t);
 function frame(){
+  // hidden under the preloader: skip the (costly) render, just keep the loop alive
+  // hidden under the preloader: draw just one warm-up frame (compiles the shaders now, so there is
+  // no hitch when the preloader vanishes), then skip the costly rendering until it has gone
+  if(document.documentElement.classList.contains('dm-loading')&&warmedUp){raf=requestAnimationFrame(frame);return;}
+  warmedUp=true;
   const t=clock.getElapsedTime(),dt=Math.min(.1,t-last);last=t;
   intro(performance.now()/1000);
   syncShape();

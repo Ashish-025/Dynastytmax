@@ -16,17 +16,22 @@
         });
         if (!ids.length) return;
 
+        // look everything up once (not on every scroll event)
+        var header = document.getElementById("siteHeader");
+        var sections = ids.map(function (id) { return document.getElementById(id); });
+        var lastActive = null;
+        var ticking = false;
+
         function update() {
-            var header = document.getElementById("siteHeader");
+            ticking = false;
             var line = (header ? header.offsetHeight : 0) + 8;
             var activeId = "";
 
-            ids.forEach(function (id) {
-                var section = document.getElementById(id);
-                if (section && section.getBoundingClientRect().top <= line) {
-                    activeId = id;
-                }
-            });
+            for (var i = 0; i < sections.length; i++) {
+                if (sections[i].getBoundingClientRect().top <= line) activeId = ids[i];
+            }
+            if (activeId === lastActive) return;      // nothing changed: leave the menu alone
+            lastActive = activeId;
 
             links.forEach(function (link) {
                 var active = link.getAttribute("data-scroll-section") === activeId;
@@ -34,8 +39,13 @@
             });
         }
 
-        window.addEventListener("scroll", update, { passive: true });
-        window.addEventListener("resize", update);
+        // at most one check per frame, however fast the scroll events arrive
+        function requestUpdate() {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }
+
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
         update();
     }
 

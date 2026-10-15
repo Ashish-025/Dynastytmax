@@ -1,5 +1,5 @@
 /* Footer office map: Google map screenshot of Odisha with four office pins.
-   Clicking the map opens Google Maps; each pin opens its town. Pin names show on hover. */
+   Hovering zooms in on the offices and shows their names; each office opens in Google Maps. */
 
 .dm-office-gmap {
     position: relative;
@@ -81,6 +81,29 @@
 [data-theme="dark"] .dm-office-pins .dot { fill: #f48c18; }
 [data-theme="dark"] .dm-office-pins a:hover rect { fill: #f48c18; }
 
+/* ---------- hover: zoom in on the office cluster ----------
+   Image and pins scale together around the offices + their labels
+   (region x 536-782, y 143-312 of 900x467, centred at 73% / 49%). */
+.dm-office-gmap-link img,
+.dm-office-pins {
+    transform-origin: 73.2% 48.8%;
+    transition: transform .6s cubic-bezier(.2, .8, .2, 1), filter .3s ease;
+}
+.dm-office-gmap:hover .dm-office-gmap-link img,
+.dm-office-gmap:hover .dm-office-pins,
+.dm-office-gmap:focus-within .dm-office-gmap-link img,
+.dm-office-gmap:focus-within .dm-office-pins { transform: scale(1.9); }
+
+/* while zoomed, every office name shows and is clickable */
+.dm-office-gmap:hover .dm-office-pins line,
+.dm-office-gmap:hover .dm-office-pins rect,
+.dm-office-gmap:hover .dm-office-pins text,
+.dm-office-gmap:focus-within .dm-office-pins line,
+.dm-office-gmap:focus-within .dm-office-pins rect,
+.dm-office-gmap:focus-within .dm-office-pins text { opacity: 1; pointer-events: auto; }
+
 @media (prefers-reduced-motion: reduce) {
     .dm-office-pins .ring { animation: none; opacity: 0; }
+    .dm-office-gmap-link img,
+    .dm-office-pins { transition: none; }
 }
