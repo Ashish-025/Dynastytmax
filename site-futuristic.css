@@ -480,8 +480,7 @@ body::after {
 .ssi-product-card:hover,
 .products-grid .product-card:hover { transform: var(--tilt, none) translateY(-5px); }
 
-/* animated light running around the card border (not on the Our Services cards) */
-.products-grid .product-card::before,
+/* animated light running around the card border (App page cards only) */
 .app-page .app-card::after {
     content: "";
     position: absolute;
@@ -498,7 +497,6 @@ body::after {
     animation: fxSpin 6s linear infinite;
     transition: opacity .35s ease;
 }
-.products-grid .product-card:hover::before,
 .app-page .app-card:hover::after { opacity: 1; animation-duration: 2.5s; }
 @keyframes fxSpin { to { --fx-angle: 360deg; } }
 
@@ -562,7 +560,7 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
     .dm-services::after, .ssi-services::after, .ssi-products::after, .products-section::after,
     .dm-services-heading h2, .ssi-section-heading h2, .products-intro h1, .contact-hero h1,
-    .dm-service-card::after, .products-grid .product-card::before, .app-page .app-card::after,
+    .app-page .app-card::after,
     .dm-service-icon { animation: none; }
     .fx-rise { opacity: 1; translate: none; transition: none; }
 }
