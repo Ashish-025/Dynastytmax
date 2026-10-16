@@ -1,7 +1,8 @@
 /*  Hero "recent clients" (home page, under "Smart Solutions for a Safer Tomorrow"):
-    a row of overlapping round client pictures with a "+N" count, and beside it who bought
-    which device and at what time. Every few seconds a new buyer pops in at the front of the
-    row (the last one drops off) and their purchase replaces the line. Pauses while hovered.
+    three overlapping round client pictures with a "+N" count, and beside it who bought which
+    device and at what time. Every few seconds the pictures slide sideways by one: the first
+    slides out on the left, a new buyer slides in on the right and their purchase replaces
+    the line. Pauses while hovered.
     Fills <div class="hero-buyers"> in index.html; styles in hero-buyers.css. */
 (function () {
     'use strict';
@@ -86,7 +87,7 @@
     if (!CLIENTS.length) { box.hidden = true; return; }
 
     // random order, never a client that is already in the row
-    var SHOWN = Math.min(5, CLIENTS.length);   // round pictures in the row
+    var SHOWN = Math.min(3, CLIENTS.length);   // round pictures on screen at a time
     var inRow = [];
     function pick() {
         var i;
@@ -94,10 +95,13 @@
         return i;
     }
 
-    // [overlapping round pictures] [+N]  [newest buyer: name, place, device, time]
+    // [3 overlapping round pictures, sliding sideways] [+N]  [newest buyer: name, place, device, time]
     var stack = document.createElement('div');
     stack.className = 'hb-stack';
     stack.setAttribute('aria-hidden', 'true');
+    var track = document.createElement('div');
+    track.className = 'hb-track';
+    stack.appendChild(track);
     var more = document.createElement('span');
     more.className = 'hb-more';
     more.textContent = CLIENTS.length > SHOWN ? '+' + (CLIENTS.length - SHOWN) : '';
@@ -119,13 +123,13 @@
     for (var k = 0; k < SHOWN; k++) {
         var i0 = pick();
         inRow.push(i0);
-        stack.appendChild(face(CLIENTS[i0], i0));
+        track.appendChild(face(CLIENTS[i0], i0));
     }
-    stack.firstChild.classList.add('is-latest');
-    detail(inRow[0], false);
+    track.lastChild.classList.add('is-latest');
+    detail(inRow[inRow.length - 1], false);
 
-    // a new buyer pops in at the front of the row, the last one drops off the end,
-    // and the newest buyer's purchase replaces the line beside the row
+    // side movement: the row slides one picture to the left - the first one slides out on the
+    // left while a new buyer slides in on the right, and their purchase replaces the line
     var busy = false;
     function step() {
         if (busy) return;
@@ -133,18 +137,25 @@
         var i = pick();
         var f = face(CLIENTS[i], i);
         f.classList.add('is-new');
-        var prev = stack.querySelector('.is-latest');
+        var prev = track.querySelector('.is-latest');
         if (prev) prev.classList.remove('is-latest');
-        stack.insertBefore(f, stack.firstChild);
+        track.appendChild(f);
+        var stride = f.getBoundingClientRect().left - prev.getBoundingClientRect().left;
         void f.offsetWidth;
         f.classList.remove('is-new');
         f.classList.add('is-latest');
-        var gone = stack.lastChild;
-        gone.classList.add('is-gone');
-        inRow.unshift(i);
-        inRow.pop();
+        track.firstChild.classList.add('is-gone');
+        track.classList.add('is-moving');
+        track.style.transform = 'translateX(' + (-stride) + 'px)';
+        inRow.push(i);
+        inRow.shift();
         detail(i, true);
-        setTimeout(function () { gone.remove(); busy = false; }, 650);
+        setTimeout(function () {
+            track.classList.remove('is-moving');
+            track.removeChild(track.firstChild);
+            track.style.transform = '';
+            busy = false;
+        }, 650);
     }
 
     var timer = 0;
