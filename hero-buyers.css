@@ -1,5 +1,5 @@
 /* Hero "recent clients" - three overlapping round client pictures (white rings, bright
-   colours) with a "+N" count, and beside them the newest buyer: who bought which device and
+   colours), and beside them the newest buyer: who bought which device and
    at what time. Every few seconds the pictures slide sideways by one - the first slides out on
    the left, a new buyer slides in on the right - and the purchase line swaps (hero-buyers.js).
    The hero is dark in both themes, so one look serves both. */
@@ -61,14 +61,6 @@
 .hb-face.is-new { opacity: 0; transition: none; }      /* slides in from the right as it appears */
 .hb-face.is-gone { opacity: 0; }                       /* slides out on the left as it fades */
 
-.hb-more {
-    flex: 0 0 auto;
-    margin-left: 6px;
-    color: rgba(255, 255, 255, .8);
-    font-size: 14px;
-    font-weight: 700;
-}
-
 /* the newest buyer's purchase */
 .hb-info {
     position: relative;
@@ -108,7 +100,6 @@ html:not([data-theme="dark"]) .hb-what b { color: #ff4d57; }
 @media (max-width: 600px) {
     .hero-buyers { --hb-size: 32px; --hb-over: 9px; --hb-ring: 2px; height: 46px; margin-top: 18px; }
     .hb-face { font-size: 10.5px; }
-    .hb-more { margin-left: 4px; font-size: 12px; }
     .hb-info { margin-left: 10px; padding-left: 10px; }
     .hb-line { left: 10px; font-size: 11px; }
 }

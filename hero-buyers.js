@@ -1,5 +1,5 @@
 /*  Hero "recent clients" (home page, under "Smart Solutions for a Safer Tomorrow"):
-    three overlapping round client pictures with a "+N" count, and beside it who bought which
+    three overlapping round client pictures, and beside them who bought which
     device and at what time. Every few seconds the pictures slide sideways by one: the first
     slides out on the left, a new buyer slides in on the right and their purchase replaces
     the line. Pauses while hovered.
@@ -95,20 +95,17 @@
         return i;
     }
 
-    // [3 overlapping round pictures, sliding sideways] [+N]  [newest buyer: name, place, device, time]
+    // [3 overlapping round pictures, sliding sideways]  [newest buyer: name, place, device, time]
     var stack = document.createElement('div');
     stack.className = 'hb-stack';
     stack.setAttribute('aria-hidden', 'true');
     var track = document.createElement('div');
     track.className = 'hb-track';
     stack.appendChild(track);
-    var more = document.createElement('span');
-    more.className = 'hb-more';
-    more.textContent = CLIENTS.length > SHOWN ? '+' + (CLIENTS.length - SHOWN) : '';
     var info = document.createElement('div');
     info.className = 'hb-info';
     info.setAttribute('aria-live', 'polite');
-    box.appendChild(stack); box.appendChild(more); box.appendChild(info);
+    box.appendChild(stack); box.appendChild(info);
 
     function detail(i, animate) {
         var old = info.querySelector('.hb-line:not(.is-out)');
