@@ -1,5 +1,5 @@
 /* Page preloader (home page), like usta.agency - see preloader.js:
-     a white screen (black in the dark theme) with a small, thin, wide-spaced "DYNASTYMAX 0%" counting to 100%,
+     a black screen with a small, thin, wide-spaced "DYNASTYMAX 0%" counting to 100%,
      then the letters drop away one after another and the page's intro starts.
    Only shown while <html> has .dm-loading (set by an inline head script), so the
    page is never blocked if JavaScript is off. */
@@ -21,7 +21,7 @@ html.dm-loading .dm-preloader,
     align-items: center;
     justify-content: center;
     padding: 40px 0;
-    background: #fff;
+    background: #000;
     transition: opacity .35s ease;
 }
 .dm-preloader.is-gone { opacity: 0; pointer-events: none; }
@@ -30,19 +30,14 @@ html.dm-loading .dm-preloader,
 .dm-pl-load {
     display: flex;
     align-items: baseline;
-    color: #111;
-    font: 300 20px/1 Montserrat, Arial, sans-serif;
+    color: #fff;
+    font: 200 20px/1 Montserrat, Arial, sans-serif;
     letter-spacing: 4px;
     white-space: nowrap;
 }
 .dm-pl-name { margin-right: .5em; }
 .dm-pl-name em { font-style: normal; color: #e91d2b; }
 .dm-pl-count { font-variant-numeric: tabular-nums; }
-
-/* dark theme: black screen, white letters */
-html[data-theme="dark"].dm-loading .dm-preloader,
-html[data-theme="dark"] .dm-preloader.is-leaving { background: #000; }
-html[data-theme="dark"] .dm-pl-load { color: #fff; font-weight: 200; }
 
 /* exit: every letter falls 200px and fades, one after another (delays set in preloader.js) */
 .dm-pl-ch {
