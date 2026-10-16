@@ -1,7 +1,7 @@
 /*  Hero "recent clients" slider (home page, under "Smart Solutions for a Safer Tomorrow"):
     a small round client picture + who bought which device and at what time. One client on
-    screen at a time: every few seconds it slides out to the left as the next slides in from
-    the right. Pauses while hovered.
+    screen at a time: its picture slides in first, then the purchase details slide out from
+    behind it; then it leaves and the next client comes in the same way. Pauses while hovered.
     Fills <div class="hero-buyers"> in index.html; styles in hero-buyers.css. */
 (function () {
     'use strict';
@@ -33,7 +33,7 @@
         { name: 'Ritu N.', place: 'Balasore', device: 'GT800 Tracker', ago: 19 },
         { name: 'Suresh P.', place: 'Jharsuguda', device: 'Fire Suppression (FDSS)', ago: 210 }
     ];
-    var EVERY_MS = 3500;         // a new message every 3.5 seconds
+    var EVERY_MS = 4200;         // a new client every 4.2 seconds
 
     var GRADS = [['#f48c18', '#e91d2b'], ['#4089dd', '#2c5fb3'], ['#e91d2b', '#9b1220'], ['#2fa8a0', '#4089dd'], ['#f4b018', '#f48c18']];
 
@@ -106,29 +106,27 @@
         return i;
     }
 
-    // one client on screen at a time, the next one waiting just off to the right.
-    // Each step the row slides one place left: the current client slides out to the left as
-    // the next slides in from the right - then another client is queued behind it.
-    var track = document.createElement('div');
-    track.className = 'hb-track';
-    box.appendChild(track);
-    track.appendChild(item(pick()));
-    track.appendChild(item(pick()));
-    var busy = false;
-    function step() {
-        if (busy) return;
-        busy = true;
-        track.appendChild(item(pick()));
-        track.classList.add('is-moving');
-        // slide by exactly one client's width (set in hero-buyers.css, wider on phones)
-        track.style.transform = 'translateX(' + (-track.firstChild.getBoundingClientRect().width) + 'px)';
-        setTimeout(function () {
-            track.classList.remove('is-moving');
-            track.removeChild(track.firstChild);
-            track.style.transform = '';
-            busy = false;
-        }, 650);
+    // one client at a time, in two stages: first the round picture slides in from the
+    // right, then the purchase details slide out from behind it. When it is time to change,
+    // the details tuck back into the picture, the picture slides off to the left, and the
+    // next client's picture comes in. Timings live in hero-buyers.css.
+    var current = null, busy = false;
+    function show() {
+        var it = item(pick());
+        box.appendChild(it);
+        void it.offsetWidth;                 // start from the off-screen pose
+        it.classList.add('is-in');
+        current = it;
     }
+    function step() {
+        if (busy || !current) return;
+        busy = true;
+        var old = current;
+        old.classList.add('is-out');         // details tuck in, then the picture slides away
+        setTimeout(show, 650);               // the next picture follows it in
+        setTimeout(function () { old.remove(); busy = false; }, 1300);
+    }
+    show();
 
     var timer = 0;
     function start() { clearInterval(timer); timer = setInterval(step, EVERY_MS); }
