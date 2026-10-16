@@ -296,3 +296,7 @@ html .dm-cta .dm-cta-btn { height: 46px; }
     html .dm-cta .dm-cta-inner { padding-left: 36px; }
     html .dm-cta .dm-cta-text p { font-size: 12.5px; }
 }
+/* a little wider (taller) pill: more room above and below the content */
+@media (min-width: 1101px) {
+    html .dm-cta .dm-cta-inner { padding-top: 26px; padding-bottom: 26px; }
+}
