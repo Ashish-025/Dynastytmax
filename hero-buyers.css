@@ -1,65 +1,90 @@
-/* Hero "recent clients" - small round client picture + who bought which device and at what
-   time. One client at a time, in two stages (hero-buyers.js): the picture slides in from the
-   right first, then the purchase details slide out from behind it. To leave, the details tuck
-   back into the picture and the picture slides off to the left; the next one follows.
+/* Hero "recent clients" - a row of overlapping round client pictures (white rings, bright
+   colours) with a "+N" count, and beside it the newest buyer: who bought which device and at
+   what time. Every few seconds a new buyer pops in at the front of the row and the last one
+   drops off; the purchase line swaps with it (hero-buyers.js).
    The hero is dark in both themes, so one look serves both. */
 .hero-buyers {
-    position: relative;
-    width: min(440px, 100%);
-    height: 50px;                          /* fixed: the page never jumps */
+    display: flex;
+    align-items: center;
+    width: min(480px, 100%);
+    height: 52px;                          /* fixed: the page never jumps */
     margin-top: 24px;
-    overflow: hidden;
     color: #fff;
     font-family: Montserrat, Arial, sans-serif;
 }
 
-.hb-item {
-    position: absolute;
-    inset: 0;
+/* overlapping pictures */
+.hb-stack {
     display: flex;
+    flex: 0 0 auto;
     align-items: center;
-    gap: 12px;
-    min-width: 0;
-    padding: 0 16px 0 4px;                 /* left: room for the picture's ring */
-    box-sizing: border-box;
-    pointer-events: none;
+    padding-left: 12px;                    /* every picture overlaps the one before by 12px */
 }
-
-/* round picture (initials when no photo is given) */
 .hb-face {
     position: relative;
-    z-index: 1;                            /* the details slide out from behind it */
     display: grid;
     flex: 0 0 auto;
     place-items: center;
     width: 40px;
     height: 40px;
+    margin-left: -12px;
     overflow: hidden;
+    box-sizing: border-box;
+    border: 3px solid #fff;
     border-radius: 50%;
-    box-shadow: 0 0 0 2px rgba(244, 140, 24, .85);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .28);
     color: #fff;
     font: 700 13px/1 Montserrat, Arial, sans-serif;
     letter-spacing: .02em;
-    /* stage 0: waiting off to the right */
-    opacity: 0;
-    transform: translateX(380px) rotate(200deg);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+    transition: margin-left .55s cubic-bezier(.2, .8, .25, 1), transform .55s cubic-bezier(.2, .8, .25, 1), opacity .45s ease;
 }
 .hb-face img { width: 100%; height: 100%; object-fit: cover; }
+.hb-face:hover { z-index: 6; transform: translateY(-3px); }
 
-.hb-line {
-    margin: 0;
+/* the newest buyer sits on top with an orange ring */
+.hb-face.is-latest { z-index: 5; box-shadow: 0 0 0 2px #f48c18, 0 4px 14px rgba(0, 0, 0, .35); }
+/* arriving: grows in from nothing at the front ... */
+.hb-face.is-new { margin-left: -52px; opacity: 0; transform: scale(.2); transition: none; }
+/* ... while the last one shrinks away at the end */
+.hb-face.is-gone { margin-left: -52px; opacity: 0; transform: scale(.2); }
+
+.hb-more {
+    flex: 0 0 auto;
+    margin-left: 10px;
+    color: rgba(255, 255, 255, .8);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* the newest buyer's purchase */
+.hb-info {
+    position: relative;
+    flex: 1 1 auto;
     min-width: 0;
+    height: 100%;
+    margin-left: 14px;
+    padding-left: 14px;
+    border-left: 1px solid rgba(255, 255, 255, .18);
+    overflow: hidden;
+}
+.hb-line {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    right: 0;
+    margin: 0;
     font-size: 13px;
     line-height: 1.35;
     color: rgba(255, 255, 255, .78);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* stage 0: hidden behind the picture */
-    opacity: 0;
-    transform: translateX(-36px);
-    clip-path: inset(0 100% 0 0);
+    transform: translateY(-50%);
+    transition: transform .5s cubic-bezier(.2, .8, .25, 1), opacity .4s ease;
 }
+.hb-line.is-new { opacity: 0; transform: translateY(10%); transition: none; }
+.hb-line.is-out { opacity: 0; transform: translateY(-110%); }
 .hb-line strong { color: #fff; font-weight: 700; }
 .hb-what { display: block; overflow: hidden; text-overflow: ellipsis; }
 .hb-what b { color: #f48c18; font-weight: 700; }
@@ -67,39 +92,19 @@
 /* light theme: the product name in the site red, like the hero's rotating word */
 html:not([data-theme="dark"]) .hb-what b { color: #ff4d57; }
 
-/* stage 1: the picture rolls in ... */
-.hb-item.is-in .hb-face {
-    opacity: 1;
-    transform: none;
-    transition: transform .7s cubic-bezier(.2, .8, .25, 1), opacity .35s ease;
-}
-/* ... stage 2: then the details slide out from behind it */
-.hb-item.is-in .hb-line {
-    opacity: 1;
-    transform: none;
-    clip-path: inset(0 0 0 0);
-    transition: transform .55s cubic-bezier(.2, .8, .25, 1) .65s, clip-path .55s cubic-bezier(.2, .8, .25, 1) .65s, opacity .3s ease .65s;
-}
-
-/* leaving: the details tuck back in first, then the picture slides off to the left */
-.hb-item.is-out .hb-line {
-    opacity: 0;
-    transform: translateX(-36px);
-    clip-path: inset(0 100% 0 0);
-    transition: transform .4s ease-in, clip-path .4s ease-in, opacity .3s ease .1s;
-}
-.hb-item.is-out .hb-face {
-    opacity: 0;
-    transform: translateX(-70px) rotate(-120deg);
-    transition: transform .5s cubic-bezier(.5, 0, .75, 0) .35s, opacity .35s ease .5s;
-}
-
 @media (max-width: 600px) {
     .hero-buyers { height: 46px; margin-top: 18px; }
-    .hb-face { width: 34px; height: 34px; font-size: 11px; transform: translateX(300px) rotate(200deg); }
-    .hb-line { font-size: 11.5px; }
-    .hb-item { gap: 9px; padding-right: 12px; }
+    .hb-stack { padding-left: 9px; }
+    .hb-face { width: 32px; height: 32px; margin-left: -9px; border-width: 2px; font-size: 10.5px; }
+    .hb-face.is-new, .hb-face.is-gone { margin-left: -41px; }
+    .hb-more { margin-left: 7px; font-size: 12px; }
+    .hb-info { margin-left: 10px; padding-left: 10px; }
+    .hb-line { left: 10px; font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .hb-item .hb-face, .hb-item .hb-line { transition: opacity .3s ease !important; transform: none !important; clip-path: none !important; }
+    .hb-face, .hb-line { transition: opacity .3s ease !important; }
 }
+
+/* the row keeps a fixed width (5 pictures) so the "+N" and the purchase line never twitch during a swap */
+.hb-stack { width: 152px; box-sizing: border-box; }
+@media (max-width: 600px) { .hb-stack { width: 124px; } }

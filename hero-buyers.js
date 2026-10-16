@@ -1,7 +1,7 @@
-/*  Hero "recent clients" slider (home page, under "Smart Solutions for a Safer Tomorrow"):
-    a small round client picture + who bought which device and at what time. One client on
-    screen at a time: its picture slides in first, then the purchase details slide out from
-    behind it; then it leaves and the next client comes in the same way. Pauses while hovered.
+/*  Hero "recent clients" (home page, under "Smart Solutions for a Safer Tomorrow"):
+    a row of overlapping round client pictures with a "+N" count, and beside it who bought
+    which device and at what time. Every few seconds a new buyer pops in at the front of the
+    row (the last one drops off) and their purchase replaces the line. Pauses while hovered.
     Fills <div class="hero-buyers"> in index.html; styles in hero-buyers.css. */
 (function () {
     'use strict';
@@ -33,9 +33,9 @@
         { name: 'Ritu N.', place: 'Balasore', device: 'GT800 Tracker', ago: 19 },
         { name: 'Suresh P.', place: 'Jharsuguda', device: 'Fire Suppression (FDSS)', ago: 210 }
     ];
-    var EVERY_MS = 4200;         // a new client every 4.2 seconds
+    var EVERY_MS = 3800;         // a new buyer every 3.8 seconds
 
-    var GRADS = [['#f48c18', '#e91d2b'], ['#4089dd', '#2c5fb3'], ['#e91d2b', '#9b1220'], ['#2fa8a0', '#4089dd'], ['#f4b018', '#f48c18']];
+    var GRADS = [['#a855f7', '#7c3aed'], ['#38bdf8', '#0ea5e9'], ['#fb7185', '#e11d48'], ['#2dd4bf', '#0d9488'], ['#fbbf24', '#f59e0b'], ['#f48c18', '#e91d2b'], ['#60a5fa', '#2563eb']];
 
     function initials(name) {
         return name.replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase();
@@ -85,48 +85,67 @@
 
     if (!CLIENTS.length) { box.hidden = true; return; }
 
-    // one entry = round picture + message
-    function item(i) {
-        var it = document.createElement('div');
-        it.className = 'hb-item';
-        var f = face(CLIENTS[i], i);
-        f.setAttribute('aria-hidden', 'true');
-        it.appendChild(f);
-        it.appendChild(line(CLIENTS[i]));
-        return it;
-    }
-
-    // random order, never a client that is already on screen
-    var recent = [];
+    // random order, never a client that is already in the row
+    var SHOWN = Math.min(5, CLIENTS.length);   // round pictures in the row
+    var inRow = [];
     function pick() {
-        var keep = Math.min(2, CLIENTS.length - 1), i;
-        do { i = Math.floor(Math.random() * CLIENTS.length); } while (recent.indexOf(i) > -1);
-        recent.unshift(i);
-        recent.length = Math.min(recent.length, keep);
+        var i;
+        do { i = Math.floor(Math.random() * CLIENTS.length); } while (inRow.indexOf(i) > -1 && CLIENTS.length > SHOWN);
         return i;
     }
 
-    // one client at a time, in two stages: first the round picture slides in from the
-    // right, then the purchase details slide out from behind it. When it is time to change,
-    // the details tuck back into the picture, the picture slides off to the left, and the
-    // next client's picture comes in. Timings live in hero-buyers.css.
-    var current = null, busy = false;
-    function show() {
-        var it = item(pick());
-        box.appendChild(it);
-        void it.offsetWidth;                 // start from the off-screen pose
-        it.classList.add('is-in');
-        current = it;
+    // [overlapping round pictures] [+N]  [newest buyer: name, place, device, time]
+    var stack = document.createElement('div');
+    stack.className = 'hb-stack';
+    stack.setAttribute('aria-hidden', 'true');
+    var more = document.createElement('span');
+    more.className = 'hb-more';
+    more.textContent = CLIENTS.length > SHOWN ? '+' + (CLIENTS.length - SHOWN) : '';
+    var info = document.createElement('div');
+    info.className = 'hb-info';
+    info.setAttribute('aria-live', 'polite');
+    box.appendChild(stack); box.appendChild(more); box.appendChild(info);
+
+    function detail(i, animate) {
+        var old = info.querySelector('.hb-line:not(.is-out)');
+        var el = line(CLIENTS[i]);
+        info.appendChild(el);
+        if (!animate) return;
+        el.classList.add('is-new');
+        void el.offsetWidth;
+        el.classList.remove('is-new');
+        if (old) { old.classList.add('is-out'); setTimeout(function () { old.remove(); }, 600); }
     }
+    for (var k = 0; k < SHOWN; k++) {
+        var i0 = pick();
+        inRow.push(i0);
+        stack.appendChild(face(CLIENTS[i0], i0));
+    }
+    stack.firstChild.classList.add('is-latest');
+    detail(inRow[0], false);
+
+    // a new buyer pops in at the front of the row, the last one drops off the end,
+    // and the newest buyer's purchase replaces the line beside the row
+    var busy = false;
     function step() {
-        if (busy || !current) return;
+        if (busy) return;
         busy = true;
-        var old = current;
-        old.classList.add('is-out');         // details tuck in, then the picture slides away
-        setTimeout(show, 650);               // the next picture follows it in
-        setTimeout(function () { old.remove(); busy = false; }, 1300);
+        var i = pick();
+        var f = face(CLIENTS[i], i);
+        f.classList.add('is-new');
+        var prev = stack.querySelector('.is-latest');
+        if (prev) prev.classList.remove('is-latest');
+        stack.insertBefore(f, stack.firstChild);
+        void f.offsetWidth;
+        f.classList.remove('is-new');
+        f.classList.add('is-latest');
+        var gone = stack.lastChild;
+        gone.classList.add('is-gone');
+        inRow.unshift(i);
+        inRow.pop();
+        detail(i, true);
+        setTimeout(function () { gone.remove(); busy = false; }, 650);
     }
-    show();
 
     var timer = 0;
     function start() { clearInterval(timer); timer = setInterval(step, EVERY_MS); }
