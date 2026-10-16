@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script>(function(){try{var t=localStorage.getItem("dm-theme");document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){document.documentElement.setAttribute("data-theme","light")}})();</script>
+    <script>(function(){try{localStorage.removeItem("dm-theme");var t=sessionStorage.getItem("dm-theme");document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){document.documentElement.setAttribute("data-theme","light")}})();</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Download the Dynasty Max mobile app for Android and iPhone.">
     <title>Our App | Dynasty Max</title>

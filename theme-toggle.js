@@ -1,5 +1,7 @@
 /*  Light / dark theme switch (moon = dark, sun = light).
-    - The saved choice is applied in <head> by a tiny inline script (no flash on load).
+    - Every new visit starts in the light theme. A switch to dark is kept only while the visitor
+      moves between pages in the same tab (sessionStorage), applied in <head> by a tiny inline
+      script (no flash on load).
     - This file adds the round toggle button to the header (or a floating one if a page has no header),
       remembers the choice, and switches with a circular reveal from the button where supported.
     - Other scripts can listen for the "dm-themechange" event on window. */
@@ -15,7 +17,7 @@
         root.setAttribute('data-theme', theme);
         // light = original white/red site: switch the futuristic stylesheets off
         document.querySelectorAll('link[data-theme-css="dark"]').forEach(function (l) { l.media = theme === 'light' ? 'not all' : 'all'; });
-        try { localStorage.setItem(KEY, theme); } catch (e) { /* private mode: still switches for this visit */ }
+        try { sessionStorage.setItem(KEY, theme); } catch (e) { /* private mode: still switches for this page */ }
         buttons.forEach(function (b) {
             b.setAttribute('aria-pressed', String(theme === 'light'));
             b.setAttribute('aria-label', theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
