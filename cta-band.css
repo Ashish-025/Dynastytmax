@@ -305,3 +305,6 @@ html .dm-cta .dm-cta-actions { gap: 24px; }
 @media (min-width: 1340px) and (max-width: 1439px) {
     html .dm-cta .dm-cta-inner { column-gap: 14px; }   /* keeps the wider button spacing on one line */
 }
+/* wider pill: nearly edge to edge (16px from the screen edges), up to 1600px */
+html .dm-cta.dm-cta { padding-left: 16px; padding-right: 16px; }
+html .dm-cta .dm-cta-inner { max-width: 1600px; }
