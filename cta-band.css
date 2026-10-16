@@ -308,3 +308,9 @@ html .dm-cta .dm-cta-actions { gap: 24px; }
 /* wider pill: nearly edge to edge (16px from the screen edges), up to 1600px */
 html .dm-cta.dm-cta { padding-left: 16px; padding-right: 16px; }
 html .dm-cta .dm-cta-inner { max-width: 1600px; }
+/* card shape (like the reference strip): softly rounded rectangle, white, hairline border, faint shadow */
+html .dm-cta .dm-cta-inner { border-radius: 18px; background: #fff; border: 1px solid #ececec; box-shadow: 0 2px 10px rgba(16,24,39,.05); }
+html[data-theme="dark"] .dm-cta .dm-cta-inner { border-radius: 18px; background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.1); box-shadow: 0 2px 14px rgba(0,0,0,.35); }
+@media (max-width:1100px){ html .dm-cta .dm-cta-inner, html[data-theme="dark"] .dm-cta .dm-cta-inner { border-radius: 16px; } }
+@media (max-width:600px){ html .dm-cta .dm-cta-actions { gap: 10px; } }
+@media (max-width:600px){ html .dm-cta .dm-cta-actions { flex: 1 1 100%; flex-wrap: wrap; min-width: 0; } }
