@@ -498,7 +498,7 @@
 
             resizeTimer = setTimeout(function () {
 
-                if (window.innerWidth > 850) {
+                if (window.innerWidth > 960) {
 
                     if (mobileNav) {
                         mobileNav.classList.remove("active");

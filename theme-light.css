@@ -58,7 +58,7 @@
     backdrop-filter: blur(10px);
 }
 
-@media (max-width: 850px) {
+@media (max-width: 960px) {
     .theme-toggle { width: 38px; height: 38px; flex-basis: 38px; margin-right: 8px; }
 }
 

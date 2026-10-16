@@ -194,3 +194,27 @@ html[data-theme="dark"] .products-section { background: transparent; }
    GPS cards -> Mobility & Vehicle (vehicles, blue), CCTV -> Security (blue),
    Branding / Software / Social Media / SEO -> Digital Branding (business, purple) */
 .logo-marquee .dm-product-card:not(:hover) .dm-card-image { background-image: var(--photo); }
+
+/* =========================================================
+   3 CARDS AT A TIME: the row is as wide as the Our Services card grid above it
+   (max 1280px, same side margins) and each card is a third of it - so the row shows
+   three cards lined up with the three Services cards (2 on tablets, 1 on phones).
+   Only a thin soft fade at the two edges, so all three cards are clear.
+========================================================= */
+.logo-marquee {
+    --pm-row: min(1280px, calc(100vw - 2 * clamp(16px, 5.6vw, 80px)));
+    --pm-gap: 4px;                                    /* = the card's margin-right */
+    --pm-cols: 3;
+    width: var(--pm-row);
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 2.5%, #000 97.5%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 2.5%, #000 97.5%, transparent 100%);
+}
+.logo-marquee .dm-product-card {
+    flex: 0 0 calc((var(--pm-row) - (var(--pm-cols) - 1) * var(--pm-gap)) / var(--pm-cols));
+    width: calc((var(--pm-row) - (var(--pm-cols) - 1) * var(--pm-gap)) / var(--pm-cols));
+    margin-right: var(--pm-gap);
+}
+@media (max-width: 1023px) { .logo-marquee { --pm-cols: 2; } }
+@media (max-width: 640px)  { .logo-marquee { --pm-cols: 1; } }

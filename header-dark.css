@@ -149,7 +149,7 @@
     .app-button { height: 36px; padding: 0 12px; }
 }
 
-@media (max-width: 850px) {
+@media (max-width: 960px) {
     :root { --hdr-h: 58px; }
     .site-header, .header-container { height: var(--hdr-h); }
     .logo { width: auto; height: auto; }
