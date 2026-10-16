@@ -262,3 +262,22 @@ html[data-theme="dark"] .dm-cta .dm-cta-inner {
 /* in the pill: text on the left, buttons on the right, on one line where there is room */
 html .dm-cta .dm-cta-actions { margin-right: 0; flex: 0 0 auto; }
 html .dm-cta .dm-cta-text { flex: 1 1 440px; }
+
+/* slimmer, longer pill with a clear drop shadow (desktop); phones keep the rounded card */
+html .dm-cta .dm-cta-inner {
+    max-width: 1440px;
+    padding: 16px 20px 16px clamp(28px, 4vw, 52px);
+    box-shadow: 0 18px 40px rgba(16, 24, 39, .16), 0 4px 12px rgba(16, 24, 39, .08);
+}
+html[data-theme="dark"] .dm-cta .dm-cta-inner { box-shadow: 0 18px 44px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .04); }
+html .dm-cta.dm-cta { padding-left: clamp(12px, 2.4vw, 32px); padding-right: clamp(12px, 2.4vw, 32px); }
+html .dm-cta .dm-cta-text h2 { margin-bottom: 4px; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.2; }
+html .dm-cta .dm-cta-text p { font-size: 14px; line-height: 1.5; }
+html .dm-cta .dm-cta-btn { height: 46px; }
+@media (max-width: 1100px) {
+    html .dm-cta .dm-cta-inner { padding: 22px 28px; }
+}
+@media (max-width: 600px) {
+    html .dm-cta .dm-cta-inner { padding: 22px 20px; }
+    html .dm-cta .dm-cta-btn { height: 38px; }
+}
