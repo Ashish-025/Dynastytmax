@@ -252,3 +252,43 @@ html[data-theme="dark"] :is(.logo-text strong, .dm-logo span) {
    the grey login panel and the light query form; no glass, no orbit light, no scroll-in fade */
 html[data-theme="dark"] #dm-projects .dm-i3ms-layout .fx-rise { opacity: 1; translate: none; transition: none; }
 html[data-theme="dark"] #dm-projects .dm-i3ms-layout { font-family: "Segoe UI", "Segoe UI Web", "Open Sans", Tahoma, sans-serif !important; }
+
+/* "Our Journey So Far": the whole section (heading + stats) sits in the same rounded band as
+   "Let's Build Your Success Story" - faint white tint, hairline border, blur, soft shadow, 16px from the edges */
+html[data-theme="dark"] body .achievements-section {
+    position: relative;
+    isolation: isolate;
+    padding: 70px 48px 62px !important;
+}
+html[data-theme="dark"] body .achievements-section::before {
+    content: "";
+    display: block !important;
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: max(16px, calc((100% - 1600px) / 2));
+    right: max(16px, calc((100% - 1600px) / 2));
+    z-index: -1;
+    height: auto;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .04);
+    -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+    box-shadow: 0 2px 14px rgba(0, 0, 0, .35);
+    animation: none;
+    opacity: 1;
+    transform: none;
+}
+/* no second box inside the band: the stat cards sit straight on it */
+html[data-theme="dark"] body .achievements-section .achievements-container {
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+    padding: 6px 0 0 !important;
+}
+@media (max-width: 600px) {
+    html[data-theme="dark"] body .achievements-section { padding: 52px 30px 46px !important; }
+    html[data-theme="dark"] body .achievements-section::before { top: 16px; bottom: 16px; }
+}
