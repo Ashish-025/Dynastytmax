@@ -1,0 +1,184 @@
+/* =========================================================
+   DARK THEME - sparklayer.io "Everything built in / One B2B platform" look
+   (loaded only in the dark theme; the home hero is left as it is)
+     - background: navy gradient, purple glow top left, pink glow bottom right,
+       faint concentric rings top right
+     - font: Geist; section headings 28px / 500 white with a lilac highlighted phrase
+       that a colour band sweeps across once; cyan labels; 15px lilac descriptions
+     - cards: frosted glass, 12px corners, thin violet/cyan light orbiting the border;
+       16.5px titles, 13.5px text, violet bullet dots
+     - heading blocks and cards fade up 12px into view (0.55s)
+   Classes and spans come from dark-spark.js.
+========================================================= */
+
+:root { --fx-bg: #0a0e26; }
+
+/* ---------- background ---------- */
+html[data-theme="dark"] { background: #0a0e26; }
+html[data-theme="dark"] body::before {
+    background:
+        radial-gradient(820px 420px at 20% 0%, rgba(103, 30, 243, .4), transparent 60%),
+        radial-gradient(660px 400px at 92% 100%, rgba(255, 2, 106, .16), transparent 55%),
+        linear-gradient(#0a0e26, #141a41);
+}
+html[data-theme="dark"] body::after {
+    display: block;
+    background: repeating-radial-gradient(circle at 84% 16%, transparent 0, transparent 78px, rgba(255, 255, 255, .05) 78px, rgba(255, 255, 255, .05) 79.5px);
+    -webkit-mask-image: radial-gradient(130% 130% at 84% 16%, #000 0%, rgba(0, 0, 0, .5) 40%, transparent 72%);
+            mask-image: radial-gradient(130% 130% at 84% 16%, #000 0%, rgba(0, 0, 0, .5) 40%, transparent 72%);
+}
+
+/* ---------- font: Geist everywhere except the home hero, the logos and the loader ---------- */
+html[data-theme="dark"] body,
+html[data-theme="dark"] body *:not(.hero-section, .hero-section *, .dm-preloader *, [class*="logo"], [class*="logo"] *) {
+    font-family: Geist, Inter, system-ui, -apple-system, "Segoe UI", sans-serif !important;
+}
+
+/* ---------- section headings ---------- */
+html[data-theme="dark"] :is(.achievements-head, .dm-services-heading, .products-heading, .ssi-section-heading, .ssi-contact-inner, .dbs-services-intro) h2,
+html[data-theme="dark"] #dm-projects-title,
+html[data-theme="dark"] .dm-cta .dm-cta-text h2 {
+    font-size: clamp(21px, 2.4vw, 28px) !important;
+    font-weight: 500 !important;
+    line-height: 1.38 !important;
+    letter-spacing: -.02em !important;
+    text-transform: none !important;
+    color: #fff !important;
+    background: none !important;
+    -webkit-text-fill-color: #fff !important;
+    text-shadow: none !important;
+    text-wrap: balance;
+}
+/* letters no longer rise one by one in the dark theme: the whole block fades up instead */
+html[data-theme="dark"].um-on .um-scroll .um-unit { opacity: 1 !important; transform: none !important; transition: none !important; }   /* .um-on sits on <html> itself */
+html[data-theme="dark"].um-on .um-scroll .um-unit,
+html[data-theme="dark"].um-on .um-scroll .um-mask { -webkit-text-fill-color: inherit !important; }
+
+/* highlighted phrase: lilac, revealed by a cyan -> violet -> pink -> orange band sweeping across once */
+html[data-theme="dark"] h2 .ds-accent {
+    font-weight: 600 !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    background-image: linear-gradient(90deg, #aab2d8 0%, #aab2d8 22%, #aab2d8 33.33%, #9be9ff 40%, #0bcefc 44%, #7c5cff 49%, #ff026a 54%, #ff9243 59%, transparent 66.67%, transparent) !important;
+    background-size: 300% 100% !important;
+    background-position: 100% 0;            /* no !important: the sweep animation must be able to move it */
+    -webkit-background-clip: text !important;
+            background-clip: text !important;
+}
+html[data-theme="dark"] h2 .ds-accent.ds-go { animation: dsSweep 1.2s ease .1s both; }
+@keyframes dsSweep {
+    0%   { background-position: 100% 0; filter: blur(1px); }
+    100% { background-position: 0 0; filter: none; }
+}
+
+/* small labels above headings: cyan, sentence case */
+html[data-theme="dark"] :is(.dm-services-label, .section-label, .ssi-kicker, .ssi-eyebrow, .contact-eyebrow, .app-card .badge) {
+    display: inline-block;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    letter-spacing: -.01em !important;
+    text-transform: lowercase !important;
+    color: #0bcefc !important;
+    -webkit-text-fill-color: #0bcefc !important;
+    background: none !important;
+    margin-bottom: 12px;
+}
+html[data-theme="dark"] :is(.dm-services-label, .section-label, .ssi-kicker, .ssi-eyebrow, .contact-eyebrow, .app-card .badge)::first-letter { text-transform: uppercase; }
+/* the reference has no orange bar under the label */
+html[data-theme="dark"] .dm-heading-line { display: none !important; }
+
+/* descriptions under headings */
+html[data-theme="dark"] :is(.achievements-head, .products-heading, .ssi-section-heading, .dbs-services-intro, .products-intro) > p {
+    font-size: 15px !important;
+    line-height: 24px !important;
+    letter-spacing: normal !important;
+    color: #aab2d8 !important;
+    margin-top: 14px;
+}
+html[data-theme="dark"] .dm-cta .dm-cta-text p { color: #aab2d8 !important; }
+
+/* heading blocks fade up into view */
+html[data-theme="dark"] .ds-rv {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .55s cubic-bezier(.22, .8, .3, 1), transform .55s cubic-bezier(.22, .8, .3, 1);
+}
+html[data-theme="dark"] .ds-rv.ds-in { opacity: 1; transform: none; }
+
+/* ---------- cards ---------- */
+html[data-theme="dark"] :is(.dm-service-card, .achievements-section .stat-card, .dm-i3ms-tile, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div, .contact-detail-note) {
+    background-color: rgba(255, 255, 255, .043) !important;
+    border: 1px solid rgba(255, 255, 255, .11) !important;
+    border-radius: 12px !important;
+    -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+    box-shadow: none !important;
+}
+html[data-theme="dark"] :is(.contact-form, .app-card, .dm-i3ms-login) {
+    border-color: rgba(255, 255, 255, .11) !important;
+    border-radius: 12px !important;
+}
+
+/* thin violet / cyan light orbiting the border (one span per card, from dark-spark.js) */
+@property --ds-orbit { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.ds-orbit { display: none; }
+html[data-theme="dark"] .ds-orbit {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(from var(--ds-orbit), transparent 0deg 300deg, rgba(167, 139, 250, .55) 336deg, rgba(11, 206, 252, .75) 350deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box exclude, linear-gradient(#fff 0 0);
+    animation: dsOrbit 6.5s steps(78) infinite;
+}
+@keyframes dsOrbit { to { --ds-orbit: 360deg; } }
+html[data-theme="dark"] :is(.dm-service-card, .achievements-section .stat-card, .dm-i3ms-tile, .dm-i3ms-login, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .contact-form, .contact-detail-note, .app-card, .dbs-features > div):not(:is(td, th)) { position: relative; }
+
+/* card text */
+html[data-theme="dark"] :is(.dm-service-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div) :is(h3, h2) {
+    font-size: 16.5px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+    letter-spacing: -.02em !important;
+    text-transform: none !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+html[data-theme="dark"] :is(.dm-service-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div) p {
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
+    color: #aeb5d8 !important;
+}
+html[data-theme="dark"] :is(.dm-service-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div) li {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    color: #c9cee8 !important;
+}
+
+/* cards fade up 12px with the reference timing (fx-enhance.js adds .fx-rise / .fx-in) */
+html[data-theme="dark"] .fx-rise {
+    translate: 0 12px;
+    transition: opacity .55s cubic-bezier(.22, .8, .3, 1) var(--fx-delay, 0ms), translate .55s cubic-bezier(.22, .8, .3, 1) var(--fx-delay, 0ms);
+}
+html[data-theme="dark"] .fx-rise.fx-in { translate: 0 0; }
+
+@media (prefers-reduced-motion: reduce) {
+    html[data-theme="dark"] .ds-orbit { animation: none; }
+    html[data-theme="dark"] h2 .ds-accent { background-position: 0 0; animation: none !important; }
+    html[data-theme="dark"] .ds-rv { opacity: 1; transform: none; transition: none; }
+}
+
+/* page titles on the inner pages (not the home hero): same Geist look, normal case */
+html[data-theme="dark"] :is(.products-intro h1, #ssi-title, #dbs-title, .app-card h1, #contact-title) {
+    font-weight: 600 !important;
+    letter-spacing: -.03em !important;
+    text-transform: none !important;
+    line-height: 1.12 !important;
+}
+html[data-theme="dark"] .products-intro h1 { font-size: clamp(30px, 3.4vw, 44px) !important; }
+html[data-theme="dark"] .products-intro h1 :is(.heading-line, .subheading-line) { text-transform: none !important; }
