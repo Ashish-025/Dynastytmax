@@ -244,16 +244,28 @@ html[data-theme="dark"] #dm-services .dm-service-icon { animation-name: dsSiHalo
     50%      { box-shadow: inset 0 0 0 1px rgba(11, 206, 252, .45), 0 0 30px rgba(11, 206, 252, .3); }
 }
 
-/* Projects tile mosaic: the same tiles, in shades of the reference palette */
+/* Projects tile mosaic: the same tiles as translucent tints of the reference palette over the navy
+   (glass, like the other cards), with a hairline border - not flat saturated blocks */
 html[data-theme="dark"] #dm-projects {
-    --i3-orange: #5b36f5;        /* violet */
-    --i3-pink: #a21caf;          /* magenta */
-    --i3-green: #0891b2;         /* deep cyan */
-    --i3-red: #be185d;           /* deep pink */
-    --i3-blue: #3875f3;          /* blue (reference "Book Demo" blue) */
-    --i3-lightgreen: #7c3aed;    /* violet 2 */
-    --i3-yellow: #db2777;        /* pink */
+    --i3-orange: rgba(103, 30, 243, .42);       /* violet */
+    --i3-pink: rgba(192, 38, 211, .3);          /* magenta */
+    --i3-green: rgba(11, 206, 252, .2);         /* cyan */
+    --i3-red: rgba(255, 2, 106, .28);           /* pink */
+    --i3-blue: rgba(56, 117, 243, .3);          /* blue */
+    --i3-lightgreen: rgba(124, 92, 255, .3);    /* soft violet */
+    --i3-yellow: rgba(255, 76, 191, .24);       /* rose */
 }
+html[data-theme="dark"] #dm-projects .dm-i3ms-tile {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1) !important;
+    -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+}
+html[data-theme="dark"] #dm-projects .dm-i3ms-tile:is(:hover, :focus-visible) { box-shadow: inset 0 0 0 1px rgba(196, 181, 253, .45) !important; }
+/* panels inside a tile: no second layer of tint */
+html[data-theme="dark"] #dm-projects :is(.dm-i3ms-know-panel, .dm-i3ms-reports-panel) { background: transparent !important; }
+/* the white "?" badge keeps a solid colour */
+html[data-theme="dark"] #dm-projects .dm-i3ms-know-title span { color: #5b36f5 !important; }
+
 /* the dark side panels: frosted glass on navy instead of flat grey */
 html[data-theme="dark"] #dm-projects :is(.dm-query-box, .dm-i3ms-login) {
     background: rgba(255, 255, 255, .043) !important;
