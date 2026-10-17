@@ -301,3 +301,10 @@ html[data-theme="dark"] body .achievements-section .stat-card {
 html[data-theme="dark"] body .achievements-section .stat-card::before,
 html[data-theme="dark"] body .achievements-section .stat-card::after,
 html[data-theme="dark"] body .achievements-section .stat-card .ds-orbit { display: none !important; }
+/* ... and no tile behind them: numbers + labels sit straight on the band */
+html[data-theme="dark"] body .achievements-section .stat-card {
+    background: transparent !important;
+    background-image: none !important;
+    -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+}
