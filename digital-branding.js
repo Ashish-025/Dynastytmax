@@ -5,7 +5,7 @@
 
     /* ---- headline: clip each word out and the next one in ---- */
     var wrap = document.querySelector('.dbs-words');
-    if (wrap) {
+    if (wrap && !wrap.hasAttribute('data-driven')) {   // data-driven="phones": dbs-phones.js flips the words in step with the phones
         var words = Array.prototype.slice.call(wrap.querySelectorAll('b'));
         var index = 0;
         var fit = function () {

@@ -40,7 +40,26 @@
 .dbs-phone[data-slot="3"] { transform: translateX(calc(var(--pw) * .963)) scale(.657); z-index: 2; }
 .dbs-phone[data-slot="4"] { transform: translateX(calc(var(--pw) * 1.37)) scale(0); z-index: 1; }    /* grows in from nothing */
 
-.ph-notch { display: none; }
+
+/* ---------- headline word: slides up to the next one in step with the phones (clipped box, as the reference) ---------- */
+.dbs-words[data-driven] {
+    display: inline-grid;
+    overflow: hidden;
+    vertical-align: top;
+    white-space: nowrap !important;
+    width: auto !important;
+    padding-right: 0;
+    border-right: 0;
+    transition: none;
+}
+.dbs-words[data-driven] b {
+    display: block;
+    grid-area: 1 / 1;
+    transform: translateY(105%);
+    transition: transform .43s cubic-bezier(.37, 0, .63, 1);
+}
+.dbs-words[data-driven] b.is-visible { transform: none; }
+.dbs-words[data-driven] b.is-out { transform: translateY(-105%); }
 
 /* ---------- screens ---------- */
 .ph-scr {
@@ -71,6 +90,27 @@
 .ph-btn { margin-top: auto; padding: .6em; border-radius: .6em; background: #5b36f5; color: #fff; font-size: .78em; font-weight: 600; text-align: center; }
 .ph-btn.blue { background: #1a9be0; }
 
+/* bottom tab bar (every screen) */
+.ph-nav { display: flex; justify-content: space-around; align-items: center; margin-top: auto; padding: .55em .4em; border-radius: .8em; background: #fff; box-shadow: 0 .2em .8em rgba(30, 27, 75, .08); }
+.ph-nav.dark { background: rgba(255, 255, 255, .07); box-shadow: none; }
+.ph-ic { width: 1em; height: 1em; border-radius: .25em; background: #c3c6d8; }
+.ph-nav.dark .ph-ic { background: rgba(255, 255, 255, .28); }
+.ph-ic-home { clip-path: polygon(50% 0, 100% 45%, 100% 100%, 0 100%, 0 45%); border-radius: 0; }
+.ph-ic-grid { background: radial-gradient(circle, currentColor 0 0) !important; box-shadow: none; outline: .18em solid #c3c6d8; outline-offset: -.18em; border-radius: .15em; color: transparent; }
+.ph-ic-chart { border-radius: .1em; clip-path: polygon(0 100%, 0 55%, 30% 55%, 30% 25%, 65% 25%, 65% 0, 100% 0, 100% 100%); }
+.ph-ic-user { border-radius: 50% 50% .3em .3em; }
+.ph-ic.on { background: #ff4c7a !important; outline-color: #ff4c7a; }
+.ph-dot.w { background: #fff; }
+
+/* logo studio: labels on the tiles */
+.ph-tiles i { display: flex; align-items: flex-end; padding: .4em; box-sizing: border-box; }
+.ph-tiles em { font-style: normal; font-size: .62em; font-weight: 700; color: #1e1b4b; opacity: .75; }
+
+/* campaign: idea of the day */
+.ph-idea { display: flex; align-items: center; gap: .6em; padding: .55em; border-radius: .7em; background: #f3f0ff; }
+.ph-idea b { display: block; font-size: .8em; }
+.ph-bulb { width: 1.6em; height: 1.6em; flex: 0 0 auto; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff6b0, #ffcf33 60%, #f5a300); }
+
 /* brand kit */
 .ph-logo { display: grid; place-items: center; width: 4.6em; height: 4.6em; margin: .4em auto; border-radius: 1.3em; background: linear-gradient(135deg, #5b36f5, #ff4cbf); color: #fff; font-size: 1.15em; font-weight: 800; letter-spacing: .02em; box-shadow: 0 .5em 1em rgba(91, 54, 245, .35); }
 .ph-cap { font-size: .7em; font-weight: 600; opacity: .75; }
@@ -92,10 +132,6 @@
 .ph-bars i { flex: 1; border-radius: .25em .25em 0 0; background: rgba(255, 255, 255, .78); }
 .ph-bars.tall { height: 5em; }
 .ph-bars.tall i { background: linear-gradient(#0bcefc, #5b36f5); }
-.ph-tabs { display: flex; justify-content: space-around; margin-top: auto; padding: .6em .4em; border-radius: .8em; background: rgba(255, 255, 255, .92); }
-.ph-tabs i { width: .75em; height: .75em; border-radius: 50%; background: #c7c9d9; }
-.ph-tabs i.on { background: #ff4c7a; }
-.ph-tabs.light { background: rgba(255, 255, 255, .9); }
 
 /* website builder */
 .ph-hero-block { position: relative; padding: 1em .8em; border-radius: .8em; background: linear-gradient(135deg, #1aa3c9, #5b8cff); color: #fff; }
@@ -161,6 +197,8 @@
 
 @media (max-width: 900px) {
     .dbs-banner .dbs-container { flex-direction: column; align-items: stretch; }
+    /* the longest words ("Professional Content.") must fit the screen width */
+    .dbs-words[data-driven] { font-size: min(1em, 6.9vw); max-width: 100%; }
     .dbs-phones { --pw: clamp(100px, 28vw, 150px); flex: 0 0 auto; width: 100%; height: calc(var(--pw) * 2.4); }
 }
 @media (prefers-reduced-motion: reduce) {
