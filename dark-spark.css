@@ -182,3 +182,92 @@ html[data-theme="dark"] :is(.products-intro h1, #ssi-title, #dbs-title, .app-car
 }
 html[data-theme="dark"] .products-intro h1 { font-size: clamp(30px, 3.4vw, 44px) !important; }
 html[data-theme="dark"] .products-intro h1 :is(.heading-line, .subheading-line) { text-transform: none !important; }
+
+/* =========================================================
+   Colour theme: sparklayer.io palette for every accent (dark theme, not the home hero)
+     violet #5b36f5 / #7c5cff, soft violet #a78bfa, pale violet #c4b5fd,
+     cyan #0bcefc, pink #ff026a, orange #ff9243, navy #0a0e26 / #131a3f
+   (site-futuristic.css and the dark rules of the other stylesheets were recoloured to it)
+========================================================= */
+
+/* primary buttons: the reference violet gradient pill */
+html[data-theme="dark"] :is(.dm-cta .dm-cta-btn.is-primary, .ssi-button-primary, .contact-submit, .app-page .store-btn:not(.secondary), #dm-projects .dm-query-form button) {
+    background: linear-gradient(120deg, #4f24cf 0%, #6d31e6 48%, #8348f0 100%) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: none !important;
+    transition: background .18s, filter .18s;
+}
+html[data-theme="dark"] :is(.dm-cta .dm-cta-btn.is-primary, .ssi-button-primary, .contact-submit, .app-page .store-btn:not(.secondary), #dm-projects .dm-query-form button):is(:hover, :focus-visible) {
+    background: linear-gradient(120deg, #5c2ee0 0%, #7b3bf5 48%, #9159f7 100%) !important;
+    filter: none !important;
+}
+/* outline buttons: thin white outline, as the reference "Try free" */
+html[data-theme="dark"] :is(.dm-cta .dm-cta-btn.is-light, .ssi-button:not(.ssi-button-primary), .app-page .store-btn.secondary) {
+    background: transparent !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28) !important;
+    border-color: rgba(255, 255, 255, .28) !important;
+    color: #fff !important;
+}
+html[data-theme="dark"] :is(.dm-cta .dm-cta-btn.is-light, .ssi-button:not(.ssi-button-primary), .app-page .store-btn.secondary):is(:hover, :focus-visible) {
+    background: rgba(255, 255, 255, .06) !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5) !important;
+}
+/* header "Get started": the reference "Book Demo" gradient (violet -> pink -> blue) */
+html[data-theme="dark"] :is(.app-button, .mobile-app-button) {
+    background: linear-gradient(54deg, #5b36f5 5.48%, #ff4cbf 44.27%, #3875f3 75.97%, #5b36f5 94.09%) 0 0 / 200% 100% #5b36f5 !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    border-radius: 60px !important;
+    transition: background-position .4s ease;
+}
+html[data-theme="dark"] :is(.app-button, .mobile-app-button):is(:hover, :focus-visible) { background-position: 100% 0 !important; }
+
+/* Projects panel: the query box and the i3ms login panel lose their orange / blue headers */
+html[data-theme="dark"] #dm-projects :is(.dm-query-box, .dm-i3ms-login) h2 {
+    background: linear-gradient(120deg, #4f24cf 0%, #6d31e6 48%, #8348f0 100%) !important;
+    color: #fff !important;
+}
+html[data-theme="dark"] .dm-i3ms-login nav a b { background: #ff026a !important; color: #fff !important; }
+
+/* small status dot (Security page) */
+html[data-theme="dark"] .ssi-status-dot { background: #0bcefc !important; box-shadow: 0 0 0 4px rgba(11, 206, 252, .18) !important; }
+
+/* text selection, as the reference */
+html[data-theme="dark"] ::selection { background: rgba(103, 30, 243, .45); color: #fff; }
+
+/* service icons: the halo pulses violet <-> cyan (was orange <-> blue) */
+html[data-theme="dark"] #dm-services .dm-service-icon { animation-name: dsSiHalo; }
+@keyframes dsSiHalo {
+    0%, 100% { box-shadow: inset 0 0 0 1px rgba(142, 233, 255, .35), 0 0 18px rgba(167, 139, 250, .16); }
+    50%      { box-shadow: inset 0 0 0 1px rgba(11, 206, 252, .45), 0 0 30px rgba(11, 206, 252, .3); }
+}
+
+/* Projects tile mosaic: the same tiles, in shades of the reference palette */
+html[data-theme="dark"] #dm-projects {
+    --i3-orange: #5b36f5;        /* violet */
+    --i3-pink: #a21caf;          /* magenta */
+    --i3-green: #0891b2;         /* deep cyan */
+    --i3-red: #be185d;           /* deep pink */
+    --i3-blue: #3875f3;          /* blue (reference "Book Demo" blue) */
+    --i3-lightgreen: #7c3aed;    /* violet 2 */
+    --i3-yellow: #db2777;        /* pink */
+}
+/* the dark side panels: frosted glass on navy instead of flat grey */
+html[data-theme="dark"] #dm-projects :is(.dm-query-box, .dm-i3ms-login) {
+    background: rgba(255, 255, 255, .043) !important;
+    border: 1px solid rgba(255, 255, 255, .11);
+    -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+}
+html[data-theme="dark"] #dm-projects .dm-i3ms-login nav a { border-color: rgba(255, 255, 255, .08) !important; }
+html[data-theme="dark"] #dm-projects .dm-i3ms-login nav a:is(:hover, :focus-visible) { background: rgba(124, 92, 255, .16) !important; }
+html[data-theme="dark"] #dm-projects .dm-i3ms-login nav a svg { fill: #a78bfa !important; }
+html[data-theme="dark"] #dm-projects .dm-query-form :is(input, select, textarea) {
+    background-color: rgba(10, 14, 38, .6) !important;
+    border-color: rgba(255, 255, 255, .14) !important;
+    color: #fff !important;
+}
+html[data-theme="dark"] #dm-projects .dm-query-form :is(input, select, textarea):focus { border-color: #7c5cff !important; outline: none; box-shadow: 0 0 0 3px rgba(124, 92, 255, .25); }
+html[data-theme="dark"] #dm-projects .dm-query-intro { color: #aab2d8 !important; }

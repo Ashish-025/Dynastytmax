@@ -8,7 +8,7 @@
 ========================================================= */
 
 html:not([data-theme="dark"]) {
-    --mob-red: #e91d2b;
+    --mob-red: #ff026a;
     --mob-navy: #102744;
     --mob-text: #5b6b80;
     --mob-line: #e5e9f0;
@@ -40,12 +40,12 @@ html:not([data-theme="dark"]) .products-section .products-intro {
 }
 html:not([data-theme="dark"]) .products-intro .section-label {
     color: var(--mob-red);
-    border-color: rgba(233, 29, 43, .35);
-    background: rgba(233, 29, 43, .06);
+    border-color: rgba(255, 2, 106, .35);
+    background: rgba(255, 2, 106, .06);
 }
 html:not([data-theme="dark"]) .products-intro .section-label span {
     background: var(--mob-red);
-    box-shadow: 0 0 8px rgba(233, 29, 43, .5);
+    box-shadow: 0 0 8px rgba(255, 2, 106, .5);
 }
 html:not([data-theme="dark"]) .products-intro h1,
 html:not([data-theme="dark"]) .products-intro h1 * { color: var(--mob-navy); }
@@ -75,7 +75,7 @@ html:not([data-theme="dark"]) .products-grid .product-card::after {
 html:not([data-theme="dark"]) .products-grid .product-card:hover,
 html:not([data-theme="dark"]) .products-grid .product-card:focus-within {
     transform: translateY(-5px);
-    border-color: rgba(233, 29, 43, .35);
+    border-color: rgba(255, 2, 106, .35);
     background: #ffffff;
     box-shadow: 0 18px 40px rgba(16, 39, 68, .14);
 }
@@ -89,8 +89,8 @@ html:not([data-theme="dark"]) .products-grid .product-image-area img { border-ra
 html:not([data-theme="dark"]) .products-grid .product-image-area:hover,
 html:not([data-theme="dark"]) .products-grid .product-image-area:focus-within {
     background: #fff5f5;
-    border-color: rgba(233, 29, 43, .55);
-    box-shadow: 0 0 0 2px rgba(233, 29, 43, .12), 0 8px 18px rgba(233, 29, 43, .1);
+    border-color: rgba(255, 2, 106, .55);
+    box-shadow: 0 0 0 2px rgba(255, 2, 106, .12), 0 8px 18px rgba(255, 2, 106, .1);
 }
 
 /* text */
@@ -106,7 +106,7 @@ html:not([data-theme="dark"]) .badge.green,
 html:not([data-theme="dark"]) .badge.blue,
 html:not([data-theme="dark"]) .badge.yellow {
     background: #ffffff;
-    border: 1px solid rgba(233, 29, 43, .55);
+    border: 1px solid rgba(255, 2, 106, .55);
     color: var(--mob-red);
     box-shadow: 0 3px 10px rgba(16, 39, 68, .1);
 }

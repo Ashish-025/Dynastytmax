@@ -77,9 +77,9 @@
 
 /* dark (futuristic) theme: brand orange */
 [data-theme="dark"] .dm-office-pins line,
-[data-theme="dark"] .dm-office-pins .ring { stroke: #f48c18; }
-[data-theme="dark"] .dm-office-pins .dot { fill: #f48c18; }
-[data-theme="dark"] .dm-office-pins a:hover rect { fill: #f48c18; }
+[data-theme="dark"] .dm-office-pins .ring { stroke: #a78bfa; }
+[data-theme="dark"] .dm-office-pins .dot { fill: #a78bfa; }
+[data-theme="dark"] .dm-office-pins a:hover rect { fill: #a78bfa; }
 
 /* ---------- hover: zoom in on the office cluster ----------
    Image and pins scale together around the offices + their labels

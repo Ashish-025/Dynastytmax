@@ -4518,13 +4518,13 @@ html[data-theme="dark"] body .achievements-section .stat-card { border-color: rg
 html[data-theme="dark"] body .achievements-section .stat-card h3 { color: #b8c2d6; }
 /* dark theme: the numbers are an animated blue <-> gold gradient that keeps sweeping across */
 html[data-theme="dark"] body .achievements-section .stat-number {
-    background: linear-gradient(90deg, #4089dd 0%, #8cc4ff 22%, #ffd77a 45%, #f4b018 55%, #8cc4ff 78%, #4089dd 100%);
+    background: linear-gradient(90deg, #0bcefc 0%, #8ee9ff 22%, #e9a5ff 45%, #eda0ee 55%, #8ee9ff 78%, #0bcefc 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    filter: drop-shadow(0 0 10px rgba(244, 176, 24, .22));
+    filter: drop-shadow(0 0 10px rgba(233, 165, 255, .22));
     animation: statBlueGold 4s linear infinite;
 }
 @keyframes statBlueGold { from { background-position: 0% 0; } to { background-position: -200% 0; } }

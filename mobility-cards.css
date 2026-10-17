@@ -42,7 +42,7 @@
 html[data-theme="dark"] .products-grid .product-card:hover,
 html[data-theme="dark"] .products-grid .product-card:focus-within {
     border-color: rgba(255, 255, 255, .16);
-    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, .5), 0 0 0 1px rgba(64, 137, 221, .25) !important;
+    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, .5), 0 0 0 1px rgba(11, 206, 252, .25) !important;
 }
 html:not([data-theme="dark"]) .products-grid .product-card:hover,
 html:not([data-theme="dark"]) .products-grid .product-card:focus-within {
@@ -93,7 +93,7 @@ html:not([data-theme="dark"]) .products-grid .product-image-area:focus-within {
     outline: 3px solid #e91d2b;
     outline-offset: 3px;
 }
-html[data-theme="dark"] .products-grid .product-card:has(.details:focus-visible) { outline-color: #f48c18; }
+html[data-theme="dark"] .products-grid .product-card:has(.details:focus-visible) { outline-color: #a78bfa; }
 
 @media (prefers-reduced-motion: reduce) {
     .products-grid .product-card.dm-reveal { opacity: 1 !important; scale: 1; }

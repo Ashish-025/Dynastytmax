@@ -39,21 +39,21 @@
 
 /* dark (futuristic) theme */
 [data-theme="dark"] .dm-service-icon {
-    --si-a: #f48c18;
-    --si-b: #7fb6ff;
-    background: radial-gradient(circle at 35% 30%, rgba(64, 137, 221, .28) 0%, rgba(11, 18, 32, .85) 70%);
-    box-shadow: inset 0 0 0 1px rgba(127, 182, 255, .35), 0 0 24px rgba(244, 140, 24, .18);
+    --si-a: #a78bfa;
+    --si-b: #8ee9ff;
+    background: radial-gradient(circle at 35% 30%, rgba(11, 206, 252, .28) 0%, rgba(11, 18, 32, .85) 70%);
+    box-shadow: inset 0 0 0 1px rgba(142, 233, 255, .35), 0 0 24px rgba(167, 139, 250, .18);
     animation: none;
 }
 [data-theme="dark"] .dm-service-icon img,
 [data-theme="dark"] .dm-service-card:hover .dm-service-icon img {
-    filter: invert(1) hue-rotate(180deg) brightness(1.15) drop-shadow(0 0 5px rgba(127, 182, 255, .7));
+    filter: invert(1) hue-rotate(180deg) brightness(1.15) drop-shadow(0 0 5px rgba(142, 233, 255, .7));
 }
 [data-theme="dark"] .dm-service-card:hover .dm-service-icon {
-    --si-a: #7fb6ff;
-    --si-b: #f48c18;
-    background: radial-gradient(circle at 35% 30%, rgba(64, 137, 221, .4) 0%, rgba(11, 18, 32, .85) 70%);
-    box-shadow: inset 0 0 0 1px rgba(127, 182, 255, .6), 0 0 30px rgba(64, 137, 221, .45);
+    --si-a: #8ee9ff;
+    --si-b: #a78bfa;
+    background: radial-gradient(circle at 35% 30%, rgba(11, 206, 252, .4) 0%, rgba(11, 18, 32, .85) 70%);
+    box-shadow: inset 0 0 0 1px rgba(142, 233, 255, .6), 0 0 30px rgba(11, 206, 252, .45);
 }
 
 @keyframes dmSiFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }

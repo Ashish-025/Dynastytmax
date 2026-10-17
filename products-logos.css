@@ -118,7 +118,7 @@ html[data-theme="dark"] .dm-product-card .dm-service-icon svg { stroke: #e6eefc;
 html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-card-content h3 { color: #ffffff; }
 html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-card-content p,
 html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-service-list li { color: rgba(255, 255, 255, .72); }
-html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-service-list li::before { color: #f48c18; border-color: #f48c18; }
+html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-service-list li::before { color: #a78bfa; border-color: #a78bfa; }
 
 /* GPS device cards: product photos are on white, so show the whole device (not cropped) */
 .logo-marquee .dm-device-card:not(:hover) .dm-card-image {
@@ -143,7 +143,7 @@ html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-service-l
     text-transform: uppercase;
     box-shadow: 0 4px 12px rgba(233, 29, 43, .3);
 }
-html[data-theme="dark"] .dm-device-badge { background: #f48c18; box-shadow: 0 4px 12px rgba(244, 140, 24, .3); }
+html[data-theme="dark"] .dm-device-badge { background: #a78bfa; box-shadow: 0 4px 12px rgba(167, 139, 250, .3); }
 /* four features per device: a neat 2 x 2 grid (the 3-column grid wrapped them onto 3 lines) */
 .logo-marquee .dm-device-card .dm-service-list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 8px; margin-bottom: 8px; }
 /* device photo frame a little shorter than the category cards', so all the text fits */
