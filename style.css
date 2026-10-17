@@ -4538,3 +4538,59 @@ html[data-theme="dark"] body .achievements-section .stat-number {
 .contact-status.is-error { color: #e91d2b; }
 [data-theme="dark"] .contact-status { color: #6fd68a; }
 [data-theme="dark"] .contact-status.is-error { color: #ff6b74; }
+
+/* Light theme: "Our Journey So Far" laid out exactly like the dark theme - one rounded band holding
+   the heading and the stats (no starry backdrop, no separate white card, no dividers) - in the light
+   colours of the "Let's Build Your Success Story" card (white, hairline border, soft shadow) */
+html:not([data-theme="dark"]) body .achievements-section {
+    position: relative;
+    isolation: isolate;
+    padding: 70px 48px 62px;
+    background: #fff;
+}
+html:not([data-theme="dark"]) body .achievements-section::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: max(16px, calc((100% - 1600px) / 2));
+    right: max(16px, calc((100% - 1600px) / 2));
+    z-index: -1;
+    width: auto;
+    height: auto;
+    border: 1px solid #ececec;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(16, 24, 39, .05);
+    -webkit-mask: none;
+            mask: none;
+    clip-path: none;
+    animation: none;
+    opacity: 1;
+    transform: none;
+}
+html:not([data-theme="dark"]) body .achievements-section::after { display: none; }
+html:not([data-theme="dark"]) body .achievements-section .achievements-head h2 {
+    color: #0b1020;
+    font-size: clamp(21px, 2.4vw, 28px);
+    line-height: 1.38;
+    letter-spacing: -.02em;
+}
+html:not([data-theme="dark"]) body .achievements-section .achievements-head h2 .ds-accent { color: #e91d2b; }
+html:not([data-theme="dark"]) body .achievements-section .achievements-head p {
+    margin-top: 14px;
+    color: #5b6170;
+    font-size: 15px;
+    line-height: 24px;
+}
+html:not([data-theme="dark"]) body .achievements-section .achievements-container {
+    padding: 6px 0 0;
+    background: transparent;
+    box-shadow: none;
+}
+html:not([data-theme="dark"]) body .achievements-section .stat-card { border-left: 0; background: transparent; }
+@media (max-width: 600px) {
+    html:not([data-theme="dark"]) body .achievements-section { padding: 52px 30px 46px; }
+    html:not([data-theme="dark"]) body .achievements-section::before { top: 16px; bottom: 16px; }
+}
