@@ -292,3 +292,12 @@ html[data-theme="dark"] body .achievements-section .achievements-container {
     html[data-theme="dark"] body .achievements-section { padding: 52px 30px 46px !important; }
     html[data-theme="dark"] body .achievements-section::before { top: 16px; bottom: 16px; }
 }
+/* the stat cards inside the band: no border and no orbiting border light */
+html[data-theme="dark"] body .achievements-section .stat-card {
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: 0 !important;
+}
+html[data-theme="dark"] body .achievements-section .stat-card::before,
+html[data-theme="dark"] body .achievements-section .stat-card::after,
+html[data-theme="dark"] body .achievements-section .stat-card .ds-orbit { display: none !important; }
