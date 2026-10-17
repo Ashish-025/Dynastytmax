@@ -404,7 +404,7 @@ void main(){
   vec2 cell=floor(st);
   vec3 dotc=vec3(1.-smoothstep(.1,.3,length(cell+.5-st)));
   dotc*=1./(dpr*dpr);
-  dotc*=rnd(cell*uTime);
+  dotc*=rnd(cell);   // still dot grid (no twinkle)
   float lum=max(color.r,color.g);
   vec2 center=vec2(.5,.5*aspect)*dpr;
   vec3 c=clamp(mix(color.rgb,dotc*.15*(dpr*dpr-length(center-sti))*uIntro,1.-smoothstep(0.,.2,lum)),0.,1.);
@@ -472,6 +472,9 @@ function makePoints(shapes,scaleMax,uniforms){
 const dustPos=Float32Array.from({length:700*3},()=>R()*20-10);
 const dust=makePoints([dustPos,dustPos,dustPos,dustPos,dustPos],2,{...shared,uFrom:{value:new THREE.Vector4(1,0,0,0)},uTo:{value:new THREE.Vector4(1,0,0,0)},uFrom5:{value:0},uTo5:{value:0},uMorph:{value:0}});
 scene.add(dust);
+// dark theme: no drifting stars around the shape (the page background has the network instead)
+const dustOn=()=>{dust.visible=document.documentElement.getAttribute('data-theme')!=='dark';};
+dustOn();window.addEventListener('dm-themechange',dustOn);
 
 // invisible plane the cursor ray hits (z = 1)
 const CURSOR_Z=1;
