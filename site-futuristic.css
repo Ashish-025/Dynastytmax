@@ -6,7 +6,7 @@
 ========================================================= */
 
 :root {
-    --fx-bg: #0e1e31;   /* plain deep navy: the colour at the right end of the top contact strip */
+    --fx-bg: #09141f;   /* plain deep navy (a darker shade of the top strip's right-end colour) */
     --fx-orange: #f48c18;
     --fx-blue: #4089dd;
     --fx-grad: linear-gradient(90deg, #f48c18, #ec9354 35%, #4089dd);
