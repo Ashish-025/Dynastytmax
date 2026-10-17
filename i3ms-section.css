@@ -402,13 +402,6 @@
 #dm-projects .dm-query-form button:hover { filter: brightness(1.1); }
 #dm-projects .dm-query-status { margin: 0; min-height: 16px; font-size: 12px; color: #2b6e2b; }
 #dm-projects .dm-query-status.is-error { color: #c00; }
-[data-theme="dark"] #dm-projects .dm-query-box { background: #2b2b2b; color: #eee; }
-[data-theme="dark"] #dm-projects .dm-query-intro { color: #bbb; }
-[data-theme="dark"] #dm-projects .dm-query-form label { color: #ddd; }
-[data-theme="dark"] #dm-projects .dm-query-form input,
-[data-theme="dark"] #dm-projects .dm-query-form select,
-[data-theme="dark"] #dm-projects .dm-query-form textarea { background-color: #1d1d1d; border-color: #555; color: #eee; }
-[data-theme="dark"] #dm-projects .dm-query-form select:disabled { background-color: #262626; color: #777; }
 
 @media (max-width: 999px) {
     #dm-projects .dm-query-box { height: auto; margin: 12px 0 0; }
@@ -416,4 +409,3 @@
 
 /* icon cut-outs take the tile colour (the SVGs carry the old orange as a fixed fill) */
 #dm-projects .dm-i3ms-icon [fill="#c95a00"] { fill: var(--i3-orange); }
-[data-theme="dark"] #dm-projects .dm-i3ms-icon [fill="#c95a00"] { fill: #2f1a73; }

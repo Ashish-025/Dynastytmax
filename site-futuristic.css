@@ -122,50 +122,6 @@ body { color: var(--fx-text); }
 }
 
 /* ---------------------------------------------------------
-   PROJECTS MOSAIC: solid colour tiles become tinted glass
---------------------------------------------------------- */
-.dm-projects,
-.dm-i3ms-layout,
-.dm-i3ms-mosaic { background: transparent; }
-.dm-i3ms-tile {
-    --tile: 255, 255, 255;
-    background: linear-gradient(140deg, rgba(var(--tile), .32), rgba(var(--tile), .07)) !important;
-    box-shadow: inset 0 0 0 1px rgba(var(--tile), .45), inset 0 0 40px rgba(var(--tile), .12);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    transition: box-shadow .25s ease, filter .18s ease;
-}
-.dm-i3ms-tile:hover,
-.dm-i3ms-tile:focus-visible {
-    box-shadow: inset 0 0 0 1px rgba(var(--tile), .8), inset 0 0 50px rgba(var(--tile), .22), 0 0 30px rgba(var(--tile), .25);
-}
-.dm-i3ms-stakeholder, .dm-i3ms-truck { --tile: 199, 91, 0; }
-.dm-i3ms-mdcc, .dm-i3ms-integration, .dm-i3ms-reports { --tile: 0, 168, 115; }
-.dm-i3ms-weigh, .dm-i3ms-transporter { --tile: 120, 181, 0; }
-.dm-i3ms-permit, .dm-i3ms-know { --tile: 23, 111, 149; }
-.dm-i3ms-grant { --tile: 239, 165, 0; }
-.dm-i3ms-transit { --tile: 166, 0, 0; }
-.dm-i3ms-rfid { --tile: 151, 27, 83; }
-/* photo tiles keep their pictures */
-.dm-i3ms-mining-photo,
-.dm-i3ms-mine-photo { background: #000 !important; --tile: 64, 137, 221; }
-.dm-i3ms-know-panel,
-.dm-i3ms-reports-panel { background: transparent; }
-
-.dm-i3ms-login {
-    background: rgba(255, 255, 255, .03);
-    box-shadow: inset 0 0 0 1px var(--fx-line);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-}
-.dm-i3ms-login h2 {
-    background: linear-gradient(90deg, rgba(167, 139, 250, .85), rgba(11, 206, 252, .6));
-}
-.dm-i3ms-login nav a { border-bottom-color: var(--fx-line); }
-.dm-i3ms-login nav a:hover,
-.dm-i3ms-login nav a:focus-visible { background: rgba(11, 206, 252, .14); }
-
-/* ---------------------------------------------------------
    FOOTER: let the space continue underneath
 --------------------------------------------------------- */
 .dm-footer {
@@ -420,18 +376,9 @@ body { color: var(--fx-text); }
 .ssi-product-card,
 .products-grid .product-card,
 .contact-form,
-.app-page .app-card,
-.dm-i3ms-login {
+.app-page .app-card {
     background-image: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(11, 206, 252, .16), transparent 45%);
 }
-.dm-i3ms-tile {
-    background:
-        radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, .14), transparent 50%),
-        linear-gradient(140deg, rgba(var(--tile), .32), rgba(var(--tile), .07)) !important;
-}
-.dm-i3ms-mining-photo,
-.dm-i3ms-mine-photo { background: #000 !important; }
-
 /* 3D tilt composes with each card's own hover lift */
 .dm-service-card,
 .ssi-service-card,
@@ -629,13 +576,6 @@ body { color: var(--fx-text); }
     color: var(--fx-orange-hi);
 }
 .badge.blue { border-color: rgba(11, 206, 252, .6); color: var(--fx-blue-hi); }
-
-/* projects mosaic: mixed bright tiles -> alternating orange / blue family */
-.dm-i3ms-stakeholder, .dm-i3ms-grant, .dm-i3ms-truck, .dm-i3ms-transporter{ --tile: 244, 140, 24; }
-.dm-i3ms-mdcc, .dm-i3ms-permit, .dm-i3ms-know, .dm-i3ms-integration, .dm-i3ms-reports { --tile: 64, 137, 221; }
-.dm-i3ms-weigh, .dm-i3ms-rfid { --tile: 236, 147, 84; }
-.dm-i3ms-transit { --tile: 51, 71, 139; }
-.dm-i3ms-login nav a b { color: var(--fx-orange); }
 
 /* app page secondary button */
 .app-page .store-btn.secondary { border-color: rgba(11, 206, 252, .5); }

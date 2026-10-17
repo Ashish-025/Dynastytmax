@@ -71,7 +71,7 @@
 
     /* ---------- orbiting border light on cards ---------- */
     var CARD = [
-        '.dm-service-card', '.achievements-section .stat-card', '.dm-i3ms-tile', '.dm-i3ms-login',
+        '.dm-service-card', '.achievements-section .stat-card',
         '.ssi-service-card', '.ssi-product-card', '.products-grid .product-card',
         '.contact-form', '.contact-detail-note', '.app-card', '.dbs-features > div'
     ].join(',');

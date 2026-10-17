@@ -30,7 +30,7 @@ html[data-theme="dark"] body::after {
 
 /* ---------- font: Geist everywhere except the home hero, the logos and the loader ---------- */
 html[data-theme="dark"] body,
-html[data-theme="dark"] body *:not(.hero-section, .hero-section *, .dm-preloader *, [class*="logo"], [class*="logo"] *) {
+html[data-theme="dark"] body *:not(.hero-section, .hero-section *, .dm-preloader *, [class*="logo"], [class*="logo"] *, .dm-i3ms-layout, .dm-i3ms-layout *) {
     font-family: Geist, Inter, system-ui, -apple-system, "Segoe UI", sans-serif !important;
 }
 
@@ -106,7 +106,7 @@ html[data-theme="dark"] .ds-rv {
 html[data-theme="dark"] .ds-rv.ds-in { opacity: 1; transform: none; }
 
 /* ---------- cards ---------- */
-html[data-theme="dark"] :is(.dm-service-card, .achievements-section .stat-card, .dm-i3ms-tile, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div, .contact-detail-note) {
+html[data-theme="dark"] :is(.dm-service-card, .achievements-section .stat-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div, .contact-detail-note) {
     background-color: rgba(255, 255, 255, .043) !important;
     border: 1px solid rgba(255, 255, 255, .11) !important;
     border-radius: 12px !important;
@@ -114,7 +114,7 @@ html[data-theme="dark"] :is(.dm-service-card, .achievements-section .stat-card, 
             backdrop-filter: blur(4px);
     box-shadow: none !important;
 }
-html[data-theme="dark"] :is(.contact-form, .app-card, .dm-i3ms-login) {
+html[data-theme="dark"] :is(.contact-form, .app-card) {
     border-color: rgba(255, 255, 255, .11) !important;
     border-radius: 12px !important;
 }
@@ -137,7 +137,7 @@ html[data-theme="dark"] .ds-orbit {
     animation: dsOrbit 6.5s steps(78) infinite;
 }
 @keyframes dsOrbit { to { --ds-orbit: 360deg; } }
-html[data-theme="dark"] :is(.dm-service-card, .achievements-section .stat-card, .dm-i3ms-tile, .dm-i3ms-login, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .contact-form, .contact-detail-note, .app-card, .dbs-features > div):not(:is(td, th)) { position: relative; }
+html[data-theme="dark"] :is(.dm-service-card, .achievements-section .stat-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .contact-form, .contact-detail-note, .app-card, .dbs-features > div):not(:is(td, th)) { position: relative; }
 
 /* card text */
 html[data-theme="dark"] :is(.dm-service-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div) :is(h3, h2) {
@@ -191,7 +191,7 @@ html[data-theme="dark"] .products-intro h1 :is(.heading-line, .subheading-line) 
 ========================================================= */
 
 /* primary buttons: the reference violet gradient pill */
-html[data-theme="dark"] :is(.dm-cta .dm-cta-btn.is-primary, .ssi-button-primary, .contact-submit, .app-page .store-btn:not(.secondary), #dm-projects .dm-query-form button) {
+html[data-theme="dark"] :is(.dm-cta .dm-cta-btn.is-primary, .ssi-button-primary, .contact-submit, .app-page .store-btn:not(.secondary)) {
     background: linear-gradient(120deg, #4f24cf 0%, #6d31e6 48%, #8348f0 100%) !important;
     border-color: transparent !important;
     color: #fff !important;
@@ -199,7 +199,7 @@ html[data-theme="dark"] :is(.dm-cta .dm-cta-btn.is-primary, .ssi-button-primary,
     box-shadow: none !important;
     transition: background .18s, filter .18s;
 }
-html[data-theme="dark"] :is(.dm-cta .dm-cta-btn.is-primary, .ssi-button-primary, .contact-submit, .app-page .store-btn:not(.secondary), #dm-projects .dm-query-form button):is(:hover, :focus-visible) {
+html[data-theme="dark"] :is(.dm-cta .dm-cta-btn.is-primary, .ssi-button-primary, .contact-submit, .app-page .store-btn:not(.secondary)):is(:hover, :focus-visible) {
     background: linear-gradient(120deg, #5c2ee0 0%, #7b3bf5 48%, #9159f7 100%) !important;
     filter: none !important;
 }
@@ -224,12 +224,6 @@ html[data-theme="dark"] :is(.app-button, .mobile-app-button) {
 }
 html[data-theme="dark"] :is(.app-button, .mobile-app-button):is(:hover, :focus-visible) { background-position: 100% 0 !important; }
 
-/* Projects panel: the query box and the i3ms login panel lose their orange / blue headers */
-html[data-theme="dark"] #dm-projects :is(.dm-query-box, .dm-i3ms-login) h2 {
-    background: linear-gradient(120deg, #4f24cf 0%, #6d31e6 48%, #8348f0 100%) !important;
-    color: #fff !important;
-}
-html[data-theme="dark"] .dm-i3ms-login nav a b { background: #ff026a !important; color: #fff !important; }
 
 /* small status dot (Security page) */
 html[data-theme="dark"] .ssi-status-dot { background: #0bcefc !important; box-shadow: 0 0 0 4px rgba(11, 206, 252, .18) !important; }
@@ -244,45 +238,6 @@ html[data-theme="dark"] #dm-services .dm-service-icon { animation-name: dsSiHalo
     50%      { box-shadow: inset 0 0 0 1px rgba(11, 206, 252, .45), 0 0 30px rgba(11, 206, 252, .3); }
 }
 
-/* Projects tile mosaic: the same tiles as translucent tints of the reference palette over the navy
-   (glass, like the other cards), with a hairline border - not flat saturated blocks */
-html[data-theme="dark"] #dm-projects {
-    --i3-orange: rgba(103, 30, 243, .42);       /* violet */
-    --i3-pink: rgba(192, 38, 211, .3);          /* magenta */
-    --i3-green: rgba(11, 206, 252, .2);         /* cyan */
-    --i3-red: rgba(255, 2, 106, .28);           /* pink */
-    --i3-blue: rgba(56, 117, 243, .3);          /* blue */
-    --i3-lightgreen: rgba(124, 92, 255, .3);    /* soft violet */
-    --i3-yellow: rgba(255, 76, 191, .24);       /* rose */
-}
-html[data-theme="dark"] #dm-projects .dm-i3ms-tile {
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1) !important;
-    -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
-}
-html[data-theme="dark"] #dm-projects .dm-i3ms-tile:is(:hover, :focus-visible) { box-shadow: inset 0 0 0 1px rgba(196, 181, 253, .45) !important; }
-/* panels inside a tile: no second layer of tint */
-html[data-theme="dark"] #dm-projects :is(.dm-i3ms-know-panel, .dm-i3ms-reports-panel) { background: transparent !important; }
-/* the white "?" badge keeps a solid colour */
-html[data-theme="dark"] #dm-projects .dm-i3ms-know-title span { color: #5b36f5 !important; }
-
-/* the dark side panels: frosted glass on navy instead of flat grey */
-html[data-theme="dark"] #dm-projects :is(.dm-query-box, .dm-i3ms-login) {
-    background: rgba(255, 255, 255, .043) !important;
-    border: 1px solid rgba(255, 255, 255, .11);
-    -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
-}
-html[data-theme="dark"] #dm-projects .dm-i3ms-login nav a { border-color: rgba(255, 255, 255, .08) !important; }
-html[data-theme="dark"] #dm-projects .dm-i3ms-login nav a:is(:hover, :focus-visible) { background: rgba(124, 92, 255, .16) !important; }
-html[data-theme="dark"] #dm-projects .dm-i3ms-login nav a svg { fill: #a78bfa !important; }
-html[data-theme="dark"] #dm-projects .dm-query-form :is(input, select, textarea) {
-    background-color: rgba(10, 14, 38, .6) !important;
-    border-color: rgba(255, 255, 255, .14) !important;
-    color: #fff !important;
-}
-html[data-theme="dark"] #dm-projects .dm-query-form :is(input, select, textarea):focus { border-color: #7c5cff !important; outline: none; box-shadow: 0 0 0 3px rgba(124, 92, 255, .25); }
-html[data-theme="dark"] #dm-projects .dm-query-intro { color: #aab2d8 !important; }
 
 /* "MAX" in the logos: the reference's own headline gradient (blue -> violet -> magenta) */
 html[data-theme="dark"] :is(.logo-text strong, .dm-logo span) {
@@ -292,3 +247,8 @@ html[data-theme="dark"] :is(.logo-text strong, .dm-logo span) {
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
 }
+
+/* Projects (i3MS) tiles + panels: exactly as in the light theme - solid Metro tiles, Segoe UI,
+   the grey login panel and the light query form; no glass, no orbit light, no scroll-in fade */
+html[data-theme="dark"] #dm-projects .dm-i3ms-layout .fx-rise { opacity: 1; translate: none; transition: none; }
+html[data-theme="dark"] #dm-projects .dm-i3ms-layout { font-family: "Segoe UI", "Segoe UI Web", "Open Sans", Tahoma, sans-serif !important; }
