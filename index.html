@@ -34,7 +34,6 @@
 <link rel="preload" href="hero-rocket.js" as="script">
 <link rel="stylesheet" href="hero-rocket.css">
 <link rel="stylesheet" href="hero-buyers.css">
-<link rel="stylesheet" href="hero-spark.css">
 <link rel="stylesheet" href="site-futuristic.css" data-theme-css="dark">
 <link rel="stylesheet" href="theme-light.css">
 <link rel="stylesheet" href="footer-map.css">
@@ -232,26 +231,6 @@
 <main>
 
 <section class="hero-section dm-reveal" id="home">
-
-    <!-- dark theme background: glows + giant outlined letters, cut along a curve with a glowing edge (hero-spark.css) -->
-    <div class="hero-spark" aria-hidden="true">
-        <div class="hero-spark-bg"><span class="hero-spark-word">DMAX</span></div>
-        <svg class="hero-spark-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
-            <defs>
-                <linearGradient id="heroSparkLine" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stop-color="#22d3ee"/>
-                    <stop offset=".32" stop-color="#6366f1"/>
-                    <stop offset=".55" stop-color="#a855f7"/>
-                    <stop offset=".78" stop-color="#ec4899"/>
-                    <stop offset="1" stop-color="#f48c18"/>
-                </linearGradient>
-                <filter id="heroSparkBlur" x="-5%" y="-200%" width="110%" height="500%"><feGaussianBlur stdDeviation="6"/></filter>
-            </defs>
-            <path class="hs-glow" d="M0,55 C360,105 900,125 1440,0" filter="url(#heroSparkBlur)" vector-effect="non-scaling-stroke"/>
-            <path class="hs-line" d="M0,55 C360,105 900,125 1440,0" vector-effect="non-scaling-stroke"/>
-            <path class="hs-spark" d="M0,55 C360,105 900,125 1440,0" pathLength="1000" vector-effect="non-scaling-stroke"/>
-        </svg>
-    </div>
 
     <canvas class="hero-rocket-canvas" aria-hidden="true"></canvas>
 
