@@ -70,3 +70,72 @@
 .theme-anim *,
 .theme-anim *::before,
 .theme-anim *::after { transition-duration: 0s !important; }
+
+/* light theme font: Geist, same as the dark theme (dark-spark.css) - everywhere except
+   the home hero, the logos, the loader, the i3MS tiles and the Themify icons */
+html[data-theme="light"] body,
+html[data-theme="light"] body *:not(.hero-section, .hero-section *, .dm-preloader *, [class*="logo"], [class*="logo"] *, .dm-i3ms-layout, .dm-i3ms-layout *, [class^="ti-"], [class*=" ti-"]) {
+    font-family: Geist, Inter, system-ui, -apple-system, "Segoe UI", sans-serif !important;
+}
+
+/* =========================================================
+   Light theme text: same sizes, weights, spacing and case as the dark theme
+   (copied from dark-spark.css - only the type, the light colours stay)
+========================================================= */
+
+/* section headings: 28px / 500, normal case */
+html[data-theme="light"] :is(.achievements-head, .dm-services-heading, .products-heading, .ssi-section-heading, .ssi-contact-inner, .dbs-services-intro) h2,
+html[data-theme="light"] #dm-projects-title,
+html[data-theme="light"] .dm-cta .dm-cta-text h2 {
+    font-size: clamp(21px, 2.4vw, 28px) !important;
+    font-weight: 500 !important;
+    line-height: 1.38 !important;
+    letter-spacing: -.02em !important;
+    text-transform: none !important;
+    text-wrap: balance;
+}
+html[data-theme="light"] h2 .ds-accent { font-weight: 600 !important; }
+
+/* small labels above headings: 16px / 500, sentence case */
+html[data-theme="light"] :is(.dm-services-label, .section-label, .ssi-kicker, .ssi-eyebrow, .contact-eyebrow, .app-card .badge) {
+    display: inline-block;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    letter-spacing: -.01em !important;
+    text-transform: lowercase !important;
+}
+html[data-theme="light"] :is(.dm-services-label, .section-label, .ssi-kicker, .ssi-eyebrow, .contact-eyebrow, .app-card .badge)::first-letter { text-transform: uppercase; }
+
+/* descriptions under headings: 15px / 24px */
+html[data-theme="light"] :is(.achievements-head, .products-heading, .ssi-section-heading, .dbs-services-intro, .products-intro) > p {
+    font-size: 15px !important;
+    line-height: 24px !important;
+    letter-spacing: normal !important;
+}
+
+/* card text: 16.5px / 600 titles, 13.5px text, 13px list items */
+html[data-theme="light"] :is(.dm-service-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div) :is(h3, h2) {
+    font-size: 16.5px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+    letter-spacing: -.02em !important;
+    text-transform: none !important;
+}
+html[data-theme="light"] :is(.dm-service-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div) p {
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
+}
+html[data-theme="light"] :is(.dm-service-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div) li {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+}
+
+/* page titles on the inner pages (not the home hero) */
+html[data-theme="light"] :is(.products-intro h1, #ssi-title, #dbs-title, .app-card h1, #contact-title) {
+    font-weight: 600 !important;
+    letter-spacing: -.03em !important;
+    text-transform: none !important;
+    line-height: 1.12 !important;
+}
+html[data-theme="light"] .products-intro h1 { font-size: clamp(30px, 3.4vw, 44px) !important; }
+html[data-theme="light"] .products-intro h1 :is(.heading-line, .subheading-line) { text-transform: none !important; }
