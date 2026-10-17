@@ -59,7 +59,7 @@ html[data-theme="dark"] h2 .ds-accent {
     font-weight: 600 !important;
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
-    background-image: linear-gradient(90deg, #aab2d8 0%, #aab2d8 22%, #aab2d8 33.33%, #9be9ff 40%, #0bcefc 44%, #7c5cff 49%, #ff026a 54%, #ff9243 59%, transparent 66.67%, transparent) !important;
+    background-image: linear-gradient(90deg, #aab2d8 0%, #aab2d8 22%, #aab2d8 33.33%, #9be9ff 40%, #0bcefc 44%, #7c5cff 49%, #ff026a 54%, #c084fc 59%, transparent 66.67%, transparent) !important;
     background-size: 300% 100% !important;
     background-position: 100% 0;            /* no !important: the sweep animation must be able to move it */
     -webkit-background-clip: text !important;

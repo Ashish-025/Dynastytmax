@@ -36,7 +36,7 @@
     ];
     var EVERY_MS = 3800;         // a new buyer every 3.8 seconds
 
-    var GRADS = [['#a855f7', '#7c3aed'], ['#38bdf8', '#0ea5e9'], ['#fb7185', '#e11d48'], ['#2dd4bf', '#0d9488'], ['#fbbf24', '#f59e0b'], ['#f48c18', '#e91d2b'], ['#60a5fa', '#2563eb']];
+    var GRADS = [['#a855f7', '#7c3aed'], ['#38bdf8', '#0ea5e9'], ['#fb7185', '#e11d48'], ['#2dd4bf', '#0d9488'], ['#ec4899', '#be185d'], ['#22d3ee', '#0891b2'], ['#60a5fa', '#2563eb']];
 
     function initials(name) {
         return name.replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase();

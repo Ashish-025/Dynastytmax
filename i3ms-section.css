@@ -6,13 +6,13 @@
 ========================================================= */
 
 #dm-projects {
-    --i3-orange: #c95a00;
+    --i3-orange: #d7263d;
     --i3-pink: #941952;
     --i3-green: #00a569;
     --i3-red: #9a0000;
     --i3-blue: #126996;
     --i3-lightgreen: #76af00;
-    --i3-yellow: #e99f00;
+    --i3-yellow: #1d3a6e;
     padding: 15px 0;
     background: #fff;
     font-family: "Segoe UI", "Segoe UI Web", "Open Sans", Tahoma, sans-serif;
@@ -413,3 +413,7 @@
 @media (max-width: 999px) {
     #dm-projects .dm-query-box { height: auto; margin: 12px 0 0; }
 }
+
+/* icon cut-outs take the tile colour (the SVGs carry the old orange as a fixed fill) */
+#dm-projects .dm-i3ms-icon [fill="#c95a00"] { fill: var(--i3-orange); }
+[data-theme="dark"] #dm-projects .dm-i3ms-icon [fill="#c95a00"] { fill: #2f1a73; }

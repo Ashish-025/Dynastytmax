@@ -56,8 +56,9 @@
 }
 .hb-face img { width: 100%; height: 100%; object-fit: cover; }
 
-/* the newest buyer (right end, on top) gets an orange ring */
-.hb-face.is-latest { box-shadow: 0 0 0 2px #f48c18, 0 3px 10px rgba(0, 0, 0, .35); }
+/* the newest buyer (right end, on top) gets a ring: red in the light theme, violet in the dark */
+.hb-face.is-latest { box-shadow: 0 0 0 2px #e91d2b, 0 3px 10px rgba(0, 0, 0, .35); }
+html[data-theme="dark"] .hb-face.is-latest { box-shadow: 0 0 0 2px #a78bfa, 0 3px 10px rgba(0, 0, 0, .35); }
 .hb-face.is-new { opacity: 0; transition: none; }      /* slides in from the right as it appears */
 .hb-face.is-gone { opacity: 0; }                       /* slides out on the left as it fades */
 
@@ -92,7 +93,7 @@
 .hb-line.is-out { opacity: 0; transform: translate(-40px, -50%); }
 .hb-line strong { color: #fff; font-weight: 700; }
 .hb-what { display: block; overflow: hidden; text-overflow: ellipsis; }
-.hb-what b { color: #f48c18; font-weight: 700; }
+.hb-what b { color: #c4b5fd; font-weight: 700; }   /* dark theme: pale violet */
 
 /* light theme: the product name in the site red, like the hero's rotating word */
 html:not([data-theme="dark"]) .hb-what b { color: #ff4d57; }

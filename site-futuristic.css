@@ -646,9 +646,9 @@ html body,
 html body.app-page{ background: transparent !important; }
 
 /* hero rotating word: gradient on each flipping word (not the wrapper, which hid them) */
-.hero-content h1 strong { color: #f48c18; }
+.hero-content h1 strong { color: #a78bfa; }
 .hero-content h1 .hero-rotator > span {
-    background: linear-gradient(90deg, #f48c18, #ec9354 45%, #4089dd);
+    background: linear-gradient(90deg, #a78bfa, #c4b5fd 45%, #0bcefc);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

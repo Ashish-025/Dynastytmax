@@ -4383,7 +4383,7 @@ html body .achievements-section::after {
 }
 html body .achievements-section::before {
     background:
-        radial-gradient(1.9px 1.9px at 28.9% 21.1%, rgba(244,140,24,0.88), transparent),
+        radial-gradient(1.9px 1.9px at 28.9% 21.1%, rgba(233,29,43,0.88), transparent),
         radial-gradient(1.3px 1.3px at 75.2% 75.5%, rgba(255,255,255,0.79), transparent),
         radial-gradient(1.6px 1.6px at 81.7% 24.2%, rgba(255,255,255,0.72), transparent),
         radial-gradient(1.7px 1.7px at 5.4% 68.4%, rgba(255,255,255,0.76), transparent),
@@ -4394,7 +4394,7 @@ html body .achievements-section::before {
         radial-gradient(1.9px 1.9px at 5.9% 27.3%, rgba(255,255,255,0.80), transparent),
         radial-gradient(1.4px 1.4px at 19.3% 90.9%, rgba(255,255,255,0.57), transparent),
         radial-gradient(1.3px 1.3px at 66.4% 92.4%, rgba(64,137,221,0.78), transparent),
-        radial-gradient(1.4px 1.4px at 28.4% 36.4%, rgba(244,140,24,0.74), transparent),
+        radial-gradient(1.4px 1.4px at 28.4% 36.4%, rgba(233,29,43,0.74), transparent),
         radial-gradient(1.5px 1.5px at 61.4% 23.3%, rgba(64,137,221,0.96), transparent),
         radial-gradient(1.9px 1.9px at 63.5% 63.4%, rgba(64,137,221,0.78), transparent),
         radial-gradient(1.7px 1.7px at 94.0% 39.7%, rgba(255,255,255,0.87), transparent),
@@ -4404,23 +4404,23 @@ html body .achievements-section::before {
         radial-gradient(1.1px 1.1px at 45.7% 59.3%, rgba(255,255,255,0.61), transparent),
         radial-gradient(1.9px 1.9px at 89.1% 88.5%, rgba(255,255,255,0.96), transparent),
         radial-gradient(1.3px 1.3px at 1.0% 24.8%, rgba(255,255,255,0.58), transparent),
-        radial-gradient(1.6px 1.6px at 23.1% 74.1%, rgba(244,140,24,0.77), transparent),
+        radial-gradient(1.6px 1.6px at 23.1% 74.1%, rgba(233,29,43,0.77), transparent),
         radial-gradient(1.2px 1.2px at 88.2% 23.5%, rgba(255,255,255,0.72), transparent),
         radial-gradient(1.1px 1.1px at 48.9% 0.3%, rgba(255,255,255,0.96), transparent),
         radial-gradient(1.9px 1.9px at 2.1% 90.0%, rgba(255,255,255,0.63), transparent),
         radial-gradient(1.6px 1.6px at 67.9% 26.6%, rgba(255,255,255,0.65), transparent),
         radial-gradient(circle at 1px 1px, rgba(255, 255, 255, .09) 1px, transparent 1.6px) 0 0 / 7px 7px,
         radial-gradient(55% 120% at 82% 0%, rgba(64, 137, 221, .16), transparent 62%),
-        radial-gradient(45% 120% at 12% 100%, rgba(244, 140, 24, .12), transparent 62%),
+        radial-gradient(45% 120% at 12% 100%, rgba(233, 29, 43, .1), transparent 62%),
         #000;
 }
 html body .achievements-section::after {
     background:
-        radial-gradient(2.4px 2.4px at 5.2% 76.9%, rgba(244,140,24,0.87), transparent),
+        radial-gradient(2.4px 2.4px at 5.2% 76.9%, rgba(233,29,43,0.87), transparent),
         radial-gradient(2.3px 2.3px at 3.3% 11.0%, rgba(255,255,255,0.96), transparent),
-        radial-gradient(2.6px 2.6px at 89.3% 3.7%, rgba(244,140,24,0.95), transparent),
+        radial-gradient(2.6px 2.6px at 89.3% 3.7%, rgba(233,29,43,0.95), transparent),
         radial-gradient(3.0px 3.0px at 95.4% 76.5%, rgba(255,255,255,0.74), transparent),
-        radial-gradient(2.6px 2.6px at 88.2% 39.8%, rgba(244,140,24,0.66), transparent),
+        radial-gradient(2.6px 2.6px at 88.2% 39.8%, rgba(233,29,43,0.66), transparent),
         radial-gradient(2.8px 2.8px at 55.9% 35.1%, rgba(64,137,221,0.83), transparent),
         radial-gradient(2.1px 2.1px at 72.5% 42.3%, rgba(255,255,255,0.64), transparent),
         radial-gradient(3.0px 3.0px at 99.4% 63.2%, rgba(64,137,221,0.94), transparent),
@@ -4429,7 +4429,7 @@ html body .achievements-section::after {
         radial-gradient(1.8px 1.8px at 66.3% 52.2%, rgba(64,137,221,0.80), transparent),
         radial-gradient(2.7px 2.7px at 36.2% 75.1%, rgba(255,255,255,0.56), transparent),
         radial-gradient(2.4px 2.4px at 20.3% 72.3%, rgba(64,137,221,0.68), transparent),
-        radial-gradient(2.5px 2.5px at 42.9% 7.5%, rgba(244,140,24,0.90), transparent);
+        radial-gradient(2.5px 2.5px at 42.9% 7.5%, rgba(233,29,43,0.90), transparent);
     animation: achTwinkle 3.2s ease-in-out infinite alternate;
 }
 @keyframes achTwinkle { from { opacity: .25; } to { opacity: 1; } }
