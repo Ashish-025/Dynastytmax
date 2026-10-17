@@ -308,3 +308,61 @@ html[data-theme="dark"] body .achievements-section .stat-card {
     -webkit-backdrop-filter: none !important;
             backdrop-filter: none !important;
 }
+
+/* =========================================================
+   No red in the dark theme: red lines are removed, red fills / glows / text
+   switch to the violet + cyan palette. The light theme keeps its red.
+   (the Google logo in the rating badge keeps its own colours)
+========================================================= */
+
+/* red lines: removed */
+html[data-theme="dark"] .logo-marquee .dm-product-card .dm-card-line,
+html[data-theme="dark"] .cr-line::after,
+html[data-theme="dark"] .cr-team-txt strong::after { display: none !important; }
+
+/* Our Services hover shade: violet instead of red */
+html[data-theme="dark"] .dm-service-card .dm-card-overlay,
+html[data-theme="dark"] .dm-service-card.dm-service-digital .dm-card-overlay {
+    background: linear-gradient(135deg, rgba(124, 92, 255, .80), rgba(11, 206, 252, .55)) !important;
+}
+html[data-theme="dark"] .dm-service-card:focus-visible { outline-color: #a78bfa !important; }
+html[data-theme="dark"] .dm-service-card:hover .dm-service-icon img { filter: invert(1) hue-rotate(180deg) brightness(1.1) drop-shadow(0 0 5px rgba(167, 139, 250, .45)) !important; }
+
+/* Projects (i3MS): the red / crimson tiles, login heading, query button and icon go violet */
+html[data-theme="dark"] #dm-projects {
+    --i3-orange: #5b36f5;
+    --i3-red: #3b2394;
+}
+html[data-theme="dark"] #dm-projects .dm-i3ms-login nav a b { color: #5b36f5 !important; }
+
+/* loader: "MAX" in the logo gradient instead of red */
+html[data-theme="dark"] .dm-pl-name em,
+html[data-theme="dark"] .dm-pl-name em .dm-pl-ch {
+    color: #a78bfa !important;
+    -webkit-text-fill-color: #a78bfa !important;
+}
+
+/* hero "recent buyers": the rose avatar becomes indigo */
+html[data-theme="dark"] .hb-face[style*="251, 113, 133"],
+html[data-theme="dark"] .hb-face[style*="#fb7185"] { background: linear-gradient(135deg, #818cf8, #4f46e5) !important; }
+
+/* Security page: red dot / accent */
+html[data-theme="dark"] .security-page { --ssi-red: #a78bfa; }
+html[data-theme="dark"] :is(.ssi-eyebrow > span, .ssi-status-dot) { box-shadow: 0 0 0 4px rgba(167, 139, 250, .18) !important; }
+
+/* Digital page: red image overlay, red hover text, coral avatar */
+html[data-theme="dark"] .dbs-page .inner-box .overlay-box::before { background-color: rgba(91, 54, 245, .82) !important; }
+html[data-theme="dark"] :is(.dbs-page .service-item:hover i, .dbs-page .service-item:hover h4, .dbs-page .service-item:hover p) { color: #a78bfa !important; }
+html[data-theme="dark"] .ph-tasks .av:not(.b):not(.c) { background: #7c5cff !important; }
+html[data-theme="dark"] .dbs-accent { --dbs-accent: #a78bfa; }
+
+/* contact page careers: violet button / hovers */
+html[data-theme="dark"] .cr-btn:not(.is-outline) { background: #5b36f5 !important; border-color: #5b36f5 !important; }
+html[data-theme="dark"] .cr-btn:not(.is-outline):hover { background: #7c5cff !important; border-color: #7c5cff !important; box-shadow: 0 10px 24px rgba(124, 92, 255, .3) !important; }
+html[data-theme="dark"] .cr-btn:focus-visible,
+html[data-theme="dark"] .cr-filters button:focus-visible { outline-color: #0bcefc !important; }
+
+/* hover / focus glows elsewhere */
+html[data-theme="dark"] :is(.dm-cta .dm-cta-btn, .dm-office-gmap-link, .products-grid .product-card:has(.details:focus-visible)):focus-visible { outline-color: #a78bfa !important; }
+html[data-theme="dark"] :is(.dm-office-pins a:hover rect, .dm-office-pins a:focus-visible rect) { fill: #7c5cff !important; }
+html[data-theme="dark"] :is(.site-social-links a:hover, .site-social-links a:focus-visible) { filter: drop-shadow(0 0 4px rgba(167, 139, 250, .95)) !important; }
