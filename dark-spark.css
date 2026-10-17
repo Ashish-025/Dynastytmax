@@ -271,3 +271,12 @@ html[data-theme="dark"] #dm-projects .dm-query-form :is(input, select, textarea)
 }
 html[data-theme="dark"] #dm-projects .dm-query-form :is(input, select, textarea):focus { border-color: #7c5cff !important; outline: none; box-shadow: 0 0 0 3px rgba(124, 92, 255, .25); }
 html[data-theme="dark"] #dm-projects .dm-query-intro { color: #aab2d8 !important; }
+
+/* "MAX" in the logos: the reference's own headline gradient (blue -> violet -> magenta) */
+html[data-theme="dark"] :is(.logo-text strong, .dm-logo span) {
+    background: linear-gradient(90deg, #1e4ff3 0%, #a855f7 50%, #e0359e 100%) !important;
+    -webkit-background-clip: text !important;
+            background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
