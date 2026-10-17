@@ -1,0 +1,100 @@
+/* Home hero - dark theme background (in the style of sparklayer.io's hero):
+     a deep navy -> indigo gradient with soft purple / magenta / blue glows and a giant faint
+     outlined "DMAX", cut along a curve at the bottom; the curve is drawn with a glowing
+     cyan -> purple -> pink -> orange line with a bright spark running along it.
+     Below the curve the page's own background shows through.
+   Markup: <div class="hero-spark"> inside .hero-section in index.html (before the canvas,
+   so the particle animation draws on top). Light theme: hidden; the hero keeps its look. */
+
+.hero-spark { display: none; }
+
+html[data-theme="dark"] .hero-section { --hs-h: clamp(56px, 8vw, 116px); }   /* height of the curve */
+
+/* the hero itself goes see-through; the background lives in .hero-spark-bg */
+html[data-theme="dark"] body .hero-section.hero-section { background: transparent; }
+/* the old fade-to-black at the bottom is replaced by the curved edge */
+html[data-theme="dark"] .hero-section.has-rocket-animation::after { display: none; }
+
+html[data-theme="dark"] .hero-spark {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 0;                            /* under the particles and the text */
+    pointer-events: none;
+}
+
+.hero-spark-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(55% 65% at 10% 0%, rgba(124, 58, 237, .42), transparent 62%),
+        radial-gradient(42% 55% at 94% 6%, rgba(192, 38, 211, .32), transparent 62%),
+        radial-gradient(48% 50% at 72% 88%, rgba(37, 99, 235, .22), transparent 66%),
+        radial-gradient(40% 45% at 30% 70%, rgba(79, 70, 229, .16), transparent 70%),
+        linear-gradient(180deg, #0b0d2a 0%, #141238 48%, #0b1233 100%);
+    /* solid down to the curve strip, then cut along the curve (same path as the line) */
+    -webkit-mask-image: linear-gradient(#000, #000), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0,55 C360,105 900,125 1440,0 L1440,0 L0,0 Z'/%3E%3C/svg%3E");
+            mask-image: linear-gradient(#000, #000), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0,55 C360,105 900,125 1440,0 L1440,0 L0,0 Z'/%3E%3C/svg%3E");
+    -webkit-mask-size: 100% calc(100% - var(--hs-h) + 1px), 100% var(--hs-h);
+            mask-size: 100% calc(100% - var(--hs-h) + 1px), 100% var(--hs-h);
+    -webkit-mask-position: top, bottom;
+            mask-position: top, bottom;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+}
+
+/* giant outlined letters, bottom left, cut by the curve */
+.hero-spark-word {
+    position: absolute;
+    left: clamp(-10px, 3vw, 60px);
+    bottom: clamp(10px, 2vw, 34px);
+    color: transparent;
+    font: 900 clamp(120px, 21vw, 330px)/.8 Montserrat, Arial, sans-serif;
+    letter-spacing: .02em;
+    white-space: nowrap;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, .055);
+    user-select: none;
+}
+
+/* the glowing curve along the cut */
+.hero-spark-wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: var(--hs-h);
+    overflow: visible;
+}
+.hero-spark-wave .hs-glow { fill: none; stroke: url(#heroSparkLine); stroke-width: 12; opacity: .55; }
+.hero-spark-wave .hs-line { fill: none; stroke: url(#heroSparkLine); stroke-width: 3.5; }
+.hero-spark-wave .hs-spark {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-dasharray: 70 1000;
+    stroke-dashoffset: 1070;
+    opacity: .9;
+    animation: heroSparkRun 6.5s cubic-bezier(.45, 0, .3, 1) infinite;
+}
+@keyframes heroSparkRun {
+    0%   { stroke-dashoffset: 1070; opacity: 0; }
+    8%   { opacity: .9; }
+    80%  { opacity: .9; }
+    100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+/* phones: the headline sits at the bottom of the hero - keep it clear of the curve */
+@media (max-width: 768px) {
+    html[data-theme="dark"] .hero-section.has-rocket-animation .hero-container { padding-bottom: calc(var(--hs-h) + 22px); }
+}
+@media (max-width: 600px) {
+    .hero-spark-word { left: -6px; bottom: 30px; -webkit-text-stroke-width: 1.5px; }
+    .hero-spark-wave .hs-glow { stroke-width: 9; }
+    .hero-spark-wave .hs-line, .hero-spark-wave .hs-spark { stroke-width: 2.5; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-spark-wave .hs-spark { animation: none; display: none; }
+}
