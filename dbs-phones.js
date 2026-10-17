@@ -1,7 +1,7 @@
 /*  Digital Branding hero - a row of phone screens sliding along (like the naksysglobal.com hero):
     three phones in view - a big one in the middle, smaller ones either side. Every step the row moves
     one place to the left: the left phone shrinks away, the middle one shrinks to the left, the right
-    one grows into the middle and a new tiny phone grows in on the far right.
+    one grows into the middle and a new phone grows in from nothing on the far right (a step every 1.38s, 0.43s move - measured from the reference).
     The app screens are our own, drawn in HTML/CSS (no images). Styles in dbs-phones.css.
     Fills <div class="dbs-phones"> in digital-branding-business-solutions.html. */
 (function () {
@@ -118,7 +118,7 @@
     }
 
     if (reduce) return;
-    var EVERY = 1100, timer = 0, visible = true;
+    var EVERY = 1380, timer = 0, visible = true;
     function run() { clearInterval(timer); if (visible && !document.hidden) timer = setInterval(step, EVERY); }
     document.addEventListener('visibilitychange', run);
     if ('IntersectionObserver' in window) {

@@ -1,6 +1,6 @@
 /* Digital Branding hero - sliding row of phone screens (dbs-phones.js), like the naksysglobal.com hero.
-   Five phones sit in slots 0-4; every step each moves one slot left:
-     0 = tiny, leaving on the left   1 = small, left   2 = big, middle   3 = small, right   4 = tiny, arriving on the right
+   Five phones sit in slots 0-4; every step each moves one slot left (sizes / timing measured from the reference):
+     0 = shrunk to nothing, left   1 = small, left (x0.657)   2 = big, middle   3 = small, right (x0.657)   4 = grows in from nothing, right
    Everything inside a phone is sized in em (1em = 1/16 of the middle phone's width) so it scales with it. */
 
 /* hero: text on the left, phones on the right (the forced line break in the lead is for the old full-width layout) */
@@ -9,10 +9,10 @@
 .dbs-banner .dbs-banner-col { flex: 1 1 auto; min-width: 0; max-width: none !important; }
 
 .dbs-phones {
-    --pw: clamp(150px, 13vw, 200px);          /* width of the middle phone */
+    --pw: clamp(120px, 9.3vw, 170px);         /* width of the middle phone (reference: 134px at a 1440px screen) */
     position: relative;
-    flex: 0 0 calc(var(--pw) * 3.3);
-    height: calc(var(--pw) * 2.2);
+    flex: 0 0 calc(var(--pw) * 3);
+    height: calc(var(--pw) * 2.4);
     pointer-events: none;
     user-select: none;
 }
@@ -22,23 +22,23 @@
     left: 50%;
     top: 50%;
     width: var(--pw);
-    height: calc(var(--pw) * 2.08);
-    margin: calc(var(--pw) * -1.04) 0 0 calc(var(--pw) * -.5);
+    height: calc(var(--pw) * 2.164);          /* reference phone: 134 x 290 */
+    margin: calc(var(--pw) * -1.082) 0 0 calc(var(--pw) * -.5);
     overflow: hidden;
     box-sizing: border-box;
     border-radius: calc(var(--pw) * .11);   /* plain rounded screens, no device frame (as the reference) */
     background: #eef1ff;
     box-shadow: 0 14px 34px rgba(20, 22, 60, .16), 0 2px 6px rgba(20, 22, 60, .08);
     font: 400 calc(var(--pw) / 16)/1.25 Geist, Montserrat, "Segoe UI", Arial, sans-serif;
-    transition: transform .6s cubic-bezier(.65, 0, .35, 1), opacity .45s ease;
+    transition: transform .43s cubic-bezier(.37, 0, .63, 1);   /* reference: 0.43s, sine ease-in-out */
     will-change: transform;
 }
 .dbs-phone.no-anim { transition: none; }
-.dbs-phone[data-slot="0"] { transform: translateX(calc(var(--pw) * -1.5)) scale(.22); opacity: .9; z-index: 1; }
-.dbs-phone[data-slot="1"] { transform: translateX(calc(var(--pw) * -1.02)) scale(.66); z-index: 2; }
+.dbs-phone[data-slot="0"] { transform: translateX(calc(var(--pw) * -1.37)) scale(0); z-index: 1; }   /* shrinks away to nothing */
+.dbs-phone[data-slot="1"] { transform: translateX(calc(var(--pw) * -.963)) scale(.657); z-index: 2; }  /* reference: 88 x 191, 129px left */
 .dbs-phone[data-slot="2"] { transform: none; z-index: 3; }
-.dbs-phone[data-slot="3"] { transform: translateX(calc(var(--pw) * 1.02)) scale(.66); z-index: 2; }
-.dbs-phone[data-slot="4"] { transform: translateX(calc(var(--pw) * 1.5)) scale(.22); opacity: .9; z-index: 1; }
+.dbs-phone[data-slot="3"] { transform: translateX(calc(var(--pw) * .963)) scale(.657); z-index: 2; }
+.dbs-phone[data-slot="4"] { transform: translateX(calc(var(--pw) * 1.37)) scale(0); z-index: 1; }    /* grows in from nothing */
 
 .ph-notch { display: none; }
 
@@ -161,7 +161,7 @@
 
 @media (max-width: 900px) {
     .dbs-banner .dbs-container { flex-direction: column; align-items: stretch; }
-    .dbs-phones { --pw: clamp(110px, 30vw, 160px); flex: 0 0 auto; width: 100%; height: calc(var(--pw) * 2.2); }
+    .dbs-phones { --pw: clamp(100px, 28vw, 150px); flex: 0 0 auto; width: 100%; height: calc(var(--pw) * 2.4); }
 }
 @media (prefers-reduced-motion: reduce) {
     .dbs-phone { transition: none; }
