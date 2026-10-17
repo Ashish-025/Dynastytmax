@@ -30,7 +30,7 @@ html[data-theme="dark"] body::after {
 
 /* ---------- font: Geist everywhere except the home hero, the logos and the loader ---------- */
 html[data-theme="dark"] body,
-html[data-theme="dark"] body *:not(.hero-section, .hero-section *, .dm-preloader *, [class*="logo"], [class*="logo"] *, .dm-i3ms-layout, .dm-i3ms-layout *) {
+html[data-theme="dark"] body *:not(.hero-section, .hero-section *, .dm-preloader *, [class*="logo"], [class*="logo"] *, .dm-i3ms-layout, .dm-i3ms-layout *, [class^="ti-"], [class*=" ti-"]) {
     font-family: Geist, Inter, system-ui, -apple-system, "Segoe UI", sans-serif !important;
 }
 

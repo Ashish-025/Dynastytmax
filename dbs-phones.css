@@ -41,26 +41,6 @@
 .dbs-phone[data-slot="4"] { transform: translateX(calc(var(--pw) * 1.37)) scale(0); z-index: 1; }    /* grows in from nothing */
 
 
-/* ---------- headline word: slides up to the next one in step with the phones (clipped box, as the reference) ---------- */
-.dbs-words[data-driven] {
-    display: inline-grid;
-    overflow: hidden;
-    vertical-align: top;
-    white-space: nowrap !important;
-    width: auto !important;
-    padding-right: 0;
-    border-right: 0;
-    transition: none;
-}
-.dbs-words[data-driven] b {
-    display: block;
-    grid-area: 1 / 1;
-    transform: translateY(105%);
-    transition: transform .43s cubic-bezier(.37, 0, .63, 1);
-}
-.dbs-words[data-driven] b.is-visible { transform: none; }
-.dbs-words[data-driven] b.is-out { transform: translateY(-105%); }
-
 /* ---------- screens ---------- */
 .ph-scr {
     position: absolute;
@@ -197,10 +177,15 @@
 
 @media (max-width: 900px) {
     .dbs-banner .dbs-container { flex-direction: column; align-items: stretch; }
-    /* the longest words ("Professional Content.") must fit the screen width */
-    .dbs-words[data-driven] { font-size: min(1em, 6.9vw); max-width: 100%; }
     .dbs-phones { --pw: clamp(100px, 28vw, 150px); flex: 0 0 auto; width: 100%; height: calc(var(--pw) * 2.4); }
 }
 @media (prefers-reduced-motion: reduce) {
     .dbs-phone { transition: none; }
 }
+
+/* blog editor */
+.ph-chip2 { padding: .2em .6em; border-radius: 1em; background: #fff1c2; color: #8a6300; font-size: .6em; font-weight: 700; }
+.ph-toolbar { display: flex; gap: .35em; }
+.ph-toolbar i { flex: 1; padding: .3em 0; border-radius: .4em; background: #f1f2f8; font-size: .62em; font-style: normal; font-weight: 700; text-align: center; color: #4b4f6b; }
+.ph-post-title { font-size: .9em; font-weight: 700; line-height: 1.2; }
+.ph-post-img { height: 3.6em; border-radius: .7em; background: linear-gradient(135deg, #c4b5fd, #8ee9ff); }

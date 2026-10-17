@@ -5,7 +5,7 @@
 
     /* ---- headline: clip each word out and the next one in ---- */
     var wrap = document.querySelector('.dbs-words');
-    if (wrap && !wrap.hasAttribute('data-driven')) {   // data-driven="phones": dbs-phones.js flips the words in step with the phones
+    if (wrap) {
         var words = Array.prototype.slice.call(wrap.querySelectorAll('b'));
         var index = 0;
         var fit = function () {
@@ -21,6 +21,8 @@
                     words[index].classList.remove('is-visible');
                     index = (index + 1) % words.length;
                     words[index].classList.add('is-visible');
+                    // the hero phones (dbs-phones.js) move on in step with the new word
+                    wrap.dispatchEvent(new CustomEvent('dbs:word', { bubbles: true, detail: { index: index } }));
                     wrap.style.transition = 'none';
                     wrap.style.width = '';
                     var target = wrap.offsetWidth;
