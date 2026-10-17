@@ -314,3 +314,7 @@ html[data-theme="dark"] .dm-cta .dm-cta-inner { border-radius: 18px; background:
 @media (max-width:1100px){ html .dm-cta .dm-cta-inner, html[data-theme="dark"] .dm-cta .dm-cta-inner { border-radius: 16px; } }
 @media (max-width:600px){ html .dm-cta .dm-cta-actions { gap: 10px; } }
 @media (max-width:600px){ html .dm-cta .dm-cta-actions { flex: 1 1 100%; flex-wrap: wrap; min-width: 0; } }
+
+/* dark theme: the rating strip lets the page background (sparklayer-style navy glow) show through,
+   with hairline lines above and below in place of a solid black band */
+html[data-theme="dark"] .dm-rating.dm-rating { background: rgba(255, 255, 255, .025); border-top: 1px solid rgba(255, 255, 255, .08); border-bottom: 1px solid rgba(255, 255, 255, .08); }

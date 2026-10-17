@@ -36,13 +36,13 @@ body::before {
     inset: 0;
     z-index: -2;
     pointer-events: none;
-    /* deep navy -> indigo with soft purple / magenta / blue glows (in the style of sparklayer.io) */
+    /* the sparklayer.io 'One B2B platform' section background: faint concentric rings (top right),
+       purple glow top left, pink glow bottom right, on a deep navy gradient */
     background:
-        radial-gradient(60vw 60vh at 8% 0%, rgba(124, 58, 237, .34), transparent 65%),
-        radial-gradient(50vw 55vh at 95% 8%, rgba(192, 38, 211, .26), transparent 65%),
-        radial-gradient(55vw 50vh at 75% 95%, rgba(37, 99, 235, .22), transparent 68%),
-        radial-gradient(45vw 45vh at 20% 75%, rgba(79, 70, 229, .14), transparent 70%),
-        linear-gradient(180deg, #0b0d2a 0%, #141238 50%, #0b1233 100%);
+        repeating-radial-gradient(circle at 84% 16%, transparent 0, transparent 78px, rgba(255, 255, 255, .05) 78px, rgba(255, 255, 255, .05) 79.5px),
+        radial-gradient(820px 420px at 20% 0%, rgba(103, 30, 243, .4), transparent 60%),
+        radial-gradient(660px 400px at 92% 100%, rgba(255, 2, 106, .16), transparent 55%),
+        linear-gradient(#0a0e26, #141a41);
 }
 body::after {
     content: "";
@@ -50,10 +50,7 @@ body::after {
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background-image: radial-gradient(rgba(255, 255, 255, .07) .7px, transparent 1px);
-    background-size: 5px 5px;
-    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 85%);
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 85%);
+    display: none;   /* no dotted grain: the background matches the sparklayer.io section */
 }
 
 /* header: dark glass so the space shows through */
