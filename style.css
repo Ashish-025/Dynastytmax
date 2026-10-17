@@ -1824,6 +1824,19 @@ body {
         );
 }
 
+/* Our Services cards: red hover shade on every card (both themes) */
+
+.dm-service-card .dm-card-overlay,
+.dm-service-card.dm-service-digital .dm-card-overlay {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(240, 70, 80, 0.80),
+            rgba(255, 125, 130, 0.68)
+        );
+}
+
 /* =========================================================
    CONTENT
 ========================================================= */

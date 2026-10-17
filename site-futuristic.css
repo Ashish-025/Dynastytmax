@@ -79,18 +79,6 @@ body { color: var(--fx-text); }
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
-.dm-service-card::before {
-    /* thin glowing edge along the top */
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 1px;
-    z-index: 3;
-    background: var(--fx-grad);
-    opacity: .7;
-}
 .dm-service-card:hover {
     border-color: rgba(11, 206, 252, .45);
     box-shadow: var(--fx-glow);
