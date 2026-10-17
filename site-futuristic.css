@@ -1,12 +1,12 @@
 /* =========================================================
    FUTURISTIC SITE THEME
-   Continues the hero look across the page: navy-indigo glow background
-   (site-space.js), dotted grain, glass panels, orange→blue accents.
+   Continues the hero look across the page: plain deep-navy background (no animation),
+   glass panels, orange→blue accents.
    Load after style.css / header-dark.css. Content is untouched.
 ========================================================= */
 
 :root {
-    --fx-bg: #000;
+    --fx-bg: #0e1e31;   /* plain deep navy: the colour at the right end of the top contact strip */
     --fx-orange: #f48c18;
     --fx-blue: #4089dd;
     --fx-grad: linear-gradient(90deg, #f48c18, #ec9354 35%, #4089dd);
@@ -20,38 +20,6 @@
 
 html, body { background: var(--fx-bg); }
 body { color: var(--fx-text); }
-
-/* animated dust canvas + dotted grain + faint nebula glow, all fixed behind the page */
-.site-space-canvas {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    pointer-events: none;
-    /* the sparklayer.io 'One B2B platform' section background: faint concentric rings (top right),
-       purple glow top left, pink glow bottom right, on a deep navy gradient */
-    background:
-        repeating-radial-gradient(circle at 84% 16%, transparent 0, transparent 78px, rgba(255, 255, 255, .05) 78px, rgba(255, 255, 255, .05) 79.5px),
-        radial-gradient(820px 420px at 20% 0%, rgba(103, 30, 243, .4), transparent 60%),
-        radial-gradient(660px 400px at 92% 100%, rgba(255, 2, 106, .16), transparent 55%),
-        linear-gradient(#0a0e26, #141a41);
-}
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    display: none;   /* no dotted grain: the background matches the sparklayer.io section */
-}
 
 /* header: dark glass so the space shows through */
 .site-header {
@@ -408,10 +376,8 @@ body::after {
     transform-origin: 50% 100%;
     mask-image: linear-gradient(to top, #000 0%, transparent 85%);
     -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 85%);
-    animation: fxGridMove 6s linear infinite;
     opacity: .55;
 }
-@keyframes fxGridMove { to { background-position: 0 64px, 0 0; } }
 
 /* section headings: light sweeps slowly across the text */
 .dm-services-heading h2,
@@ -674,8 +640,8 @@ body::after {
 /* app page secondary button */
 .app-page .store-btn.secondary { border-color: rgba(64, 137, 221, .5); }
 
-/* let the animated canvas show: black stays on <html>, <body> is see-through */
-html { background: #000; }
+/* the page colour sits on <html>; <body> is see-through */
+html { background: var(--fx-bg); }
 html body,
 html body.app-page{ background: transparent !important; }
 
