@@ -248,3 +248,17 @@
 }
 .ab-swap > span { text-align: center; white-space: nowrap; }
 .ab-swap::after { white-space: nowrap; }
+
+/* GET STARTED: a plain black button with a white outline in BOTH themes, and it stays black on
+   hover - only the label swaps to VEHICLE STATUS (beats the dark theme's gradient pill and the
+   white hover fill / glow in the other stylesheets) */
+html[data-theme] body :is(.app-button, .mobile-app-button),
+html[data-theme] body :is(.app-button, .mobile-app-button):is(:hover, :focus-visible) {
+    background: #000 !important;
+    border: 1px solid #fff !important;
+    border-radius: 0 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+html[data-theme] body :is(.app-button, .mobile-app-button):focus-visible { outline: 2px solid #fff !important; outline-offset: 3px; }
