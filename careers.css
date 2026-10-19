@@ -410,3 +410,14 @@ html[data-theme="dark"] .cr-life {
 }
 html[data-theme="dark"] .cr-life h3.cr-line::after { background: #0bcefc; }
 html[data-theme="dark"] .cr-team-nav:hover { background: #7c5cff; }
+
+/* phones: tighter banner (the column gap + the line's margin left a big hole under the title) */
+@media (max-width: 640px) {
+    .cr-banner-con { gap: 0; }
+    .cr-banner-lft .cr-line::after { margin: 16px auto 22px; }
+    .cr-banner-rht p { font-size: 15.5px; margin-bottom: 16px; }
+    .cr-banner-rht p:nth-of-type(2) { margin-bottom: 26px; }
+    .cr-photos { margin-top: 44px; }
+    .cr-roles-head { margin-bottom: 24px; }
+    .cr-role h3 { font-size: 20px; }
+}

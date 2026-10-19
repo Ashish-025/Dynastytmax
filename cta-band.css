@@ -318,3 +318,17 @@ html[data-theme="dark"] .dm-cta .dm-cta-inner { border-radius: 18px; background:
 /* dark theme: the rating strip lets the page background (sparklayer-style navy glow) show through,
    with hairline lines above and below in place of a solid black band */
 html[data-theme="dark"] .dm-rating.dm-rating { background: rgba(255, 255, 255, .025); border-top: 1px solid rgba(255, 255, 255, .08); border-bottom: 1px solid rgba(255, 255, 255, .08); }
+
+/* Google rating strip: white background with its original Montserrat type in BOTH themes
+   (beats the site-wide Geist font rules in theme-light.css / dark-spark.css) */
+html[data-theme][lang] body .dm-rating.dm-rating {
+    background: #ffffff;
+    border-top: 0;
+    border-bottom: 1px solid #ececec;
+    color: #111827;
+}
+html[data-theme][lang] body .dm-rating,
+html[data-theme][lang] body .dm-rating * { font-family: 'Montserrat', Arial, Helvetica, sans-serif !important; }
+html[data-theme][lang] body .dm-rating .dm-rating-brand span { color: #333; }
+html[data-theme][lang] body .dm-rating .dm-rating-text,
+html[data-theme][lang] body .dm-rating .dm-rating-text b { color: #111827; -webkit-text-fill-color: #111827; }

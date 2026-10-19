@@ -257,3 +257,23 @@ html[data-theme="dark"] .stm-inner p { color: rgba(245, 247, 252, .82); }
     .site-contact-strip + .site-header { top: 52px; }
     .stm-inner p { font-size: 11.5px; }
 }
+
+/* hover: the phone number, email and social icons zoom in (on top of the glow) */
+.site-contact-strip > a,
+.site-contact-social a {
+    transition: color .2s ease, text-shadow .2s ease, filter .2s ease, transform .25s cubic-bezier(.2, .8, .3, 1.4);
+}
+.site-contact-strip > a:hover,
+.site-contact-strip > a:focus-visible { transform: translateX(5px) scale(1.1); }
+.site-contact-social a:hover,
+.site-contact-social a:focus-visible { transform: scale(1.3); }
+@media (max-width: 520px) {
+    .site-contact-strip > a:hover,
+    .site-contact-strip > a:focus-visible { transform: scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .site-contact-strip > a:hover,
+    .site-contact-strip > a:focus-visible { transform: translateX(5px); }
+    .site-contact-social a:hover,
+    .site-contact-social a:focus-visible { transform: none; }
+}

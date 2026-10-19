@@ -1,5 +1,6 @@
 /*  WhatsApp chat assistant.
-    A moment after the visitor arrives, a greeting slides out beside the WhatsApp button: a message
+    The WhatsApp button pops in once the visitor scrolls down (hidden at the very top of the page).
+    A moment after it appears, a greeting slides out beside the WhatsApp button: a message
     bubble (avatar with a green online dot, "Chat with us about ..." and a close x) and a small
     "We're available across Odisha, India!" pill under it (styled like omnicomm.com's).
     Clicking either (or the button) opens a compact chat that answers common
@@ -101,7 +102,11 @@
         '@media (max-width:480px){.dm-wa-bubble{width:250px;font-size:14px}.dm-wa-pill{font-size:13px}}',
         '@keyframes dmWaIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}',
         '@keyframes dmWaDot{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-3px)}}',
-        '@media (prefers-reduced-motion:reduce){.dm-wa,.dm-wa-msg,.dm-wa-typing i,.dm-wa-bubble,.dm-wa-pill,.dm-wa-online{transition:none;animation:none}}'
+        /* the WhatsApp button stays out of sight at the top of the page and pops in once the visitor scrolls */
+        '.dm-wa-dock{transition:opacity .4s ease,transform .5s cubic-bezier(.2,.8,.3,1.35),visibility 0s}',
+        '.dm-wa-dock.dm-wa-away{opacity:0;visibility:hidden;transform:translateY(24px) scale(.6);transition:opacity .3s ease,transform .3s ease,visibility 0s linear .3s}',
+        '@media (prefers-reduced-motion:reduce){.dm-wa,.dm-wa-msg,.dm-wa-typing i,.dm-wa-bubble,.dm-wa-pill,.dm-wa-online{transition:none;animation:none}',
+        '.dm-wa-dock,.dm-wa-dock.dm-wa-away{transform:none}}'
     ].join('');
     var style = document.createElement('style');
     style.textContent = css;
@@ -229,6 +234,7 @@
     function close() {
         panel.classList.remove('is-open');
         panel.setAttribute('aria-hidden', 'true');
+        updateDock();
     }
 
     // the floating WhatsApp button now toggles the chat (its href still works without JS)
@@ -245,14 +251,35 @@
     });
 
     // greet the visitor with the strip shortly after they arrive (once per session), then tuck it away
+    // (waits until the button has appeared)
     var greeted = false;
     try { greeted = sessionStorage.getItem(SEEN_KEY) === '1'; } catch (err) { /* storage blocked */ }
     if (!greeted) {
-        setTimeout(function () {
+        setTimeout(function greet() {
             if (panel.classList.contains('is-open')) return;
+            if (dock.classList.contains('dm-wa-away')) { setTimeout(greet, 800); return; }
             showStrip();
             try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (err) { /* storage blocked */ }
             setTimeout(hideStrip, STRIP_TIME);
         }, OPEN_DELAY);
     }
+
+    // the button (with its greeting) appears once the visitor scrolls down, and hides again at the top;
+    // it stays while the chat is open, and on a page too short to scroll it is always shown
+    var SHOW_AFTER = 120;   // px scrolled before the button appears
+    var dock = button.closest('.ssi-floating-actions') || button;
+    dock.classList.add('dm-wa-dock');
+    function updateDock() {
+        var canScroll = document.documentElement.scrollHeight - window.innerHeight > SHOW_AFTER;
+        var away = canScroll && window.scrollY < SHOW_AFTER && !panel.classList.contains('is-open');
+        dock.classList.toggle('dm-wa-away', away);
+        if (away) hideStrip();
+    }
+    var dockTick = false;
+    window.addEventListener('scroll', function () {
+        if (!dockTick) { dockTick = true; requestAnimationFrame(function () { dockTick = false; updateDock(); }); }
+    }, { passive: true });
+    window.addEventListener('resize', updateDock);
+    window.addEventListener('load', updateDock);
+    updateDock();
 })();

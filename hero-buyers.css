@@ -1,109 +1,128 @@
-/* Hero "recent clients" - three overlapping round client pictures (white rings, bright
-   colours), and beside them the newest buyer: who bought which device and
-   at what time. Every few seconds the pictures slide sideways by one - the first slides out on
-   the left, a new buyer slides in on the right - and the purchase line swaps (hero-buyers.js).
-   The hero is dark in both themes, so one look serves both. */
-.hero-buyers {
-    --hb-size: 40px;                       /* picture size */
-    --hb-over: 12px;                       /* how much each picture overlaps the one before */
-    --hb-ring: 3px;
-    display: flex;
-    align-items: center;
-    width: min(460px, 100%);
-    height: 52px;                          /* fixed: the page never jumps */
-    margin-top: 24px;
-    color: #fff;
-    font-family: Montserrat, Arial, sans-serif;
+/* "Recent clients" as a WhatsApp-style chat in the bottom-right corner, just above the WhatsApp
+   button. Each buyer is a chat message (picture, who bought what, time + blue ticks, a little tail).
+   A new one pops in at the bottom and pushes the older one up; then the older one fades away
+   (hero-buyers.js). */
+.hb-chat {
+    position: fixed;
+    right: 22px;
+    bottom: 90px;                          /* replaced by hero-buyers.js: just above the WhatsApp button */
+    z-index: 9988;
+    width: 300px;
+    max-width: calc(100vw - 24px);
+    height: 0;                             /* messages stack upwards from this line */
+    font: 13px/1.45 Montserrat, Arial, sans-serif;
+    pointer-events: none;
 }
 
-/* window showing exactly three pictures; the row slides inside it */
-.hb-stack {
-    flex: 0 0 auto;
-    box-sizing: content-box;
-    width: calc(3 * var(--hb-size) - 2 * var(--hb-over));
-    padding: 6px;                          /* room for the rings + shadow */
-    overflow: hidden;
-    /* soft edges where pictures slide out / in */
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6px, #000 calc(100% - 6px), transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0, #000 6px, #000 calc(100% - 6px), transparent 100%);
-}
-.hb-track {
+/* each message: pinned to the bottom, pushed up by --y as newer ones arrive below it */
+.hb-msg {
+    --y: 0px;
+    position: absolute;
+    right: 6px;                            /* room for the tail */
+    bottom: 0;
     display: flex;
     align-items: center;
-    width: max-content;
-    padding-left: var(--hb-over);          /* cancels the first picture's overlap: it starts at the window edge */
+    gap: 11px;
+    box-sizing: border-box;
+    width: calc(100% - 6px);
+    padding: 10px 30px 8px 10px;
+    border-radius: 12px 12px 4px 12px;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .06), 0 8px 24px rgba(16, 24, 40, .16);
+    color: #111b21;
+    pointer-events: auto;
+    transform: translateY(calc(-1 * var(--y)));
+    transform-origin: bottom right;
+    transition: opacity .3s ease, transform .45s cubic-bezier(.2, .8, .3, 1.15);
 }
-.hb-track.is-moving { transition: transform .6s cubic-bezier(.45, 0, .2, 1); }
+.hb-msg.is-new { opacity: 0; transform: translateY(16px) scale(.9); }                  /* pops in from below */
+.hb-msg.is-out {                                                                       /* fades away upwards */
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--y) - 14px)) scale(.96);
+    transition: opacity .35s ease, transform .4s ease;
+    pointer-events: none;
+}
+
+/* the little tail at the bottom-right, like an outgoing WhatsApp bubble */
+.hb-msg::after {
+    content: "";
+    position: absolute;
+    right: -6px;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    background: inherit;
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
 
 .hb-face {
-    position: relative;
     display: grid;
-    flex: 0 0 auto;
+    flex: 0 0 40px;
     place-items: center;
-    width: var(--hb-size);
-    height: var(--hb-size);
-    margin-left: calc(-1 * var(--hb-over));
+    width: 40px;
+    height: 40px;
     overflow: hidden;
-    box-sizing: border-box;
-    border: var(--hb-ring) solid #fff;
     border-radius: 50%;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, .28);
     color: #fff;
-    font: 700 13px/1 Montserrat, Arial, sans-serif;
+    font: 700 12.5px/1 Montserrat, Arial, sans-serif;
     letter-spacing: .02em;
     text-shadow: 0 1px 2px rgba(0, 0, 0, .25);
-    transition: opacity .5s ease, box-shadow .4s ease;
 }
 .hb-face img { width: 100%; height: 100%; object-fit: cover; }
 
-/* the newest buyer (right end, on top) gets a ring: red in the light theme, violet in the dark */
-.hb-face.is-latest { box-shadow: 0 0 0 2px #e91d2b, 0 3px 10px rgba(0, 0, 0, .35); }
-html[data-theme="dark"] .hb-face.is-latest { box-shadow: 0 0 0 2px #a78bfa, 0 3px 10px rgba(0, 0, 0, .35); }
-.hb-face.is-new { opacity: 0; transition: none; }      /* slides in from the right as it appears */
-.hb-face.is-gone { opacity: 0; }                       /* slides out on the left as it fades */
-
-/* the newest buyer's purchase */
-.hb-info {
-    position: relative;
-    flex: 1 1 auto;
-    min-width: 0;
-    height: 100%;
-    margin-left: 14px;
-    padding-left: 14px;
-    border-left: 1px solid rgba(255, 255, 255, .18);
-    overflow: hidden;
+.hb-line { flex: 1 1 auto; min-width: 0; margin: 0; }
+.hb-line strong { font-weight: 700; color: #111b21; }
+.hb-from { color: #667781; }
+.hb-what { display: block; color: #3b4a54; }
+.hb-what b { font-weight: 700; color: #e91d2b; }
+.hb-meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 1px;
+    font-size: 11px;
+    color: #667781;
 }
-.hb-line {
+.hb-meta svg { width: 16px; height: 10px; fill: none; stroke: #53bdeb; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+.hb-x {
     position: absolute;
-    top: 50%;
-    left: 14px;
-    right: 0;
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.35;
-    color: rgba(255, 255, 255, .78);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transform: translate(0, -50%);
-    transition: transform .55s cubic-bezier(.2, .8, .25, 1), opacity .4s ease;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #8a94a6;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
 }
-/* the purchase line moves sideways too: in from the right, out to the left */
-.hb-line.is-new { opacity: 0; transform: translate(40px, -50%); transition: none; }
-.hb-line.is-out { opacity: 0; transform: translate(-40px, -50%); }
-.hb-line strong { color: #fff; font-weight: 700; }
-.hb-what { display: block; overflow: hidden; text-overflow: ellipsis; }
-.hb-what b { color: #c4b5fd; font-weight: 700; }   /* dark theme: pale violet */
+.hb-x:hover { background: #f0f2f5; color: #111b21; }
+.hb-x:focus-visible { outline: 2px solid #111b21; outline-offset: 1px; }
 
-/* light theme: the product name in the site red, like the hero's rotating word */
-html:not([data-theme="dark"]) .hb-what b { color: #ff4d57; }
-
-@media (max-width: 600px) {
-    .hero-buyers { --hb-size: 32px; --hb-over: 9px; --hb-ring: 2px; height: 46px; margin-top: 18px; }
-    .hb-face { font-size: 10.5px; }
-    .hb-info { margin-left: 10px; padding-left: 10px; }
-    .hb-line { left: 10px; font-size: 11px; }
+@media (max-width: 480px) {
+    .hb-chat { width: 260px; font-size: 12.5px; }
+    .hb-face { flex-basis: 36px; width: 36px; height: 36px; font-size: 11.5px; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .hb-track.is-moving, .hb-line { transition: opacity .3s ease !important; }
+    .hb-msg, .hb-msg.is-out { transition: opacity .2s ease; }
+    .hb-msg.is-new { transform: translateY(calc(-1 * var(--y))); }
 }
+
+/* dark theme: WhatsApp's dark bubble colours, violet device name */
+html[data-theme="dark"] .hb-msg {
+    background: #1f2c34;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 10px 28px rgba(0, 0, 0, .45);
+    color: #e9edef;
+}
+html[data-theme="dark"] .hb-line strong { color: #e9edef; }
+html[data-theme="dark"] .hb-from,
+html[data-theme="dark"] .hb-meta { color: #8696a0; }
+html[data-theme="dark"] .hb-what { color: #c7cdd1; }
+html[data-theme="dark"] .hb-what b { color: #c4b5fd; }
+html[data-theme="dark"] .hb-x { color: #8696a0; }
+html[data-theme="dark"] .hb-x:hover { background: rgba(255, 255, 255, .08); color: #fff; }

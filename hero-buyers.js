@@ -1,13 +1,13 @@
-/*  Hero "recent clients" (home page, under "Smart Solutions for a Safer Tomorrow"):
-    three overlapping round client pictures, and beside them who bought which
-    device and at what time. Every few seconds the pictures slide sideways by one: the first
-    slides out on the left, a new buyer slides in on the right and their purchase replaces
-    the line. Pauses while hovered.
-    Fills <div class="hero-buyers"> in index.html; styles in hero-buyers.css. */
+/*  "Recent clients" as a WhatsApp-style chat (home page), in the bottom-right corner just above
+    the WhatsApp button. Each buyer arrives as a chat message (round picture, who bought which
+    device, time + blue ticks): it pops in at the bottom and pushes the one before it up, and a
+    moment later that older message vanishes - so it reads like messages coming in one by one.
+    Only shows while the WhatsApp button is visible (it appears once the visitor scrolls);
+    waits while the WhatsApp greeting or chat is open, pauses while hovered or while the tab
+    is hidden, and the x hides it for the rest of the visit.
+    Styles in hero-buyers.css. */
 (function () {
     'use strict';
-    var box = document.querySelector('.hero-buyers');
-    if (!box) return;
 
     /* ------------------------------------------------------------------
        CLIENT LIST - REPLACE THESE SAMPLE ENTRIES WITH REAL RECENT ORDERS.
@@ -34,30 +34,24 @@
         { name: 'Ritu N.', place: 'Balasore', device: 'GT800 Tracker', ago: 19 },
         { name: 'Suresh P.', place: 'Jharsuguda', device: 'Fire Suppression (FDSS)', ago: 210 }
     ];
-    var EVERY_MS = 3800;         // a new buyer every 3.8 seconds
+    var FIRST_MS = 6000;     // first message this long after the page is ready
+    var EVERY_MS = 4500;     // a new message every 4.5 seconds
+    var OLD_MS = 1400;       // the older message vanishes this long after the new one arrives
+    var BURST = 4;           // messages in a row, then a pause
+    var REST_MS = 12000;     // the pause: the last message vanishes and the chat stays quiet
+    var HIDE_KEY = 'dm-buyers-off';
+
+    if (!CLIENTS.length) return;
+    try { if (sessionStorage.getItem(HIDE_KEY) === '1') return; } catch (err) { /* storage blocked */ }
 
     var GRADS = [['#a855f7', '#7c3aed'], ['#38bdf8', '#0ea5e9'], ['#fb7185', '#e11d48'], ['#2dd4bf', '#0d9488'], ['#ec4899', '#be185d'], ['#22d3ee', '#0891b2'], ['#60a5fa', '#2563eb']];
+    var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var TICKS = '<svg viewBox="0 0 18 11" aria-hidden="true"><path d="M1 6l3 3 6-7M7 8.5l1 1 6.5-8"/></svg>';
 
     function initials(name) {
         return name.replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase();
     }
-    function face(c, i) {
-        var el = document.createElement('span');
-        el.className = 'hb-face';
-        if (c.photo) {
-            var img = document.createElement('img');
-            img.src = c.photo; img.alt = ''; img.loading = 'lazy';
-            el.appendChild(img);
-        } else {
-            var g = GRADS[i % GRADS.length];
-            el.style.background = 'linear-gradient(135deg,' + g[0] + ',' + g[1] + ')';
-            el.textContent = initials(c.name);
-        }
-        return el;
-    }
-
     // the time they bought it, e.g. "10:42 AM" (with the date if it was not today: "14 Oct, 6:05 PM")
-    var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     function boughtAt(c) {
         var d = c.time ? new Date(c.time.replace(' ', 'T')) : new Date(Date.now() - (c.ago || 0) * 60000);
         if (isNaN(d)) return '';
@@ -65,9 +59,33 @@
         var clock = (h % 12 || 12) + ':' + m + (h < 12 ? ' AM' : ' PM');
         return d.toDateString() === new Date().toDateString() ? clock : d.getDate() + ' ' + MONTHS[d.getMonth()] + ', ' + clock;
     }
-    function line(c) {
-        var el = document.createElement('p');
-        el.className = 'hb-line';
+
+    // the chat column; messages are added at the bottom
+    var chat = document.createElement('div');
+    chat.className = 'hb-chat';
+    chat.setAttribute('role', 'log');
+    chat.setAttribute('aria-live', 'polite');
+    chat.setAttribute('aria-label', 'Recent purchases');
+    document.body.appendChild(chat);
+
+    function message(i) {
+        var c = CLIENTS[i];
+        var msg = document.createElement('div');
+        msg.className = 'hb-msg is-new';
+        var face = document.createElement('span');
+        face.className = 'hb-face';
+        face.setAttribute('aria-hidden', 'true');
+        if (c.photo) {
+            var img = document.createElement('img');
+            img.src = c.photo; img.alt = ''; img.loading = 'lazy';
+            face.appendChild(img);
+        } else {
+            var g = GRADS[i % GRADS.length];
+            face.style.background = 'linear-gradient(135deg,' + g[0] + ',' + g[1] + ')';
+            face.textContent = initials(c.name);
+        }
+        var text = document.createElement('p');
+        text.className = 'hb-line';
         var who = document.createElement('strong');
         who.textContent = c.name;
         var from = document.createElement('span');
@@ -79,90 +97,94 @@
         var dev = document.createElement('b');
         dev.textContent = c.device;
         what.appendChild(dev);
-        what.appendChild(document.createTextNode(' · ' + boughtAt(c)));
-        el.appendChild(who); el.appendChild(from); el.appendChild(what);
-        return el;
+        var meta = document.createElement('span');
+        meta.className = 'hb-meta';
+        meta.innerHTML = '<span></span>' + TICKS;
+        meta.firstChild.textContent = boughtAt(c);
+        text.appendChild(who); text.appendChild(from); text.appendChild(what); text.appendChild(meta);
+        var x = document.createElement('button');
+        x.type = 'button';
+        x.className = 'hb-x';
+        x.setAttribute('aria-label', 'Hide recent purchases');
+        x.innerHTML = '&times;';
+        msg.appendChild(face); msg.appendChild(text); msg.appendChild(x);
+        return msg;
     }
 
-    if (!CLIENTS.length) { box.hidden = true; return; }
+    // sit just above the WhatsApp button, lined up with its right edge
+    var wa = document.querySelector('.ssi-float-whatsapp');
+    var dock = wa && (wa.closest('.ssi-floating-actions') || wa);
+    function place() {
+        var r = wa && wa.getBoundingClientRect();
+        if (!r || !r.width) return;
+        chat.style.right = Math.max(12, window.innerWidth - r.right) + 'px';
+        chat.style.bottom = (window.innerHeight - r.top + 14) + 'px';
+    }
+    window.addEventListener('resize', place);
+    if (dock) dock.addEventListener('transitionend', place);   // the button pops in with a little scale
 
-    // random order, never a client that is already in the row
-    var SHOWN = Math.min(3, CLIENTS.length);   // round pictures on screen at a time
-    var inRow = [];
+    // only while the WhatsApp button is showing (it appears once the visitor scrolls), and
+    // never on top of its greeting / chat
+    function waAway() { return !!(dock && dock.classList.contains('dm-wa-away')); }
+    function waBusy() { return waAway() || !!document.querySelector('.dm-wa-strip.is-on, .dm-wa.is-open'); }
+
+    // messages are stacked from the bottom; --y is how far up each one has been pushed
+    function vanish(msg) {
+        if (!msg || msg.classList.contains('is-out')) return;
+        msg.classList.add('is-out');
+        setTimeout(function () { if (msg.parentNode) msg.parentNode.removeChild(msg); }, 450);
+    }
+    function clearAll() { [].forEach.call(chat.querySelectorAll('.hb-msg'), vanish); }
+
+    var last = -1, timer = 0, hovered = false, off = false, sent = 0;
     function pick() {
         var i;
-        do { i = Math.floor(Math.random() * CLIENTS.length); } while (inRow.indexOf(i) > -1 && CLIENTS.length > SHOWN);
-        return i;
+        do { i = Math.floor(Math.random() * CLIENTS.length); } while (i === last && CLIENTS.length > 1);
+        return (last = i);
+    }
+    function next() {
+        if (off) return;
+        if (document.hidden || waBusy() || hovered) { timer = setTimeout(next, 1500); return; }
+        if (sent >= BURST) {                                   // end of a burst: let the last one go, rest
+            clearAll();
+            sent = 0;
+            timer = setTimeout(next, REST_MS);
+            return;
+        }
+        place();
+        var older = [].slice.call(chat.querySelectorAll('.hb-msg:not(.is-out)'));
+        var msg = message(pick());
+        chat.appendChild(msg);
+        // the new message arrives at the bottom: push the ones already there up by its height
+        var push = msg.offsetHeight + 10;
+        older.forEach(function (m) {
+            var y = (parseFloat(m.style.getPropertyValue('--y')) || 0) + push;
+            m.style.setProperty('--y', y + 'px');
+        });
+        void msg.offsetWidth;                                  // start the pop-in from its first frame
+        msg.classList.remove('is-new');
+        sent++;
+        // the older message(s) vanish a moment after the new one arrives
+        setTimeout(function () { older.forEach(vanish); }, OLD_MS);
+        timer = setTimeout(next, EVERY_MS);
     }
 
-    // [3 overlapping round pictures, sliding sideways]  [newest buyer: name, place, device, time]
-    var stack = document.createElement('div');
-    stack.className = 'hb-stack';
-    stack.setAttribute('aria-hidden', 'true');
-    var track = document.createElement('div');
-    track.className = 'hb-track';
-    stack.appendChild(track);
-    var info = document.createElement('div');
-    info.className = 'hb-info';
-    info.setAttribute('aria-live', 'polite');
-    box.appendChild(stack); box.appendChild(info);
+    chat.addEventListener('mouseenter', function () { hovered = true; });
+    chat.addEventListener('mouseleave', function () { hovered = false; });
+    chat.addEventListener('click', function (e) {
+        if (!e.target.closest('.hb-x')) return;
+        off = true;
+        clearTimeout(timer);
+        clearAll();
+        try { sessionStorage.setItem(HIDE_KEY, '1'); } catch (err) { /* storage blocked */ }
+    });
+    // scrolled back to the top (WhatsApp button hides): the chat goes with it
+    window.addEventListener('scroll', function () {
+        if (waAway() && chat.querySelector('.hb-msg')) { clearAll(); sent = 0; }
+    }, { passive: true });
 
-    function detail(i, animate) {
-        var old = info.querySelector('.hb-line:not(.is-out)');
-        var el = line(CLIENTS[i]);
-        info.appendChild(el);
-        if (!animate) return;
-        el.classList.add('is-new');
-        void el.offsetWidth;
-        el.classList.remove('is-new');
-        if (old) { old.classList.add('is-out'); setTimeout(function () { old.remove(); }, 600); }
-    }
-    for (var k = 0; k < SHOWN; k++) {
-        var i0 = pick();
-        inRow.push(i0);
-        track.appendChild(face(CLIENTS[i0], i0));
-    }
-    track.lastChild.classList.add('is-latest');
-    detail(inRow[inRow.length - 1], false);
-
-    // side movement: the row slides one picture to the left - the first one slides out on the
-    // left while a new buyer slides in on the right, and their purchase replaces the line
-    var busy = false;
-    function step() {
-        if (busy) return;
-        busy = true;
-        var i = pick();
-        var f = face(CLIENTS[i], i);
-        f.classList.add('is-new');
-        var prev = track.querySelector('.is-latest');
-        if (prev) prev.classList.remove('is-latest');
-        track.appendChild(f);
-        var stride = f.getBoundingClientRect().left - prev.getBoundingClientRect().left;
-        void f.offsetWidth;
-        f.classList.remove('is-new');
-        f.classList.add('is-latest');
-        track.firstChild.classList.add('is-gone');
-        track.classList.add('is-moving');
-        track.style.transform = 'translateX(' + (-stride) + 'px)';
-        inRow.push(i);
-        inRow.shift();
-        detail(i, true);
-        setTimeout(function () {
-            track.classList.remove('is-moving');
-            track.removeChild(track.firstChild);
-            track.style.transform = '';
-            busy = false;
-        }, 650);
-    }
-
-    var timer = 0;
-    function start() { clearInterval(timer); timer = setInterval(step, EVERY_MS); }
-    function stop() { clearInterval(timer); }
-    // pause while the tab is hidden or the mouse is over it (so it can be read)
-    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
-    box.addEventListener('mouseenter', stop);
-    box.addEventListener('mouseleave', start);
     // on the home page, start once the preloader has gone
+    function start() { timer = setTimeout(next, FIRST_MS); }
     if (document.documentElement.classList.contains('dm-loading')) document.addEventListener('dm:ready', start, { once: true });
     else start();
 }());
