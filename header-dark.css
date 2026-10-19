@@ -209,3 +209,31 @@
     color: #fff;
 }
 .site-header .app-button:hover { background: #fff; color: #000; }
+
+/* GET STARTED -> STATUS on hover: the label slides up and "STATUS" slides in from below.
+   Both words share one box sized by the longer one, so the button never changes width. */
+.ab-swap {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    line-height: 1.2;
+}
+.ab-swap > span,
+.ab-swap::after {
+    display: block;
+    transition: transform .35s cubic-bezier(.2, .8, .3, 1);
+}
+.ab-swap::after {
+    content: attr(data-hover);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+:is(.app-button, .mobile-app-button):is(:hover, :focus-visible) .ab-swap > span,
+:is(.app-button, .mobile-app-button):is(:hover, :focus-visible) .ab-swap::after { transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) {
+    .ab-swap > span, .ab-swap::after { transition: none; }
+}
