@@ -56,3 +56,7 @@ html.dm-loading .dm-preloader,
 
 /* the letters' fall runs on the compositor (own layers), so a busy phone can't make it stutter */
 .dm-preloader.is-dropping .dm-pl-ch { will-change: transform, opacity; }
+/* phones: a slightly quicker fall (matches DROP_MS in preloader.js) */
+@media (max-width: 768px), (pointer: coarse) {
+    .dm-pl-ch { transition-duration: .65s, .65s; }
+}

@@ -29,7 +29,9 @@
     window.addEventListener('resize', measure);
     window.addEventListener('load', measure);
     setInterval(measure, 2000);
-    measure();
+    // not measured right away: reading scrollHeight while the page is still being built forces a
+    // full layout in the middle of the preloader's count (the 'load' listener above measures it)
+    if (document.readyState === 'complete') measure();
 
     /* ---------- cards: spotlight, tilt, staggered reveal ---------- */
     var CARD = [

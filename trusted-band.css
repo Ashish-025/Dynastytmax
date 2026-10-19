@@ -153,3 +153,6 @@ html[data-theme="dark"] .tb-arrow { color: #8f98c0; }
     .tb-tag { padding: 3px 8px; font-size: 10px; }
     .tb-tile--quote p { max-width: 200px; font-size: 11.5px; }
 }
+
+/* rows drift only once trusted-band.js has filled them (it waits until the page is ready) */
+.tb-viewport:not(.is-ready) .tb-row { animation: none; }

@@ -16,7 +16,7 @@
     var countEl = el.querySelector('.dm-pl-count');
     var MIN_MS = phone ? 1000 : 1200;      // the count always takes at least this long (never a blink)
     var MAX_WAIT = phone ? 3500 : 6000;    // never hold the page longer than this
-    var DROP_MS = 800, DROP_SPREAD = 500;   // each letter's fall, and the stagger across all letters
+    var DROP_MS = phone ? 650 : 800, DROP_SPREAD = phone ? 350 : 500;   // each letter's fall, and the stagger across all letters
     var start = performance.now();
 
     /* ---------- progress: the page is ready once it is parsed and its fonts are in ----------
@@ -37,9 +37,13 @@
     }
 
     /* ---------- the counter eases towards the progress ---------- */
-    var shown = 0, last = start, drawn = -1;
-    function tick(now) {
+    var shown = 0, last = start, drawn = -1, done = false, pulse = 0;
+    // driven by animation frames AND a light 50ms timer: whichever comes first moves the count, so a
+    // phone that throttles animation frames (low-power mode, a busy first load) never stalls it
+    function step(now) {
+        if (done) return;
         var dt = Math.min(64, now - last);     // a long frame (busy phone) must not make it jump
+        if (dt <= 0) return;
         last = now;
         // can't run ahead of the clock: at most 100% over MIN_MS
         var cap = Math.min(100, (now - start) / MIN_MS * 100);
@@ -49,9 +53,9 @@
         if (goal >= 100 && now - start > MIN_MS + 500) shown = 100;   // never hang on 99
         var n = Math.round(shown);
         if (n !== drawn) { countEl.textContent = n; drawn = n; }   // only touch the DOM when it changes
-        if (shown >= 100) { countEl.textContent = 100; setTimeout(drop, 150); return; }
-        requestAnimationFrame(tick);
+        if (shown >= 100) { done = true; clearInterval(pulse); countEl.textContent = 100; setTimeout(drop, 150); }
     }
+    function tick(now) { step(now); if (!done) requestAnimationFrame(tick); }
 
     /* ---------- exit: the letters fall away one after another ---------- */
     function splitChars(node) {
@@ -99,6 +103,7 @@
         return;
     }
     requestAnimationFrame(tick);
+    pulse = setInterval(function () { step(performance.now()); }, 50);
     // backstop: if animation frames are starved (busy or background tab), open the page anyway
     setTimeout(function () { if (!dropped) { countEl.textContent = 100; drop(); } }, MAX_WAIT + 1500);
 }());

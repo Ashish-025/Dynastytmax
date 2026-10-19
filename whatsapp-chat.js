@@ -293,5 +293,8 @@
     }, { passive: true });
     window.addEventListener('resize', measureDock);
     window.addEventListener('load', measureDock);
-    measureDock();
+    // start hidden without measuring (a layout read now would stall the preloader); 'load' measures
+    // (not even scrollY: reading it while the page is still being built also forces a layout -
+    //  a page opens at the top, so the button simply starts hidden)
+    if (document.readyState === 'complete') measureDock(); else dock.classList.add('dm-wa-away');
 })();
