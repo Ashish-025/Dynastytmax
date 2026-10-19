@@ -277,3 +277,34 @@ html[data-theme="dark"] .stm-inner p { color: rgba(245, 247, 252, .82); }
     .site-contact-social a:hover,
     .site-contact-social a:focus-visible { transform: none; }
 }
+
+/* alert symbol in place of the "NEW" pill: a warning triangle with an exclamation mark,
+   white on the red strip (light theme), amber on the dark strip; a gentle pulse draws the eye */
+.stm-badge.stm-alert {
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border-radius: 50%;
+    background: #fff;
+    animation: stmAlertPulse 2.4s ease-in-out infinite;
+}
+.stm-alert svg { display: block; width: 15px; height: 15px; }
+.stm-alert-tri { fill: #e91d2b; }
+.stm-alert-mark { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; }
+@keyframes stmAlertPulse {
+    0%, 70%, 100% { transform: scale(1); }
+    80% { transform: scale(1.18); }
+    90% { transform: scale(.96); }
+}
+html[data-theme="dark"] .stm-badge.stm-alert { background: rgba(255, 176, 32, .16); }
+html[data-theme="dark"] .stm-alert-tri { fill: #ffb020; }
+html[data-theme="dark"] .stm-alert-mark { stroke: #1a1300; }
+@media (max-width: 520px) {
+    .stm-badge.stm-alert { width: 19px; height: 19px; }
+    .stm-alert svg { width: 13px; height: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .stm-badge.stm-alert { animation: none; }
+}
