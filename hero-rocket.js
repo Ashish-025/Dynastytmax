@@ -415,15 +415,17 @@ void main(){
 // visible half-width at the resting camera distance (z 12, fov 60) minus the shape's half-size
 // phones: the headline sits at the bottom of the hero and the shape is centred in the open
 // space above it, sized to fit there completely (measured from the page, so it suits any phone)
+// overall size of the particle shapes (1 = the original size; ~0.75 = a quarter smaller)
+const SHAPE_SCALE=.75;
 function placeShip(){
   if(!ship)return;
-  if(!isMobile){ship.position.set(shipX(),0,0);ship.scale.setScalar(1);return;}
+  if(!isMobile){ship.position.set(shipX(),0,0);ship.scale.setScalar(SHAPE_SCALE);return;}
   const content=hero.querySelector('.hero-content');
   const top=content?content.getBoundingClientRect().top-hero.getBoundingClientRect().top:size.h*.55;
   const free=Math.max(140,Math.min(size.h,top)-12);              // px above the headline
   const unit=2*12*Math.tan(Math.PI/6)/size.h;                    // scene units per px at the resting camera
   ship.position.set(0,(size.h/2-free/2)*unit,0);                 // centre of the free space
-  ship.scale.setScalar(Math.min(1,free*.7*unit/7.2));           // the shapes are ~7.2 units tall
+  ship.scale.setScalar(Math.min(SHAPE_SCALE,free*.52*unit/7.2));   // the shapes are ~7.2 units tall; ~half the free space
 }
 function shipX(){
   if(isMobile)return 0;
