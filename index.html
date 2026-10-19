@@ -603,7 +603,7 @@
                     <div class="dm-service-icon">
 
                         <!-- Replace this with your SVG -->
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="images/location.svg"
                             alt=""
                         >
@@ -671,7 +671,7 @@
                     <div class="dm-service-icon">
 
                         <!-- Replace this with your SVG -->
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="images/cctv.svg"
                             alt=""
                         >
@@ -739,7 +739,7 @@
                     <div class="dm-service-icon">
 
                         <!-- Replace this with your SVG -->
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="images/seo.svg"
                             alt=""
                         >
@@ -1554,7 +1554,7 @@
             <h3 id="dm-office-map-title">OFFICE LOCATIONS</h3>
             <div class="dm-office-gmap dm-office-gmap--image">
                 <a class="dm-office-gmap-link" href="https://www.google.com/maps/place/Odisha/data=!4m2!3m1!1s0x3a226aece9af3bfd:0x133625caa9cea81f" target="_blank" rel="noopener noreferrer" aria-label="Open Odisha in Google Maps">
-                    <img src="images/odisha-google-map.png" alt="Map of Odisha showing Dynasty Max offices in Chandikhol, Cuttack, Bhubaneswar and Puri" width="900" height="467">
+                    <img loading="lazy" decoding="async" src="images/odisha-google-map.png" alt="Map of Odisha showing Dynasty Max offices in Chandikhol, Cuttack, Bhubaneswar and Puri" width="900" height="467">
                     <span class="dm-office-map-hint">Click an office to open Google Maps &#8599;</span>
                 </a>
                 <!-- office pins drawn in the image's own 900x467 coordinates, so they scale with it.
@@ -1644,8 +1644,19 @@
 
 </main>
 
-<script src="vendor/three.r128.min.js"></script>
-<script src="hero-rocket.js"></script>
+<!-- hero particles (three.js + hero-rocket.js): on phones they load only after the preloader has gone,
+     so parsing 600 KB of three.js and building the particle shapes never freezes the counter -->
+<script>(function(){
+    function load(){
+        var a=document.createElement("script");a.src="vendor/three.r128.min.js";
+        a.onload=function(){var b=document.createElement("script");b.src="hero-rocket.js";document.body.appendChild(b);};
+        document.body.appendChild(a);
+    }
+    var phone=window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
+    if(phone&&document.documentElement.classList.contains("dm-loading"))
+        document.addEventListener("dm:ready",function(){setTimeout(load,400);},{once:true});
+    else load();
+})();</script>
 <script src="hero-buyers.js"></script>
 <script src="trusted-band.js"></script>
 <script src="theme-toggle.js"></script>

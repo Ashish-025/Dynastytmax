@@ -1,8 +1,8 @@
 /*  WhatsApp chat assistant.
     The WhatsApp button pops in once the visitor scrolls down (hidden at the very top of the page).
-    A moment after it appears, a greeting slides out beside the WhatsApp button: a message
-    bubble (avatar with a green online dot, "Chat with us about ..." and a close x) and a small
-    "We're available across Odisha, India!" pill under it (styled like omnicomm.com's).
+    A moment after it appears, a greeting slides out beside the WhatsApp button: one message
+    bubble (avatar with a green online dot, "Chat with us about ..." with "We're available
+    across Odisha, India!" as a second line, and a close x).
     Clicking either (or the button) opens a compact chat that answers common
     questions from a keyword list and hands the conversation to WhatsApp (wa.me) with the message pre-filled.
     Self-contained: injects its own styles and works on any page with .ssi-float-whatsapp.
@@ -14,8 +14,8 @@
     var OPEN_DELAY = 2500;                 // ms after load before the greeting pops up
     var SEEN_KEY = 'dm-wa-greeted';        // greet automatically once per browser session
     var STRIP_TIME = 12000;                // ms the greeting strip stays before tucking away
-    var BUBBLE_TEXT = '👋 Chat with us about GPS tracking, CCTV &amp; more';   // greeting bubble
-    var PILL_TEXT = '📍 We&rsquo;re available across Odisha, India!';         // small pill under it
+    var BUBBLE_TEXT = '👋 Chat with us about GPS, CCTV &amp; more';          // greeting bubble (one line)
+    var PILL_TEXT = '📍 Available across Odisha, India';                      // second line in the same bubble
 
     var button = document.querySelector('.ssi-float-whatsapp');
     if (!button) return;
@@ -93,6 +93,7 @@
         '.dm-wa-face .dm-wa-avatar{width:46px;height:46px;font-size:10px;background:#075e54;color:#fff}',
         '.dm-wa-online{position:absolute;right:0;bottom:1px;width:12px;height:12px;border-radius:50%;background:#25d366;border:2px solid #fff;animation:dmWaPulse 2s ease-in-out infinite}',
         '.dm-wa-bubble-text{min-width:0}',
+        '.dm-wa-bubble-sub{display:block;margin-top:5px;font-size:13px;color:#667781}',
         '.dm-wa-strip-x{position:absolute;top:8px;right:8px;width:22px;height:22px;border:0;border-radius:50%;background:transparent;color:#8a94a6;font-size:18px;line-height:1;cursor:pointer}',
         '.dm-wa-strip-x:hover{background:rgba(0,0,0,.07);color:#1b1f24}',
         '.dm-wa-pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-size:14px;white-space:nowrap}',
@@ -100,6 +101,15 @@
         '.dm-wa-bubble:focus-visible,.dm-wa-pill:focus-visible{outline:3px solid #25d366;outline-offset:2px}',
         '@keyframes dmWaPulse{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}50%{box-shadow:0 0 0 5px rgba(37,211,102,0)}}',
         '@media (max-width:480px){.dm-wa-bubble{width:250px;font-size:14px}.dm-wa-pill{font-size:13px}}',
+        /* slim greeting: a pill exactly as tall as the WhatsApp button (52px), so the recent-buyer
+           messages that stack above the button stay fully visible while it shows */
+        '.dm-wa-strip .dm-wa-bubble{width:auto;max-width:100%;height:52px;gap:9px;padding:0 32px 0 7px;border-radius:26px}',
+        '.dm-wa-strip .dm-wa-face{flex:0 0 38px;height:38px}',
+        '.dm-wa-strip .dm-wa-face .dm-wa-avatar{width:38px;height:38px;font-size:8.5px}',
+        '.dm-wa-strip .dm-wa-online{width:10px;height:10px}',
+        '.dm-wa-strip .dm-wa-bubble-text{min-width:0;overflow:hidden;font-size:13.5px;line-height:1.3;white-space:nowrap;text-overflow:ellipsis}',
+        '.dm-wa-strip .dm-wa-bubble-sub{margin-top:1px;overflow:hidden;font-size:12px;text-overflow:ellipsis}',
+        '.dm-wa-strip .dm-wa-strip-x{top:50%;right:7px;margin-top:-11px}',
         '@keyframes dmWaIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}',
         '@keyframes dmWaDot{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-3px)}}',
         /* the WhatsApp button stays out of sight at the top of the page and pops in once the visitor scrolls */
@@ -198,12 +208,11 @@
     var strip = document.createElement('div');
     strip.className = 'dm-wa-strip';
     strip.innerHTML =
-        '<div class="dm-wa-bubble" role="button" tabindex="0" aria-label="Chat with us about GPS, CCTV and more. Open the DMAX assistant">' +
+        '<div class="dm-wa-bubble" role="button" tabindex="0" aria-label="Chat with us about GPS, CCTV and more. We are available across Odisha, India. Open the DMAX assistant">' +
             '<span class="dm-wa-face" aria-hidden="true"><span class="dm-wa-avatar">DMAX</span><i class="dm-wa-online"></i></span>' +
-            '<span class="dm-wa-bubble-text">' + BUBBLE_TEXT + '</span>' +
+            '<span class="dm-wa-bubble-text">' + BUBBLE_TEXT + '<span class="dm-wa-bubble-sub">' + PILL_TEXT + '</span></span>' +
             '<button type="button" class="dm-wa-strip-x" aria-label="Dismiss">&times;</button>' +
-        '</div>' +
-        '<div class="dm-wa-pill" role="button" tabindex="0">' + PILL_TEXT + '</div>';
+        '</div>';
     document.body.appendChild(strip);
 
     function placeStrip() {

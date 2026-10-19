@@ -123,10 +123,10 @@
     window.addEventListener('resize', place);
     if (dock) dock.addEventListener('transitionend', place);   // the button pops in with a little scale
 
-    // only while the WhatsApp button is showing (it appears once the visitor scrolls), and
-    // never on top of its greeting / chat
+    // only while the WhatsApp button is showing (it appears once the visitor scrolls), and never
+    // on top of its chat window (the slim greeting beside the button is fine: it is no taller than it)
     function waAway() { return !!(dock && dock.classList.contains('dm-wa-away')); }
-    function waBusy() { return waAway() || !!document.querySelector('.dm-wa-strip.is-on, .dm-wa.is-open'); }
+    function waBusy() { return waAway() || !!document.querySelector('.dm-wa.is-open'); }
 
     // messages are stacked from the bottom; --y is how far up each one has been pushed
     function vanish(msg) {

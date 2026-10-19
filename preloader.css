@@ -53,3 +53,6 @@ html.dm-loading .dm-preloader,
 
 /* the hero sits under the preloader, so it is fully shown from the start (no scroll-in fade) */
 .hero-section.dm-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+/* the letters' fall runs on the compositor (own layers), so a busy phone can't make it stutter */
+.dm-preloader.is-dropping .dm-pl-ch { will-change: transform, opacity; }

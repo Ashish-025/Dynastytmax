@@ -1,6 +1,6 @@
 /*  Page preloader (home page), like usta.agency:
       - a black screen with a small, thin, wide-spaced "DYNASTYMAX 0%" in the middle
-      - the number counts up with the page's real loading progress (images + page load),
+      - the number counts up with the page's loading progress (page parsed + fonts in),
         always easing smoothly towards it
       - at 100% the letters drop down and fade one after another (back-in ease, staggered),
         then the screen goes and 'dm:ready' starts the page's own animations (hero intro)
@@ -12,40 +12,44 @@
     if (!el) { root.classList.remove('dm-loading'); return; }
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var phone = window.matchMedia && window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
     var countEl = el.querySelector('.dm-pl-count');
-    var MIN_MS = 1200;           // the count always takes at least this long (never a blink)
-    var MAX_WAIT = 8000;         // never hold the page longer than this
+    var MIN_MS = phone ? 1000 : 1200;      // the count always takes at least this long (never a blink)
+    var MAX_WAIT = phone ? 3500 : 6000;    // never hold the page longer than this
     var DROP_MS = 800, DROP_SPREAD = 500;   // each letter's fall, and the stagger across all letters
     var start = performance.now();
 
-    /* ---------- real progress: page images + the page's load event ---------- */
-    var target = 0, loaded = document.readyState === 'complete';
-    window.addEventListener('load', function () { loaded = true; });
-    function progress() {
-        if (loaded || performance.now() - start > MAX_WAIT) return 100;
-        var imgs = document.images, total = 0, done = 0;
-        for (var i = 0; i < imgs.length; i++) {
-            if (imgs[i].loading === 'lazy') continue;     // lazy images only load later on scroll
-            total++;
-            if (imgs[i].complete) done++;
-        }
-        var parsed = document.readyState === 'loading' ? 0 : 20;   // page parsed: first 20%
-        return Math.min(95, parsed + (total ? done / total * 75 : 0));
+    /* ---------- progress: the page is ready once it is parsed and its fonts are in ----------
+       (it used to wait for window 'load', i.e. every image and three.js - on a phone that held the
+       counter for seconds; the images are below the hero and three.js now loads after on phones).
+       Event-driven: nothing is polled per frame. */
+    var domReady = document.readyState !== 'loading';
+    var fontsReady = !document.fonts || document.fonts.status === 'loaded';
+    var pageLoaded = document.readyState === 'complete';
+    if (!domReady) document.addEventListener('DOMContentLoaded', function () { domReady = true; }, { once: true });
+    if (!fontsReady) document.fonts.ready.then(function () { fontsReady = true; });
+    if (!pageLoaded) window.addEventListener('load', function () { pageLoaded = true; }, { once: true });
+    function progress(now) {
+        if (pageLoaded || (domReady && fontsReady) || now - start > MAX_WAIT) return 100;
+        // still parsing: creep towards 70% (or 90% once parsed) so the number keeps moving
+        var ceil = domReady ? 90 : 70;
+        return ceil * (1 - Math.exp(-(now - start) / 900));
     }
 
     /* ---------- the counter eases towards the progress ---------- */
-    var shown = 0, last = start;
+    var shown = 0, last = start, drawn = -1;
     function tick(now) {
-        var dt = now - last;
+        var dt = Math.min(64, now - last);     // a long frame (busy phone) must not make it jump
         last = now;
-        target = progress();
         // can't run ahead of the clock: at most 100% over MIN_MS
         var cap = Math.min(100, (now - start) / MIN_MS * 100);
-        var goal = Math.min(target, cap);
-        shown += (goal - shown) * Math.min(1, dt / 220);
-        if (goal - shown < .4) shown = goal;
-        countEl.textContent = Math.round(shown);
-        if (shown >= 100) { countEl.textContent = '100'; setTimeout(drop, 180); return; }
+        var goal = Math.min(progress(now), cap);
+        shown += (goal - shown) * Math.min(1, dt / 160);
+        if (goal - shown < 1) shown = goal;
+        if (goal >= 100 && now - start > MIN_MS + 500) shown = 100;   // never hang on 99
+        var n = Math.round(shown);
+        if (n !== drawn) { countEl.textContent = n; drawn = n; }   // only touch the DOM when it changes
+        if (shown >= 100) { countEl.textContent = 100; setTimeout(drop, 150); return; }
         requestAnimationFrame(tick);
     }
 
@@ -66,7 +70,10 @@
             }
         });
     }
+    var dropped = false;
     function drop() {
+        if (dropped) return;
+        dropped = true;
         var line = el.querySelector('.dm-pl-load');
         splitChars(line);
         var chars = line.querySelectorAll('.dm-pl-ch');
@@ -87,9 +94,11 @@
 
     if (reduce) {
         // no counting show: open the page as soon as it has loaded
-        var wait = function () { if (progress() >= 100) finish(); else setTimeout(wait, 100); };
+        var wait = function () { if (progress(performance.now()) >= 100) finish(); else setTimeout(wait, 100); };
         wait();
         return;
     }
     requestAnimationFrame(tick);
+    // backstop: if animation frames are starved (busy or background tab), open the page anyway
+    setTimeout(function () { if (!dropped) { countEl.textContent = 100; drop(); } }, MAX_WAIT + 1500);
 }());
