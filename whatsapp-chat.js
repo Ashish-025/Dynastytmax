@@ -278,8 +278,11 @@
     var SHOW_AFTER = 120;   // px scrolled before the button appears
     var dock = button.closest('.ssi-floating-actions') || button;
     dock.classList.add('dm-wa-dock');
+    // whether the page is long enough to scroll is measured on load / resize, not on every scroll
+    // (reading scrollHeight while scrolling can force a layout)
+    var canScroll = true;
+    function measureDock() { canScroll = document.documentElement.scrollHeight - window.innerHeight > SHOW_AFTER; updateDock(); }
     function updateDock() {
-        var canScroll = document.documentElement.scrollHeight - window.innerHeight > SHOW_AFTER;
         var away = canScroll && window.scrollY < SHOW_AFTER && !panel.classList.contains('is-open');
         dock.classList.toggle('dm-wa-away', away);
         if (away) hideStrip();
@@ -288,7 +291,7 @@
     window.addEventListener('scroll', function () {
         if (!dockTick) { dockTick = true; requestAnimationFrame(function () { dockTick = false; updateDock(); }); }
     }, { passive: true });
-    window.addEventListener('resize', updateDock);
-    window.addEventListener('load', updateDock);
-    updateDock();
+    window.addEventListener('resize', measureDock);
+    window.addEventListener('load', measureDock);
+    measureDock();
 })();

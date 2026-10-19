@@ -490,7 +490,7 @@ glow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTexture(),transparent:tr
 
 let ship=null;
 function buildRocket(){
-  const n=30000;   // same particle density on phones as on desktop
+  const n=isMobile?14000:30000;   // phones: under half the particles (the shapes still read clearly on a small screen)
   // the rocket is shown first, so build only it now (fast first frame); the other four shapes are
   // only needed at the first word change, so they are filled in right after the first frames
   const first=rocket(n);
@@ -518,9 +518,15 @@ function resize(){
   // varies), so the headline at its bottom is always in view (used by hero-rocket.css)
   const heroTop=Math.round(hero.getBoundingClientRect().top+(window.scrollY||0));
   if(hero.style.getPropertyValue('--hero-top')!==heroTop+'px')hero.style.setProperty('--hero-top',heroTop+'px');
-  size.w=hero.clientWidth||innerWidth;size.h=hero.clientHeight||innerHeight;
+  const w=hero.clientWidth||innerWidth,h=hero.clientHeight||innerHeight;
+  // phones: 1x pixels (two full-screen passes at 1.5x were the main cost); desktop up to 1.5x
+  const dpr=isMobile?1:Math.min(devicePixelRatio,1.5);   // 2x drew 78% more pixels for little visible gain
+  // nothing changed (phones fire resize while the address bar slides in/out): keep the buffers -
+  // re-sizing the canvas and render target mid-scroll was a visible hitch
+  if(w===size.w&&h===size.h&&dpr===size.dpr)return;
+  if(isMobile&&w===size.w&&size.dpr&&Math.abs(h-size.h)<160&&dpr===size.dpr)return;
+  size.w=w;size.h=h;size.dpr=dpr;
   camera.aspect=size.w/size.h;camera.updateProjectionMatrix();
-  const dpr=Math.min(devicePixelRatio,1.5);   // 2x drew 78% more pixels for little visible gain
   renderer.setPixelRatio(dpr);renderer.setSize(size.w,size.h,false);
   rt.setSize(Math.floor(size.w*dpr),Math.floor(size.h*dpr));
   post.uniforms.uResolution.value.set(size.w,size.h);post.uniforms.dpr.value=dpr;
@@ -616,13 +622,15 @@ function syncShape(){
 }
 
 /* ---------------- render loop (paused while the hero is off-screen) ---------------- */
-const clock=new THREE.Clock();let last=0,raf=0,visible=true,warmedUp=false;
+const clock=new THREE.Clock();let last=0,raf=0,visible=true,warmedUp=false,lastDraw=0;
 const lerp=(a,b,t)=>a+(b-a)*Math.min(1,t);
 function frame(){
   // hidden under the preloader: skip the (costly) render, just keep the loop alive
   // hidden under the preloader: draw just one warm-up frame (compiles the shaders now, so there is
   // no hitch when the preloader vanishes), then skip the costly rendering until it has gone
   if(document.documentElement.classList.contains('dm-loading')&&warmedUp){raf=requestAnimationFrame(frame);return;}
+  // phones: draw at ~30 fps (the motion is slow; halving the frames halves the GPU work and heat)
+  if(isMobile&&warmedUp){const ms=performance.now();if(ms-lastDraw<31){raf=visible?requestAnimationFrame(frame):0;return;}lastDraw=ms;}
   warmedUp=true;
   const t=clock.getElapsedTime(),dt=Math.min(.1,t-last);last=t;
   intro(performance.now()/1000);

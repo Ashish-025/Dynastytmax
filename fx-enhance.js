@@ -52,7 +52,9 @@
             if (tilt) card.style.setProperty('--tilt', 'perspective(900px) rotateX(' + ((.5 - y) * 6).toFixed(2) + 'deg) rotateY(' + ((x - .5) * 8).toFixed(2) + 'deg)');
         }
         function untilt() { card.style.removeProperty('--tilt'); }
-        card.addEventListener('pointermove', aim);
+        // follows the mouse only: on a phone a finger moving over a card is a scroll, and re-measuring
+        // the card + repainting its spotlight on every move made scrolling stutter
+        card.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse') aim(e); });
         card.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') untilt(); });
         // touch / pen: the card reacts where the finger lands, then eases back after it lifts
         card.addEventListener('pointerdown', function (e) {

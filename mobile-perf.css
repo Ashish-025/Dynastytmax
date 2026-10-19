@@ -1,0 +1,27 @@
+/* =========================================================
+   Phones / touch screens: switch off the effects that make the browser repaint every frame
+   or blur what is behind an element - on a phone they are what makes scrolling stutter.
+   Movement that only slides things (marquees, the trusted band, floating icons) stays: the
+   GPU moves those without repainting. Load LAST on every page.
+========================================================= */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+
+    /* orbiting light around card borders (an animated conic gradient, repainted per card per frame) */
+    .ds-orbit { display: none !important; }
+
+    /* infinite animations that repaint: spinning / sweeping gradients, pulsing glows and shadows */
+    .app-page .app-card::after,
+    .contact-hero h1,
+    [data-theme="dark"] #dm-services .dm-service-icon,
+    html[data-theme="dark"] body .achievements-section .stat-number,
+    html body .achievements-section::after,
+    .ssi-float-button,
+    .site-social-links a::after { animation: none !important; }
+
+    /* background blur ("frosted glass") behind cards and panels: very costly while scrolling.
+       The header and the top strip keep theirs (one bar each, and the page scrolls under them). */
+    body *:not(.site-header):not(.site-contact-strip):not(.dm-wa-strip) {
+        -webkit-backdrop-filter: none !important;
+                backdrop-filter: none !important;
+    }
+}
