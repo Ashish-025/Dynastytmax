@@ -210,7 +210,7 @@
 }
 .site-header .app-button:hover { background: #fff; color: #000; }
 
-/* GET STARTED -> STATUS on hover: the label slides up and "STATUS" slides in from below.
+/* GET STARTED -> VEHICLE STATUS on hover: the label slides up and "STATUS" slides in from below.
    Both words share one box sized by the longer one, so the button never changes width. */
 .ab-swap {
     position: relative;
@@ -237,3 +237,14 @@
 @media (prefers-reduced-motion: reduce) {
     .ab-swap > span, .ab-swap::after { transition: none; }
 }
+/* the box takes the width of the longer label (an invisible copy of the hover text sizes it),
+   and both labels are centred in it */
+.ab-swap::before {
+    content: attr(data-hover);
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.ab-swap > span { text-align: center; white-space: nowrap; }
+.ab-swap::after { white-space: nowrap; }
