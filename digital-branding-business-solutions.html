@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="theme-light.css">
 <link rel="stylesheet" href="footer-map.css">
 <link rel="stylesheet" href="cta-band.css">
+<link rel="stylesheet" href="trusted-band.css">
 <script>(function(){var l=document.documentElement.getAttribute("data-theme")==="light";document.querySelectorAll("link[data-theme-css=dark]").forEach(function(k){k.media=l?"not all":"all"})})();</script>
 <link rel="stylesheet" href="mobile-perf.css">
 </head>
@@ -367,6 +368,59 @@
     </div>
 </section>
 
+<!-- =========================================================
+    OUR TRUSTED PARTNERS: the home page's moving "Trusted by" band (trusted-band.css /
+    trusted-band.js) with client logo tiles (images/clients/) - two rows drifting sideways; hover pauses
+========================================================= -->
+<section class="tb-band dbs-tb" aria-labelledby="dbs-tb-title">
+    <div class="tb-panel">
+        <h2 class="dbs-tb-title" id="dbs-tb-title">Our Trusted Partners</h2>
+        <div class="tb-viewport">
+            <div class="tb-rows">
+            <div class="tb-row">
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/pride-ananya.png" alt="Pride Ananya Resort, Puri" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/lotus-group.png" alt="Lotus Group" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/dream99.png" alt="Dream 99" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/cyber-satellite.png" alt="Cyber Satellite" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/grooveyard.png" alt="The Grooveyard" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/aarcon.png" alt="Aarcon" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/trip-n-trip.png" alt="Trip N Trip" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/studio-one-films.png" alt="Studio One Films" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/bike-rental.png" alt="Bike Rental" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/auto-badge.png" alt="Partner logo" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/trendy.png" alt="Trendy - High Selection Higher Collection" loading="lazy"></div>
+            </div>
+            <div class="tb-row">
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/vigo-explore.png" alt="Vigo Explore" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/namastey-puri.png" alt="Namastey Puri - Stay, Kitchen, Skylounge" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/fortune-beachfront-puri.png" alt="Fortune Beachfront Puri - Member ITC Hotels Group" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo tb-tile--fill" style="--tile-bg: #000000"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/crafting-visual-excellence.png" alt="Crafting Visual Excellence" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo tb-tile--fill" style="--tile-bg: #ce541f"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/studio-shodwe.png" alt="Studio Shodwe - Branding &amp; Design Studio" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/the-urbanest.png" alt="The Urbanest" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/trip-and-trip.png" alt="Trip &amp; Trip" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/fly-my-destination.png" alt="Fly My Destination Tour &amp; Travels" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo tb-tile--fill" style="--tile-bg: #050607"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/round-badge.png" alt="Partner logo" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/dynasty-max.png" alt="Dynasty Max" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo tb-tile--fill" style="--tile-bg: #000000"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/transformium-classic.png" alt="Transformium Classic" loading="lazy"></div>
+            </div>
+            <div class="tb-row">
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/t3.png" alt="T3" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/liyansh-fitness.png" alt="Liyansh Fitness" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/cake-gang.png" alt="Cake Gang" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/bike-club.png" alt="Partner logo" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/rk-films.png" alt="RK Films" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/travel.png" alt="Travel" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/golden-palace.png" alt="Golden Palace - the preferred hotel on the beach" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo tb-tile--fill" style="--tile-bg: #000000"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/leegend-muscle-factory.png" alt="Leegend Muscle Factory" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo tb-tile--fill" style="--tile-bg: #2f3438"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/viva-family-salon.png" alt="Viva - A Complete Family Salon" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo tb-tile--photo" style="--tile-bg: #2a2224"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/saami.png" alt="Saami" loading="lazy"></div>
+                <div class="tb-tile tb-tile--logo tb-tile--fill" style="--tile-bg: #000000"><span class="tb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span><img src="images/clients/ak-event.png" alt="AK Event" loading="lazy"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 </main>
 <!-- =========================================================
     CALL TO ACTION + GOOGLE RATING (above the footer)
@@ -614,6 +668,7 @@
 </nav>
 <script src="header-scroll.js"></script>
 
+<script src="trusted-band.js"></script>
 <script src="digital-branding.js"></script>
 <script src="dbs-phones.js"></script>
 <script src="theme-toggle.js"></script>

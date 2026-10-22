@@ -144,6 +144,44 @@
 }
 .dbs-fade-left.is-in { opacity: 1; transform: none; }
 
+/* ---------- "Our Trusted Partners": the home page's moving-tile band (trusted-band.css)
+   with client logo tiles. Logos keep their own colours on a white tile in both themes. ---------- */
+.tb-band.dbs-tb { padding-top: 90px; padding-bottom: 90px; border-top: 1px solid var(--dbs-line); }
+.dbs-page .dbs-tb-title { margin: 0 0 36px; font-size: 42px; line-height: 52px; text-align: center; }
+.dbs-tb .tb-tile--logo { width: 170px; padding: 0 14px; background: #fff; }
+.dbs-tb .tb-tile--logo img { display: block; max-width: 100%; max-height: 58px; width: auto; height: auto; }
+html[data-theme="dark"] .dbs-tb .tb-tile--logo { background: #fff; border-color: transparent; }
+/* logos on a coloured background: that colour fills the whole tile (--tile-bg, set per tile)
+   and the logo grows to the tile's height; the Saami photo covers the tile edge to edge */
+.dbs-tb .tb-tile--fill,
+.dbs-tb .tb-tile--photo,
+html[data-theme="dark"] .dbs-tb .tb-tile--fill,
+html[data-theme="dark"] .dbs-tb .tb-tile--photo { background: var(--tile-bg); border-color: transparent; }
+.dbs-tb .tb-tile--fill { padding: 6px 12px; }
+.dbs-tb .tb-tile--fill img { max-height: 100%; }
+.dbs-tb .tb-tile--photo { padding: 0; overflow: hidden; }
+.dbs-tb .tb-tile--photo img { width: 100%; height: 100%; max-height: none; object-fit: cover; }
+.dbs-tb .tb-tile--fill .tb-arrow,
+.dbs-tb .tb-tile--photo .tb-arrow { z-index: 1; color: rgba(255, 255, 255, .75); }
+/* hover: the home page tiles' effect (trusted-band.css a.tb-tile:hover) - lift, tinted
+   border, soft shadow and the small corner arrow nudging up-right */
+.dbs-tb .tb-tile--logo:hover {
+    transform: translateY(-2px);
+    border-color: rgba(233, 29, 43, .25);
+    box-shadow: 0 4px 10px rgba(16, 39, 68, .08);
+}
+.dbs-tb .tb-tile--logo:hover .tb-arrow { opacity: 1; }
+.dbs-tb .tb-tile--logo:hover .tb-arrow svg { transform: translate(2px, -2px); }
+html[data-theme="dark"] .dbs-tb .tb-tile--logo:hover { border-color: rgba(167, 139, 250, .45); box-shadow: 0 6px 16px rgba(0, 0, 0, .3); }
+@media (max-width: 767px) {
+    .tb-band.dbs-tb { padding-top: 60px; padding-bottom: 60px; }
+    .dbs-page .dbs-tb-title { margin-bottom: 24px; font-size: 32px; line-height: 43px; }
+    .dbs-tb .tb-tile--logo { width: 130px; }
+    .dbs-tb .tb-tile--logo img { max-height: 44px; }
+    .dbs-tb .tb-tile--fill img { max-height: 100%; }
+    .dbs-tb .tb-tile--photo img { max-height: none; }
+}
+
 /* ---------- responsive (Bootstrap breakpoints of the original) ---------- */
 @media (max-width: 991px) {
     .dbs-home .dbs-section { padding: 90px 0; }

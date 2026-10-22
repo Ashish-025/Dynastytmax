@@ -320,10 +320,11 @@ html[data-theme="dark"] .logo-marquee .dm-product-card .dm-card-line,
 html[data-theme="dark"] .cr-line::after,
 html[data-theme="dark"] .cr-team-txt strong::after { display: none !important; }
 
-/* Our Services hover shade: violet instead of red */
+/* Our Services / Our Products hover shade: the exact violet of the Digital Branding
+   page's project cards (below) */
 html[data-theme="dark"] .dm-service-card .dm-card-overlay,
 html[data-theme="dark"] .dm-service-card.dm-service-digital .dm-card-overlay {
-    background: linear-gradient(135deg, rgba(91, 54, 245, .92), rgba(46, 30, 160, .85)) !important;
+    background: rgba(91, 54, 245, .82) !important;
 }
 html[data-theme="dark"] .dm-service-card:focus-visible { outline-color: #a78bfa !important; }
 html[data-theme="dark"] .dm-service-card:hover .dm-service-icon img { filter: invert(1) hue-rotate(180deg) brightness(1.1) drop-shadow(0 0 5px rgba(167, 139, 250, .45)) !important; }

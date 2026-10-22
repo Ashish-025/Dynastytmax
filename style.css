@@ -1801,6 +1801,10 @@ body {
 
     opacity: 0;
 
+    /* waits off the card's left edge and slides in on hover, like the
+       Digital Branding page's project cards (.overlay-box::before) */
+    transform: translateX(-100%);
+
     background:
         linear-gradient(
             135deg,
@@ -1809,7 +1813,8 @@ body {
         );
 
     transition:
-        opacity 0.45s ease;
+        opacity 0.4s ease,
+        transform 0.4s ease;
 }
 
 /* Digital card gets a slightly different overlay */
@@ -1824,17 +1829,13 @@ body {
         );
 }
 
-/* Our Services cards: red hover shade on every card (both themes) */
+/* Our Services / Our Products cards: the exact hover shade of the Digital Branding
+   page's project cards (digital-home.css .overlay-box::before) */
 
 .dm-service-card .dm-card-overlay,
 .dm-service-card.dm-service-digital .dm-card-overlay {
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(222, 24, 40, 0.90),
-            rgba(185, 16, 32, 0.82)
-        );
+    background: rgba(244, 67, 54, 0.82);
 }
 
 /* =========================================================
@@ -2129,6 +2130,8 @@ body {
 .dm-service-card:hover .dm-card-overlay {
 
     opacity: 1;
+
+    transform: none;
 }
 
 /* White text */
