@@ -66,7 +66,7 @@
 }
 a.tb-tile:hover {
     transform: translateY(-2px);
-    border-color: rgba(233, 29, 43, .25);
+    border-color: rgba(16, 39, 68, .25);
     background: #fff;
     box-shadow: 0 4px 10px rgba(16, 39, 68, .08);
 }
@@ -88,7 +88,7 @@ a.tb-tile:focus-visible { outline: 2px solid #e91d2b; outline-offset: -2px; }
     flex: 0 0 auto;
     padding: 4px 10px;
     border-radius: 20px;
-    background: #fff1f2;
+    background: #f3f5f8;
     color: #e91d2b;
     font-size: 11px;
     font-weight: 700;

@@ -1835,7 +1835,7 @@ body {
 .dm-service-card .dm-card-overlay,
 .dm-service-card.dm-service-digital .dm-card-overlay {
 
-    background: rgba(244, 67, 54, 0.82);
+    background: none;
 }
 
 /* =========================================================
@@ -1880,7 +1880,7 @@ body {
 
     flex-shrink: 0;
 
-    background: #fff3f2;
+    background: #f3f5f8;
 
     border-radius: 50%;
 
@@ -3726,6 +3726,11 @@ body {
     color: #fff;
     transform: translateX(4px);
 }
+/* light theme: Popular Links / Our Services turn a lighter brand red on hover */
+html:not([data-theme="dark"]) .dm-links nav a:hover,
+html:not([data-theme="dark"]) .dm-links nav a:focus-visible,
+html:not([data-theme="dark"]) #footer-services nav a:hover,
+html:not([data-theme="dark"]) #footer-services nav a:focus-visible { color: #ff5a63; }
 
 .dm-footer-bottom { width: calc(100% - 80px); max-width: 1260px; }
 .dm-footer-bottom-inner { min-height: 72px; gap: 18px; }
@@ -4427,7 +4432,6 @@ html body .achievements-section::before {
         radial-gradient(1.6px 1.6px at 67.9% 26.6%, rgba(255,255,255,0.65), transparent),
         radial-gradient(circle at 1px 1px, rgba(255, 255, 255, .09) 1px, transparent 1.6px) 0 0 / 7px 7px,
         radial-gradient(55% 120% at 82% 0%, rgba(64, 137, 221, .16), transparent 62%),
-        radial-gradient(45% 120% at 12% 100%, rgba(233, 29, 43, .1), transparent 62%),
         #000;
 }
 html body .achievements-section::after {

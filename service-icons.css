@@ -7,8 +7,8 @@
     position: relative;
     isolation: isolate;
     overflow: visible;
-    background: radial-gradient(circle at 35% 30%, #fff 0%, #fff3f2 55%, #ffe1de 100%);
-    box-shadow: inset 0 0 0 1px rgba(233, 29, 43, .22), 0 6px 18px rgba(233, 29, 43, .14);
+    background: radial-gradient(circle at 35% 30%, #fff 0%, #f4f6f9 55%, #e6eaf0 100%);
+    box-shadow: inset 0 0 0 1px rgba(16, 39, 68, .16), 0 6px 18px rgba(16, 39, 68, .1);
 }
 
 .dm-service-icon::after {
@@ -28,14 +28,14 @@
 }
 
 .dm-service-icon img {
-    filter: drop-shadow(0 0 4px rgba(233, 29, 43, .35));
+    filter: drop-shadow(0 0 4px rgba(16, 39, 68, .25));
     animation: dmSiFloat 3.6s ease-in-out infinite;
 }
 
 /* hover: card turns blue, so the ring goes white */
 .dm-service-card:hover .dm-service-icon { --si-a: #fff; --si-b: #fff; box-shadow: 0 0 0 1px rgba(255, 255, 255, .5), 0 0 22px rgba(255, 255, 255, .35); }
 .dm-service-card:hover .dm-service-icon::after { opacity: .55; }
-.dm-service-card:hover .dm-service-icon img { filter: drop-shadow(0 0 5px rgba(233, 29, 43, .45)); }
+.dm-service-card:hover .dm-service-icon img { filter: drop-shadow(0 0 5px rgba(16, 39, 68, .3)); }
 
 /* dark (futuristic) theme */
 [data-theme="dark"] .dm-service-icon {

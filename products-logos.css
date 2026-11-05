@@ -24,11 +24,11 @@
     will-change: transform;
     animation: logoMarqueeScroll 30s linear infinite;
 }
-/* press / hover zoom: instant (no transition on `scale`); the row holds still meanwhile.
-   `scale` is separate from the card's own hover `transform` (lift), so both apply */
+/* press / hover: the card comes to the front (the lift itself is in the HOVER block below);
+   the row holds still meanwhile */
 .logo-marquee .dm-product-card { position: relative; }
 .logo-marquee .dm-product-card:hover,
-.logo-marquee .dm-product-card.is-pressed { scale: 1.08; z-index: 5; }
+.logo-marquee .dm-product-card.is-pressed { z-index: 5; }
 .logo-marquee.is-holding .logo-marquee-track { animation-play-state: paused; }
 
 /* pause while the visitor is pointing at / tabbing through a card */
@@ -87,7 +87,7 @@ html[data-theme="dark"] .dm-product-card .dm-service-icon svg { stroke: #e6eefc;
     transition: opacity .3s ease, transform .3s ease, height .35s ease, margin .35s ease;
 }
 
-.logo-marquee .dm-product-card:not(:hover) .dm-card-image {
+.logo-marquee .dm-product-card .dm-card-image {
     inset: 14px 14px auto 14px;          /* framed photo at the top, like .product-image-area */
     height: 170px;
     z-index: 1;
@@ -96,32 +96,32 @@ html[data-theme="dark"] .dm-product-card .dm-service-icon svg { stroke: #e6eefc;
     transform: none;
     box-shadow: 0 6px 18px rgba(16, 39, 68, .18);
 }
-.logo-marquee .dm-product-card:not(:hover) .dm-card-overlay { opacity: 0; }
+.logo-marquee .dm-product-card .dm-card-overlay { opacity: 0; }
 
 /* the icon dial steps aside to make room for the photo */
-.logo-marquee .dm-product-card:not(:hover) .dm-service-icon {
+.logo-marquee .dm-product-card .dm-service-icon {
     height: 0;
     margin-bottom: 0;
     opacity: 0;
     transform: scale(.6);
 }
-.logo-marquee .dm-product-card:not(:hover) .dm-card-content {
+.logo-marquee .dm-product-card .dm-card-content {
     padding-top: 202px;                  /* photo frame (14 + 170) + breathing room */
 }
 
 /* keep the normal text colours (the services hover turns them white for the overlay) */
-.logo-marquee .dm-product-card:not(:hover) .dm-card-content h3 { color: #102744; }
-.logo-marquee .dm-product-card:not(:hover) .dm-card-content p,
-.logo-marquee .dm-product-card:not(:hover) .dm-service-list li { color: #5b6b80; }
-.logo-marquee .dm-product-card:not(:hover) .dm-service-list li::before { color: #e91d2b; border-color: #e91d2b; }
-.logo-marquee .dm-product-card:not(:hover) .dm-card-line { background: #ff3b35; }
-html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-card-content h3 { color: #ffffff; }
-html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-card-content p,
-html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-service-list li { color: rgba(255, 255, 255, .72); }
-html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-service-list li::before { color: #a78bfa; border-color: #a78bfa; }
+.logo-marquee .dm-product-card .dm-card-content h3 { color: #102744; }
+.logo-marquee .dm-product-card .dm-card-content p,
+.logo-marquee .dm-product-card .dm-service-list li { color: #5b6b80; }
+.logo-marquee .dm-product-card .dm-service-list li::before { color: #e91d2b; border-color: #e91d2b; }
+.logo-marquee .dm-product-card .dm-card-line { background: #ff3b35; }
+html[data-theme="dark"] .logo-marquee .dm-product-card .dm-card-content h3 { color: #ffffff; }
+html[data-theme="dark"] .logo-marquee .dm-product-card .dm-card-content p,
+html[data-theme="dark"] .logo-marquee .dm-product-card .dm-service-list li { color: rgba(255, 255, 255, .72); }
+html[data-theme="dark"] .logo-marquee .dm-product-card .dm-service-list li::before { color: #a78bfa; border-color: #a78bfa; }
 
 /* GPS device cards: product photos are on white, so show the whole device (not cropped) */
-.logo-marquee .dm-device-card:not(:hover) .dm-card-image {
+.logo-marquee .dm-device-card .dm-card-image {
     background-color: #ffffff;
     background-size: contain;
     background-origin: content-box;
@@ -141,22 +141,22 @@ html[data-theme="dark"] .logo-marquee .dm-product-card:not(:hover) .dm-service-l
     font: 700 11px/1 'Montserrat', Arial, Helvetica, sans-serif;
     letter-spacing: .04em;
     text-transform: uppercase;
-    box-shadow: 0 4px 12px rgba(233, 29, 43, .3);
+    box-shadow: 0 4px 12px rgba(16, 39, 68, .2);
 }
 html[data-theme="dark"] .dm-device-badge { background: #a78bfa; box-shadow: 0 4px 12px rgba(167, 139, 250, .3); }
 /* four features per device: a neat 2 x 2 grid (the 3-column grid wrapped them onto 3 lines) */
 .logo-marquee .dm-device-card .dm-service-list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 8px; margin-bottom: 8px; }
 /* device photo frame a little shorter than the category cards', so all the text fits */
-.logo-marquee .dm-device-card:not(:hover) .dm-card-image { height: 150px; }
-.logo-marquee .dm-device-card:not(:hover) .dm-card-content { padding-top: 178px; }
-.logo-marquee .dm-device-card:not(:hover) .dm-card-content p { margin-bottom: 14px; }
-.logo-marquee .dm-device-card:not(:hover) .dm-device-badge { top: 24px; right: 24px; }
+.logo-marquee .dm-device-card .dm-card-image { height: 150px; }
+.logo-marquee .dm-device-card .dm-card-content { padding-top: 178px; }
+.logo-marquee .dm-device-card .dm-card-content p { margin-bottom: 14px; }
+.logo-marquee .dm-device-card .dm-device-badge { top: 24px; right: 24px; }
 
 @media (max-width: 768px) {
-    .logo-marquee .dm-product-card:not(:hover) .dm-card-image { height: 140px; }
-    .logo-marquee .dm-product-card:not(:hover) .dm-card-content { padding-top: 170px; }
-    .logo-marquee .dm-device-card:not(:hover) .dm-card-image { height: 130px; }
-    .logo-marquee .dm-device-card:not(:hover) .dm-card-content { padding-top: 156px; }
+    .logo-marquee .dm-product-card .dm-card-image { height: 140px; }
+    .logo-marquee .dm-product-card .dm-card-content { padding-top: 170px; }
+    .logo-marquee .dm-device-card .dm-card-image { height: 130px; }
+    .logo-marquee .dm-device-card .dm-card-content { padding-top: 156px; }
 }
 
 @media (max-width: 768px) {
@@ -183,17 +183,60 @@ html[data-theme="dark"] .products-section { background: transparent; }
     .products-section { padding-bottom: 0; }
 }
 
-/* HOVER: the Our Services card effect (style.css .dm-service-card:hover) - the photo grows to
-   fill the whole card under the dark blue overlay, the text turns white and the icon dial
-   comes back. The photo frame morphs smoothly between the two states. */
-.logo-marquee .dm-product-card:hover .dm-card-image { inset: 0; height: 100%; border-radius: 0; box-shadow: none; }
-.logo-marquee .dm-product-card:hover .dm-service-icon svg { stroke: #14244a; }
+/* =========================================================
+   HOVER: the products page cards' effect (mobility-cards.css) - the card lifts 8px with a
+   slightly stronger border and a big soft shadow, and the photo zooms to 108% inside its
+   frame. The layout, colours and text stay exactly as they are (none of the Our Services
+   card hover: no full-card photo, no overlay, no white text, no icon dial).
+========================================================= */
+.logo-marquee .dm-product-card {
+    --mc-ease: cubic-bezier(.22, 1, .36, 1);
+    transition: transform .35s var(--mc-ease), border-color .35s ease, box-shadow .35s ease,
+        opacity .8s var(--mc-ease), scale .8s var(--mc-ease), translate .9s cubic-bezier(.16, 1, .3, 1) var(--fx-delay, 0ms);
+}
+/* scroll-in, as the products page: the cards fade in and scale up from 92% when the row comes
+   into view (main.js adds .dm-visible to the .dm-reveal row; the row itself doesn't slide) */
+.logo-marquee.dm-reveal { opacity: 1; transform: none; transition: none; }
+.logo-marquee.dm-reveal .dm-product-card { opacity: 0; scale: .92; }
+.logo-marquee.dm-reveal.dm-visible .dm-product-card { opacity: 1; scale: 1; }
+/* room below the row for the hover shadow (the row clips anything outside it); the negative
+   margin keeps the section's spacing as it was */
+.logo-marquee { padding-bottom: 72px; margin-bottom: -42px; }
+.logo-marquee .dm-product-card:hover,
+.logo-marquee .dm-product-card.is-pressed {
+    transform: translateY(-8px);
+    border-color: rgba(15, 23, 42, .16);
+    box-shadow: 0 24px 60px -16px rgba(16, 39, 68, .28);
+}
+html[data-theme="dark"] .logo-marquee .dm-product-card:hover,
+html[data-theme="dark"] .logo-marquee .dm-product-card.is-pressed {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, .16);
+    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, .5), 0 0 0 1px rgba(11, 206, 252, .25);
+}
+/* keep the normal state on hover: hide the overlay, keep the line as it is */
+.logo-marquee .dm-product-card .dm-card-overlay { opacity: 0; }
+.logo-marquee .dm-product-card .dm-card-line { width: 55px; }
 
-/* each card's own photo shows in the normal state (set inline as --photo); on hover the
-   card takes the matching Our Services card's photo + overlay instead:
-   GPS cards -> Mobility & Vehicle (vehicles, blue), CCTV -> Security (blue),
-   Branding / Software / Social Media / SEO -> Digital Branding (business, purple) */
-.logo-marquee .dm-product-card:not(:hover) .dm-card-image { background-image: var(--photo); }
+/* the photo frame: the card's own photo (set inline as --photo) is drawn on a layer inside
+   the frame, so it can zoom without the frame itself growing */
+.logo-marquee .dm-product-card .dm-card-image { overflow: hidden; background-image: none; }
+.logo-marquee .dm-product-card .dm-card-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--photo) center / cover no-repeat;
+    transition: transform .6s var(--mc-ease);
+}
+.logo-marquee .dm-device-card .dm-card-image::before { inset: 10px; background-size: contain; }   /* whole device, not cropped */
+.logo-marquee .dm-product-card:hover .dm-card-image::before,
+.logo-marquee .dm-product-card.is-pressed .dm-card-image::before { transform: scale(1.08); }
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-marquee .dm-product-card,
+    .logo-marquee .dm-product-card .dm-card-image::before { transition: none; }
+    .logo-marquee.dm-reveal .dm-product-card { opacity: 1; scale: 1; }
+}
 
 /* =========================================================
    3 CARDS AT A TIME: the row is as wide as the Our Services card grid above it

@@ -78,7 +78,7 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    background-color: rgba(244, 67, 54, .82);   /* red overlay (brand #f44336) instead of the dark grey */
+    background-color: transparent;   /* no shade over the photo (the dark theme keeps its violet) */
     transition: all .4s;
 }
 .dbs-page .inner-box:hover .image img { transform: scale(1.1); }
@@ -167,7 +167,7 @@ html[data-theme="dark"] .dbs-tb .tb-tile--photo { background: var(--tile-bg); bo
    border, soft shadow and the small corner arrow nudging up-right */
 .dbs-tb .tb-tile--logo:hover {
     transform: translateY(-2px);
-    border-color: rgba(233, 29, 43, .25);
+    border-color: rgba(16, 39, 68, .25);
     box-shadow: 0 4px 10px rgba(16, 39, 68, .08);
 }
 .dbs-tb .tb-tile--logo:hover .tb-arrow { opacity: 1; }

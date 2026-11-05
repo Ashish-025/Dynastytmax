@@ -88,7 +88,7 @@ html:not([data-theme="dark"]) .products-grid .product-image-area {
 html:not([data-theme="dark"]) .products-grid .product-image-area img { border-radius: 10px; }
 html:not([data-theme="dark"]) .products-grid .product-image-area:hover,
 html:not([data-theme="dark"]) .products-grid .product-image-area:focus-within {
-    background: #fff5f5;
+    background: #f3f5f8;
     border-color: rgba(255, 2, 106, .55);
     box-shadow: 0 0 0 2px rgba(255, 2, 106, .12), 0 8px 18px rgba(255, 2, 106, .1);
 }

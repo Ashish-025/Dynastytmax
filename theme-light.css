@@ -43,7 +43,7 @@
 [data-theme="light"] .theme-toggle { color: #e91d2b; }
 [data-theme="light"] .theme-toggle:hover {
     border-color: #e91d2b;
-    box-shadow: 0 0 0 3px rgba(233, 29, 43, .2);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .22);
 }
 [data-theme="light"] .theme-toggle:focus-visible { outline-color: #e91d2b; }
 
