@@ -1678,7 +1678,7 @@ body {
     display: grid;
 
     grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+        repeat(4, minmax(0, 1fr));   /* Mobility, Security, Digital, IT */
 
     gap: 22px;
 
@@ -1785,6 +1785,28 @@ body {
 
     background-image:
         url("images/business.jpg");
+}
+
+/* ---------- CARD 4 IMAGE (Software Solutions) ---------- */
+
+.dm-service-it .dm-card-image {
+
+    background-image:
+        url("images/digital/work-4.jpg");
+}
+
+/* laptops and desktops: all 4 cards in one line, across the full row width (max 1280px);
+   smaller padding / type, and the three features stacked (side by side
+   they would be squeezed to ~70px each) */
+@media (min-width: 1001px) {
+    .dm-services-grid { gap: 18px; }
+    .dm-services-grid .dm-service-card,
+    .dm-services-grid .dm-card-content { min-height: 380px; }
+    .dm-services-grid .dm-card-content { padding: 26px 20px; }
+    .dm-services-grid .dm-service-icon { width: 58px; height: 58px; margin-bottom: 20px; }
+    .dm-services-grid .dm-card-content h3 { font-size: 21px; }
+    .dm-services-grid .dm-card-content p { font-size: 13.5px; margin-bottom: 16px; }
+    .dm-services-grid .dm-service-list { grid-template-columns: minmax(0, 1fr); gap: 7px; }
 }
 
 /* =========================================================
@@ -2229,7 +2251,8 @@ body {
             repeat(2, minmax(0, 1fr));
     }
 
-    .dm-service-card:last-child {
+    /* an odd last card (e.g. 3 cards) sits centred on its own row; 4 cards make a clean 2 x 2 */
+    .dm-service-card:last-child:nth-child(odd) {
 
         grid-column:
             1 / -1;

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Software Solutions icon (Our Services card): a monitor showing code, on a stand -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<path fill="#000000" fill-rule="evenodd" d="M56 72h400a32 32 0 0 1 32 32v240a32 32 0 0 1-32 32H56a32 32 0 0 1-32-32V104a32 32 0 0 1 32-32Zm8 40v224h384V112H64Z"/>
+<path fill="#000000" d="M216 376h80l12 48h44v40H160v-40h44l12-48Z"/>
+<path fill="#000000" d="M197 160l28 28-40 36 40 36-28 28-68-64 68-64Zm118 0 68 64-68 64-28-28 40-36-40-36 28-28Z"/>
+</svg>

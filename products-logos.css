@@ -239,15 +239,15 @@ html[data-theme="dark"] .logo-marquee .dm-product-card.is-pressed {
 }
 
 /* =========================================================
-   3 CARDS AT A TIME: the row is as wide as the Our Services card grid above it
-   (max 1280px, same side margins) and each card is a third of it - so the row shows
-   three cards lined up with the three Services cards (2 on tablets, 1 on phones).
-   Only a thin soft fade at the two edges, so all three cards are clear.
+   4 CARDS AT A TIME: the row is as wide as the Our Services card grid above it
+   (max 1280px, same side margins) and each card is a quarter of it - so the row shows
+   four cards (3 on small laptops, 2 on tablets, 1 on phones).
+   Only a thin soft fade at the two edges, so all the cards in view are clear.
 ========================================================= */
 .logo-marquee {
     --pm-row: min(1280px, calc(100vw - 2 * clamp(16px, 5.6vw, 80px)));
     --pm-gap: 4px;                                    /* = the card's margin-right */
-    --pm-cols: 3;
+    --pm-cols: 4;
     width: var(--pm-row);
     margin-left: auto;
     margin-right: auto;
@@ -259,5 +259,6 @@ html[data-theme="dark"] .logo-marquee .dm-product-card.is-pressed {
     width: calc((var(--pm-row) - (var(--pm-cols) - 1) * var(--pm-gap)) / var(--pm-cols));
     margin-right: var(--pm-gap);
 }
+@media (max-width: 1199px) { .logo-marquee { --pm-cols: 3; } }
 @media (max-width: 1023px) { .logo-marquee { --pm-cols: 2; } }
 @media (max-width: 640px)  { .logo-marquee { --pm-cols: 1; } }
