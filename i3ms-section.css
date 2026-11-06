@@ -231,6 +231,28 @@
     #dm-projects .dm-i3ms-mine-photo   { grid-area: 4 / 3 / 5 / 5; }
     #dm-projects .dm-i3ms-integration  { grid-area: 4 / 5 / 5 / 7; }
     #dm-projects .dm-i3ms-login { display: block; height: 485px; overflow: hidden; }
+
+    /* "Our Products": every product name scrolls up in a loop (the list is in the page twice;
+       each copy moves up by its own height, so the second takes the first's place seamlessly);
+       pointing at the list pauses it */
+    #dm-projects .dm-i3ms-products {
+        height: calc(485px - 40px);          /* the panel minus its heading */
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+                mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+    }
+    #dm-projects .dm-i3ms-ticker { animation: dmI3Ticker 48s linear infinite; }
+    #dm-projects .dm-i3ms-products:hover .dm-i3ms-ticker,
+    #dm-projects .dm-i3ms-products:focus-within .dm-i3ms-ticker { animation-play-state: paused; }
+}
+@keyframes dmI3Ticker {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    #dm-projects .dm-i3ms-ticker { animation: none; }
+    #dm-projects .dm-i3ms-products { overflow-y: auto; }
+    #dm-projects .dm-i3ms-ticker[aria-hidden="true"] { display: none; }
 }
 
 /* ---------- smaller screens: same tiles, colours and pairings as desktop ---------- */
@@ -239,8 +261,11 @@
     #dm-projects .dm-i3ms-mosaic { display: grid; gap: 3px; min-height: 0; }
     #dm-projects .dm-i3ms-tile { position: relative; overflow: hidden; }
 
-    /* "Projects Completed" panel: two even columns, comfortable tap height */
-    #dm-projects .dm-i3ms-login nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* "Our Products" panel: all the names in two even columns, comfortable tap height (no scrolling;
+       the loop copy is hidden) */
+    #dm-projects .dm-i3ms-login nav { display: block; }
+    #dm-projects .dm-i3ms-ticker { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #dm-projects .dm-i3ms-ticker[aria-hidden="true"] { display: none; }
     #dm-projects .dm-i3ms-login nav a {
         min-height: 44px;
         padding: 8px 9px;

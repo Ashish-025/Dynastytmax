@@ -1,0 +1,123 @@
+/* =========================================================
+   Completed-projects gallery (project-gallery.js): opens when a product in the home page's
+   "Our Products" list is clicked. Dark backdrop, white panel, large photo with previous /
+   next, caption, thumbnails and a "View product" link. Same look in both themes.
+========================================================= */
+html.pg-open { overflow: hidden; }
+
+.pg {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(5, 10, 20, .78);
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+.pg[hidden] { display: none; }
+.pg.is-in { opacity: 1; }
+
+.pg-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: min(880px, 100%);
+    max-height: calc(100vh - 40px);
+    padding: 20px 22px 22px;
+    border-radius: 14px;
+    background: #fff;
+    color: #102744;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
+    transform: translateY(14px) scale(.98);
+    transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+.pg.is-in .pg-panel { transform: none; }
+
+.pg-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.pg-kicker { display: block; color: #e91d2b; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.pg-head h3 { margin: 4px 0 0; color: #102744; font-size: 22px; font-weight: 700; line-height: 1.2; }
+.pg-close {
+    flex: 0 0 auto;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #e5e9f0;
+    border-radius: 50%;
+    background: #fff;
+    color: #102744;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+.pg-close:hover, .pg-close:focus-visible { border-color: #102744; }
+
+.pg-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: min(60vh, 480px);
+    border-radius: 10px;
+    background: #f3f5f8;
+    overflow: hidden;
+}
+.pg-img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+.pg-nav {
+    position: absolute;
+    top: 50%;
+    width: 42px;
+    height: 42px;
+    margin-top: -21px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(16, 39, 68, .75);
+    color: #fff;
+    font-size: 28px;
+    line-height: 40px;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+.pg-nav:hover, .pg-nav:focus-visible { background: #102744; }
+.pg-prev { left: 10px; }
+.pg-next { right: 10px; }
+.pg.is-single .pg-nav,
+.pg.is-single .pg-thumbs { display: none; }
+
+.pg-cap { margin: 0; color: #5b6b80; font-size: 14px; }
+
+.pg-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
+.pg-thumb {
+    flex: 0 0 auto;
+    width: 76px;
+    height: 54px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: #f3f5f8;
+    overflow: hidden;
+    opacity: .6;
+    cursor: pointer;
+    transition: opacity .2s ease, border-color .2s ease;
+}
+.pg-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pg-thumb:hover, .pg-thumb:focus-visible { opacity: 1; }
+.pg-thumb.is-on { opacity: 1; border-color: #e91d2b; }
+
+.pg-more { align-self: flex-start; color: #e91d2b; font-size: 14px; font-weight: 700; text-decoration: none; }
+.pg-more span { display: inline-block; transition: transform .2s ease; }
+.pg-more:hover span, .pg-more:focus-visible span { transform: translateX(4px); }
+
+@media (max-width: 600px) {
+    .pg { padding: 10px; }
+    .pg-panel { padding: 14px; gap: 10px; }
+    .pg-head h3 { font-size: 18px; }
+    .pg-stage { height: 52vh; }
+    .pg-nav { width: 36px; height: 36px; margin-top: -18px; font-size: 24px; line-height: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .pg, .pg-panel { transition: none; }
+}

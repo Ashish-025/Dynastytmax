@@ -48,6 +48,7 @@
 <link rel="stylesheet" href="i3ms-section.css">
 <link rel="stylesheet" href="service-icons.css">
 <link rel="stylesheet" href="products-logos.css">
+<link rel="stylesheet" href="project-gallery.css">
 <script>(function(){var l=document.documentElement.getAttribute("data-theme")==="light";document.querySelectorAll("link[data-theme-css=dark]").forEach(function(k){k.media=l?"not all":"all"})})();</script>
 <link rel="stylesheet" href="preloader.css">
 <script>document.documentElement.classList.add("dm-loading")</script>
@@ -1319,21 +1320,62 @@
     </div>
 
     <aside class="dm-i3ms-login">
-        <h2><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 10V7a6 6 0 0 1 12 0v3h2v13H4V10h2Zm3 0h6V7a3 3 0 0 0-6 0v3Z"/></svg> Projects Completed</h2>
-        <nav aria-label="Portal options">
-            <a href="security-surveillance-infrastructure.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 22v-4c0-3 3-5 8-5s8 2 8 5v4H4Z"/></svg>Government</a>
-            <a href="mobility-vehicle-solutions.html" class="is-muted"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2l2 3h-2.5l-2-3h-7l-2 3H4l2-3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 3v6h12V5H6Zm2 9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm8 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>Railway</a>
-            <a href="mobility-vehicle-solutions.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 2h2v3a3 3 0 1 1-2 0V2Zm1 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-1 4h2v9a6 6 0 0 0 5-5h-2l3-4 3 4h-2a8 8 0 0 1-16 0H2l3-4 3 4H6a6 6 0 0 0 5 5v-9Z"/></svg>Port</a>
-            <a href="digital-branding-business-solutions.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6h20v4H2zM2 12h6v6H2zM10 12h12v6H10z"/></svg>Commercial Tax</a>
-            <a href="contact.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 22v-4c0-3 3-5 8-5s8 2 8 5v4H4Z"/></svg>Bidder/Lessee</a>
-            <a href="contact.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 22v-4c0-3 3-5 8-5s8 2 8 5v4H4Z"/></svg>Licensee</a>
-            <a href="mobility-vehicle-solutions.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h12v11H3zM16 9h3l3 4v3h-6z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Truck Owners</a>
-            <a href="mobility-vehicle-solutions.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 22v-4c0-3 3-5 8-5s8 2 8 5v4H4Z"/></svg>Transporter</a>
-            <a href="contact.html" class="is-muted"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 4a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z"/></svg>OSPCB</a>
-            <a href="contact.html" class="is-muted"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L12 2Z"/></svg>Transport Commissioner</a>
-            <a href="contact.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 22v-4c0-3 3-5 8-5s8 2 8 5v4H4Z"/></svg>Joint Plant Committee</a>
-            <a href="contact.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 22v-4c0-3 3-5 8-5s8 2 8 5v4H4Z"/></svg>RQP</a>
-            <a href="contact.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM15 13h3v3h3v2h-3v3h-2v-3h-3v-2h2z"/></svg>API Development Portal <b>NEW</b></a>
+        <h2><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 3 6.5v11L12 22l9-4.5v-11L12 2Zm0 2.2 6.6 3.3L12 10.8 5.4 7.5 12 4.2ZM5 9.1l6 3v7.6l-6-3V9.1Zm8 10.6v-7.6l6-3v7.6l-6 3Z"/></svg> Our Products</h2>
+        <!-- every product on the site; on desktop the list scrolls up in a loop (the second
+             copy only makes the loop seamless), pointing at it pauses it - i3ms-section.css -->
+        <nav aria-label="Our products" class="dm-i3ms-products">
+            <div class="dm-i3ms-ticker">
+                <a href="mobility-vehicle-solutions.html" data-project="gps-tracking"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>GPS Tracking</a>
+                <a href="mobility-vehicle-solutions.html" data-project="v5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>V5 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="vl149"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>VL149 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="wetrack140"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Wetrack140 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="lg300"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>LG300 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="pg201"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>PG201 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="gt800"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>GT800 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="eg02"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>EG02 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="vl501"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>VL501 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="jc371"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>JC371 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="traxsmart-ais140"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>TraxSmart AIS140</a>
+                <a href="mobility-vehicle-solutions.html" data-project="transight-compass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Transight COMPASS</a>
+                <a href="mobility-vehicle-solutions.html" data-project="mining-gps"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Mining GPS</a>
+                <a href="mobility-vehicle-solutions.html" data-project="ee202l-dashcam"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>EE202L Dashcam</a>
+                <a href="mobility-vehicle-solutions.html" data-project="fuel-level-sensor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Fuel Level Sensor (LLS)</a>
+                <a href="mobility-vehicle-solutions.html" data-project="speed-governor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Speed Governor</a>
+                <a href="mobility-vehicle-solutions.html" data-project="speed-limiter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Electronic Speed Limiter</a>
+                <a href="mobility-vehicle-solutions.html" data-project="fire-suppression"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Fire Suppression (FDSS)</a>
+                <a href="mobility-vehicle-solutions.html" data-project="reflective-tape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Reflective Tape</a>
+                <a href="security-surveillance-infrastructure.html" data-project="cctv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h12v10H3zM15 10l6-3v10l-6-3z"/></svg>CCTV Surveillance</a>
+                <a href="digital-branding-business-solutions.html" data-project="digital-branding"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zM9 20h6v-2H9zM7 8h10v2H7zm0 3h6v2H7z"/></svg>Digital Branding</a>
+                <a href="digital-branding-business-solutions.html" data-project="software-solutions"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zM9 20h6v-2H9zM7 8h10v2H7zm0 3h6v2H7z"/></svg>Software Solutions</a>
+                <a href="digital-branding-business-solutions.html" data-project="social-media"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zM9 20h6v-2H9zM7 8h10v2H7zm0 3h6v2H7z"/></svg>Social Media Marketing</a>
+                <a href="digital-branding-business-solutions.html" data-project="seo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zM9 20h6v-2H9zM7 8h10v2H7zm0 3h6v2H7z"/></svg>SEO</a>
+            </div>
+            <div class="dm-i3ms-ticker" aria-hidden="true">
+                <a href="mobility-vehicle-solutions.html" data-project="gps-tracking" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>GPS Tracking</a>
+                <a href="mobility-vehicle-solutions.html" data-project="v5" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>V5 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="vl149" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>VL149 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="wetrack140" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Wetrack140 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="lg300" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>LG300 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="pg201" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>PG201 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="gt800" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>GT800 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="eg02" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>EG02 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="vl501" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>VL501 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="jc371" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>JC371 GPS Device</a>
+                <a href="mobility-vehicle-solutions.html" data-project="traxsmart-ais140" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>TraxSmart AIS140</a>
+                <a href="mobility-vehicle-solutions.html" data-project="transight-compass" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Transight COMPASS</a>
+                <a href="mobility-vehicle-solutions.html" data-project="mining-gps" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Mining GPS</a>
+                <a href="mobility-vehicle-solutions.html" data-project="ee202l-dashcam" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>EE202L Dashcam</a>
+                <a href="mobility-vehicle-solutions.html" data-project="fuel-level-sensor" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Fuel Level Sensor (LLS)</a>
+                <a href="mobility-vehicle-solutions.html" data-project="speed-governor" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Speed Governor</a>
+                <a href="mobility-vehicle-solutions.html" data-project="speed-limiter" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Electronic Speed Limiter</a>
+                <a href="mobility-vehicle-solutions.html" data-project="fire-suppression" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Fire Suppression (FDSS)</a>
+                <a href="mobility-vehicle-solutions.html" data-project="reflective-tape" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.1-7-12a7 7 0 0 1 14 0c0 5.9-7 12-7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Reflective Tape</a>
+                <a href="security-surveillance-infrastructure.html" data-project="cctv" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h12v10H3zM15 10l6-3v10l-6-3z"/></svg>CCTV Surveillance</a>
+                <a href="digital-branding-business-solutions.html" data-project="digital-branding" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zM9 20h6v-2H9zM7 8h10v2H7zm0 3h6v2H7z"/></svg>Digital Branding</a>
+                <a href="digital-branding-business-solutions.html" data-project="software-solutions" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zM9 20h6v-2H9zM7 8h10v2H7zm0 3h6v2H7z"/></svg>Software Solutions</a>
+                <a href="digital-branding-business-solutions.html" data-project="social-media" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zM9 20h6v-2H9zM7 8h10v2H7zm0 3h6v2H7z"/></svg>Social Media Marketing</a>
+                <a href="digital-branding-business-solutions.html" data-project="seo" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zM9 20h6v-2H9zM7 8h10v2H7zm0 3h6v2H7z"/></svg>SEO</a>
+            </div>
         </nav>
     </aside>
     <aside class="dm-query-box" aria-labelledby="dm-query-title">
@@ -1664,6 +1706,7 @@
 <script src="dark-spark.js"></script>
 <script src="fx-enhance.js"></script>
 <script src="main.js"></script>
+<script src="project-gallery.js"></script>
 <script src="usta-motion.js"></script>
 
 <nav class="ssi-floating-actions" aria-label="Quick contact">
