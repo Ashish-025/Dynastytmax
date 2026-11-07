@@ -91,7 +91,7 @@ html[data-theme="dark"] .dm-product-card .dm-service-icon svg { stroke: #e6eefc;
     inset: 14px 14px auto 14px;          /* framed photo at the top, like .product-image-area */
     height: 170px;
     z-index: 1;
-    border-radius: 10px;
+    border-radius: 4px;                  /* follows the card's crisper 6px corners */
     opacity: 1;
     transform: none;
     box-shadow: 0 6px 18px rgba(16, 39, 68, .18);
@@ -192,7 +192,7 @@ html[data-theme="dark"] .products-section { background: transparent; }
 .logo-marquee .dm-product-card {
     --mc-ease: cubic-bezier(.22, 1, .36, 1);
     transition: transform .35s var(--mc-ease), border-color .35s ease, box-shadow .35s ease,
-        opacity .8s var(--mc-ease), scale .8s var(--mc-ease), translate .9s cubic-bezier(.16, 1, .3, 1) var(--fx-delay, 0ms);
+        opacity .8s var(--mc-ease), scale .45s var(--mc-ease), translate .9s cubic-bezier(.16, 1, .3, 1) var(--fx-delay, 0ms);
 }
 /* scroll-in, as the products page: the cards fade in and scale up from 92% when the row comes
    into view (main.js adds .dm-visible to the .dm-reveal row; the row itself doesn't slide) */
@@ -239,15 +239,15 @@ html[data-theme="dark"] .logo-marquee .dm-product-card.is-pressed {
 }
 
 /* =========================================================
-   4 CARDS AT A TIME: the row is as wide as the Our Services card grid above it
-   (max 1280px, same side margins) and each card is a quarter of it - so the row shows
-   four cards (3 on small laptops, 2 on tablets, 1 on phones).
+   5 CARDS AT A TIME: the row is as wide as the Our Services card grid above it
+   (max 1280px, same side margins) and each card is a fifth of it - so the row shows
+   five cards (4 on small laptops, 3 on tablets, 2 on large phones, 1 on phones).
    Only a thin soft fade at the two edges, so all the cards in view are clear.
 ========================================================= */
 .logo-marquee {
     --pm-row: min(1280px, calc(100vw - 2 * clamp(16px, 5.6vw, 80px)));
     --pm-gap: 4px;                                    /* = the card's margin-right */
-    --pm-cols: 4;
+    --pm-cols: 5;
     width: var(--pm-row);
     margin-left: auto;
     margin-right: auto;
@@ -259,6 +259,59 @@ html[data-theme="dark"] .logo-marquee .dm-product-card.is-pressed {
     width: calc((var(--pm-row) - (var(--pm-cols) - 1) * var(--pm-gap)) / var(--pm-cols));
     margin-right: var(--pm-gap);
 }
-@media (max-width: 1199px) { .logo-marquee { --pm-cols: 3; } }
-@media (max-width: 1023px) { .logo-marquee { --pm-cols: 2; } }
+@media (max-width: 1199px) { .logo-marquee { --pm-cols: 4; } }
+@media (max-width: 1023px) { .logo-marquee { --pm-cols: 3; } }
+@media (max-width: 767px)  { .logo-marquee { --pm-cols: 2; } }
 @media (max-width: 640px)  { .logo-marquee { --pm-cols: 1; } }
+
+/* =========================================================
+   PHOTO EDGE TO EDGE + ONE LINE: the photo fills the top of the card (no inset frame, corners
+   or shadow), then the title, the red line and the one-line description (the feature lists
+   are gone). The card is only as tall as that; cards in the row stay equal height.
+========================================================= */
+.logo-marquee .dm-product-card .dm-card-image {
+    inset: 0 0 auto 0;
+    height: 190px;
+    border-radius: 0;
+    box-shadow: none;
+}
+.logo-marquee .dm-device-card .dm-card-image { height: 170px; }
+.logo-marquee .dm-product-card,
+.logo-marquee .dm-product-card .dm-card-content { min-height: 0; }
+.logo-marquee .dm-product-card .dm-card-content { padding-top: 212px; padding-bottom: 26px; }
+.logo-marquee .dm-device-card .dm-card-content { padding-top: 192px; }
+.logo-marquee .dm-product-card .dm-card-content p { margin-bottom: 0; }
+.logo-marquee .dm-device-card .dm-device-badge { top: 12px; right: 12px; }
+@media (max-width: 768px) {
+    .logo-marquee .dm-product-card .dm-card-image { height: 160px; }
+    .logo-marquee .dm-device-card .dm-card-image { height: 150px; }
+    .logo-marquee .dm-product-card .dm-card-content { padding-top: 180px; }
+    .logo-marquee .dm-device-card .dm-card-content { padding-top: 170px; }
+}
+
+/* room below the row: section-spacing.css sets the row's bottom padding by ID (30px / 20px on
+   phones), which overrode the 72px above - and the -42px margin then pulled the next section
+   over the bottom of the cards. Keep the section's gap AND the hover-shadow room: */
+#products-section .logo-marquee {
+    padding-bottom: calc(var(--sec-half, 30px) + 42px);
+    margin-bottom: -42px;
+}
+
+/* narrower cards: 5 in view on desktop (4 small laptops, 3 tablets, 2 large phones, 1 phones);
+   no shadow behind the cards, resting or hovered (the hover still lifts and darkens the border) */
+.logo-marquee .dm-product-card,
+.logo-marquee .dm-product-card:hover,
+.logo-marquee .dm-product-card.is-pressed,
+html[data-theme="dark"] .logo-marquee .dm-product-card:hover,
+html[data-theme="dark"] .logo-marquee .dm-product-card.is-pressed { box-shadow: none; }
+
+/* hover / press: the card also zooms in a little (on top of the lift); it comes to the front.
+   (Selectors outrank the scroll-in rule that sets the cards' resting scale.) */
+.logo-marquee .dm-product-card:hover,
+.logo-marquee .dm-product-card.is-pressed,
+.logo-marquee.dm-reveal.dm-visible .dm-product-card:hover,
+.logo-marquee.dm-reveal.dm-visible .dm-product-card.is-pressed { scale: 1.05; }
+@media (prefers-reduced-motion: reduce) {
+    .logo-marquee.dm-reveal.dm-visible .dm-product-card:hover,
+    .logo-marquee.dm-reveal.dm-visible .dm-product-card.is-pressed { scale: 1; }
+}
