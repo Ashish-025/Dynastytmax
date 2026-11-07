@@ -367,3 +367,20 @@ html[data-theme="dark"] .cr-filters button:focus-visible { outline-color: #0bcef
 html[data-theme="dark"] :is(.dm-cta .dm-cta-btn, .dm-office-gmap-link, .products-grid .product-card:has(.details:focus-visible)):focus-visible { outline-color: #a78bfa !important; }
 html[data-theme="dark"] :is(.dm-office-pins a:hover rect, .dm-office-pins a:focus-visible rect) { fill: #7c5cff !important; }
 html[data-theme="dark"] :is(.site-social-links a:hover, .site-social-links a:focus-visible) { filter: drop-shadow(0 0 4px rgba(167, 139, 250, .95)) !important; }
+
+/* "Our Journey So Far": the rounded band (same hairline border, faint tint, blur and shadow) now
+   surrounds only the stats - the heading and intro sit above it, outside */
+html[data-theme="dark"] body .achievements-section::before { display: none !important; }
+html[data-theme="dark"] body .achievements-section .achievements-container {
+    margin-top: 30px;
+    padding: 34px 24px 30px !important;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .04) !important;
+    -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+    box-shadow: 0 2px 14px rgba(0, 0, 0, .35) !important;
+}
+@media (max-width: 600px) {
+    html[data-theme="dark"] body .achievements-section .achievements-container { margin-top: 22px; padding: 24px 14px 20px !important; }
+}

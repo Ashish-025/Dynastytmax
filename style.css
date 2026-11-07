@@ -4637,3 +4637,28 @@ html:not([data-theme="dark"]) body .achievements-section .stat-card { border-lef
     html:not([data-theme="dark"]) body .achievements-section { padding: 52px 30px 46px; }
     html:not([data-theme="dark"]) body .achievements-section::before { top: 16px; bottom: 16px; }
 }
+
+/* Light theme, "Our Journey So Far": the rounded band (same border, radius, white and soft
+   shadow) now surrounds only the stats - the heading and intro sit above it, outside */
+html:not([data-theme="dark"]) body .achievements-section::before { display: none; }
+html:not([data-theme="dark"]) body .achievements-section .achievements-container {
+    margin-top: 30px;
+    padding: 34px 24px 30px;
+    border: 1px solid #ececec;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(16, 24, 39, .05);
+}
+@media (max-width: 600px) {
+    html:not([data-theme="dark"]) body .achievements-section .achievements-container { margin-top: 22px; padding: 24px 14px 20px; }
+}
+/* ... at the band's previous width: 16px from the page edges (the section has 48px side
+   padding, so the box reaches 32px past it; 14px on phones), at most 1600px wide */
+html body .achievements-section .achievements-container {
+    max-width: none;
+    margin-left: max(-32px, calc((100% - 1600px) / 2));
+    margin-right: max(-32px, calc((100% - 1600px) / 2));
+}
+@media (max-width: 600px) {
+    html body .achievements-section .achievements-container { margin-left: -14px; margin-right: -14px; }
+}

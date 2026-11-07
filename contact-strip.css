@@ -308,3 +308,43 @@ html[data-theme="dark"] .stm-alert-mark { stroke: #1a1300; }
 @media (prefers-reduced-motion: reduce) {
     .stm-badge.stm-alert { animation: none; }
 }
+
+/* =========================================================
+   LIGHT THEME: white strip, black text and icons; on hover the phone number, email,
+   social icons and the running announcement turn red with a soft red glow.
+   (The dark theme keeps its own strip - site-futuristic.css.)
+========================================================= */
+html:not([data-theme="dark"]) .site-contact-strip {
+    background: #ffffff;
+    color: #111;
+    border-bottom: 1px solid #ececec;
+}
+html:not([data-theme="dark"]) .site-contact-strip a { color: #111; }
+html:not([data-theme="dark"]) .stm-inner p { color: #e91d2b; }   /* the running alert is red */
+html:not([data-theme="dark"]) .stm-inner p { transition: color .2s ease, text-shadow .2s ease; }
+
+html:not([data-theme="dark"]) .site-contact-strip > a:hover,
+html:not([data-theme="dark"]) .site-contact-strip > a:focus-visible,
+html:not([data-theme="dark"]) .site-top-marquee:hover .stm-inner p {
+    color: #e91d2b;
+    text-shadow: 0 0 6px rgba(233, 29, 43, .55);
+}
+html:not([data-theme="dark"]) .site-contact-strip > a:hover .contact-strip-icon,
+html:not([data-theme="dark"]) .site-contact-strip > a:focus-visible .contact-strip-icon { filter: drop-shadow(0 0 3px rgba(233, 29, 43, .7)); }
+html:not([data-theme="dark"]) .site-contact-social a:hover,
+html:not([data-theme="dark"]) .site-contact-social a:focus-visible {
+    color: #e91d2b;
+    filter: drop-shadow(0 0 3px rgba(233, 29, 43, .75));
+}
+/* alert symbol: the triangle sits straight on the white strip (no white disc needed) */
+html:not([data-theme="dark"]) .stm-badge.stm-alert { background: transparent; }
+/* light theme: red warning triangle (white exclamation mark), like the red running alert */
+html:not([data-theme="dark"]) .stm-alert-tri { fill: #e91d2b; }
+/* light theme: the social logos just turn red on hover - no glow */
+html:not([data-theme="dark"]) .site-contact-social a:hover,
+html:not([data-theme="dark"]) .site-contact-social a:focus-visible { filter: none; }
+/* light theme: the phone number and email just turn red on hover - no glow */
+html:not([data-theme="dark"]) .site-contact-strip > a:hover,
+html:not([data-theme="dark"]) .site-contact-strip > a:focus-visible { text-shadow: none; }
+html:not([data-theme="dark"]) .site-contact-strip > a:hover .contact-strip-icon,
+html:not([data-theme="dark"]) .site-contact-strip > a:focus-visible .contact-strip-icon { filter: none; }
