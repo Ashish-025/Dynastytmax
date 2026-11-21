@@ -160,30 +160,30 @@ html[data-theme] body .site-header .nav-link {
     position: relative;
     height: auto;
     padding: 0;
-    color: var(--cc-ink);
+    color: #666;
     font-family: Outfit, sans-serif !important;
     font-size: 14px;
     line-height: 20px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0;
     text-transform: none;
     opacity: 1;
     transition: color .3s;
 }
 html[data-theme="dark"] body .site-header .nav-link { color: #cbd5e1; }
-html[data-theme] body .site-header .nav-link:hover { color: var(--cc-ink); opacity: 1; }
+html[data-theme] body .site-header .nav-link:hover { color: #0a2540; opacity: 1; }
 html[data-theme="dark"] body .site-header .nav-link:hover { color: #fff; }
 html[data-theme] body .site-header .nav-link::after {
     content: "";
     position: absolute;
-    bottom: -4px;
+    bottom: -2px;
     left: 0;
     width: 0;
-    height: 2px;
-    background: var(--cc-primary) !important;
+    height: 1.5px;
+    background: #a78bfa !important;
     border-radius: 2px;
     transform: none;
-    transition: width .3s;
+    transition: width .22s ease;
 }
 html[data-theme] body .site-header .nav-link:hover::after,
 html[data-theme] body .site-header .nav-link:focus-visible::after,
@@ -376,6 +376,19 @@ html { scroll-padding-top: var(--hdr-h); }
 /* ---- match the template exactly ---- */
 /* bar colour at the top of the page: the template's page grey (#f8fafc) */
 html[data-theme="light"] body .site-header:not(.scrolled) { background: rgba(248, 250, 252, .97); }
+/* home page: over the dark hero the header is part of it (same navy, light text) */
+html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) {
+    background: #0a0e26;
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
+    box-shadow: none;
+}
+html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) .nav-link { color: rgba(255, 255, 255, .78); }
+html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) .nav-link:hover,
+html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) .nav-item.open > .nav-link { color: #fff; }
+html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) .logo .logo-text { color: #fff; }
+html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) .logo .logo-sub { color: #a9b0d6; }
+html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) .mobile-menu-button span { background: #fff; }
+html[data-theme="light"]:has(.dm-fhero) body .site-header { transition: background .4s, box-shadow .4s, border-color .4s; }
 html[data-theme="dark"] body .site-header:not(.scrolled) { background: rgba(15, 23, 42, .6); }
 
 /* button: the template's full-size .btn-primary (14px 28px, 15px / 600) */

@@ -79,7 +79,11 @@ html[data-theme="light"] body .site-header .mobile-app-button:hover {
     color: #fff !important;
     box-shadow: 0 6px 20px -6px rgba(103, 30, 243, .55) !important;
 }
-html[data-theme="light"] body .site-header .app-button:hover { background: var(--c-violet-2) !important; }
+html[data-theme="light"] body .site-header .app-button:hover {
+    background: #5717d6 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 18px -8px rgba(103, 30, 243, .45) !important;
+}
 
 /* ---------- accent fills carry white text ---------- */
 html[data-theme="light"] .dm-ft-tab.is-active,
