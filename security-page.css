@@ -75,7 +75,7 @@
 .ssi-button { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: 12px; padding: 0 20px; border: 1px solid transparent; color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; transition: background-color .2s ease, border-color .2s ease, transform .2s ease; }
 .ssi-button:hover { transform: translateY(-2px); }
 .ssi-button-primary { border-color: var(--ssi-red); background: var(--ssi-red); }
-.ssi-button-primary:hover { border-color: #ff3b49; background: #ff3b49; }
+.ssi-button-primary:hover { border-color: #671ef3; background: #671ef3; }
 .ssi-button-outline { border-color: rgba(255,255,255,.32); background: transparent; }
 .ssi-button-outline:hover { border-color: #fff; }
 .ssi-button:focus-visible,
@@ -114,9 +114,9 @@
 .ssi-service-more b { font-size: 16px; font-weight: 400; transition: transform .2s ease; }
 .ssi-service-card:hover .ssi-service-more b { transform: translateX(3px); }
 
-.ssi-products { padding: clamp(55px, 7vw, 84px) 0 90px; color: #101827; background: #f3f5f8; }
+.ssi-products { padding: clamp(55px, 7vw, 84px) 0 90px; color: #0a2540; background: #f6f9fc; }
 .ssi-section-heading-light .ssi-kicker { color: #6a7587; }
-.ssi-section-heading-light h2 { color: #101827; }
+.ssi-section-heading-light h2 { color: #0a2540; }
 .ssi-section-heading-light p { color: #667184; }
 .ssi-product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .ssi-product-card { display: block; min-width: 0; color: inherit; background: #fff; text-decoration: none; box-shadow: 0 7px 22px rgba(20,32,52,.07); transition: transform .25s ease, box-shadow .25s ease; }
@@ -284,21 +284,21 @@ html:not([data-theme="dark"]) .ssi-services {
     border-top-color: #e8ebf0;
     border-bottom-color: #e8ebf0;
 }
-html:not([data-theme="dark"]) .ssi-services .ssi-section-heading-dark .ssi-kicker { color: #ff026a; }
-html:not([data-theme="dark"]) .ssi-services .ssi-section-heading-dark h2 { color: #101827; }
-html:not([data-theme="dark"]) .ssi-services .ssi-section-heading-dark p { color: #667184; }
+html:not([data-theme="dark"]) .ssi-services .ssi-section-heading-dark .ssi-kicker { color: #671ef3; }
+html:not([data-theme="dark"]) .ssi-services .ssi-section-heading-dark h2 { color: #0a2540; }
+html:not([data-theme="dark"]) .ssi-services .ssi-section-heading-dark p { color: #666666; }
 html:not([data-theme="dark"]) .ssi-service-card {
     border-color: #e6e9ef;
     background: #fff;
     box-shadow: 0 7px 22px rgba(20, 32, 52, .07);
 }
-html:not([data-theme="dark"]) .ssi-service-card::after { border-color: rgba(255, 2, 106, .18); }
+html:not([data-theme="dark"]) .ssi-service-card::after { border-color: rgba(103, 30, 243, .18); }
 html:not([data-theme="dark"]) .ssi-service-card:hover,
 html:not([data-theme="dark"]) .ssi-service-card:focus-within {
-    border-color: rgba(255, 2, 106, .45);
+    border-color: rgba(103, 30, 243, .45);
     box-shadow: 0 16px 34px rgba(20, 32, 52, .14);
 }
-html:not([data-theme="dark"]) .ssi-service-icon { color: #ff026a; }
-html:not([data-theme="dark"]) .ssi-service-card h3 { color: #101827; }
-html:not([data-theme="dark"]) .ssi-service-card p { color: #5b6b80; }
-html:not([data-theme="dark"]) .ssi-service-more { color: #ff026a; }
+html:not([data-theme="dark"]) .ssi-service-icon { color: #671ef3; }
+html:not([data-theme="dark"]) .ssi-service-card h3 { color: #0a2540; }
+html:not([data-theme="dark"]) .ssi-service-card p { color: #666666; }
+html:not([data-theme="dark"]) .ssi-service-more { color: #671ef3; }

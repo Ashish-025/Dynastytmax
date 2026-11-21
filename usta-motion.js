@@ -88,7 +88,9 @@
     var heads = [].slice.call(document.querySelectorAll('.dm-services-heading h2, .products-heading h2, .dm-cta-text h2'));
     if (!('IntersectionObserver' in window) || !heads.length) return;
     heads.forEach(function (h) {
-        var chars = split(h, 'chars', '.dm-heading-line');
+        // the swept phrase (.acc-sw, heading-sweep.js) stays whole: its gradient is clipped to
+        // its own text, which split-up letter boxes would hide
+        var chars = split(h, 'chars', '.dm-heading-line, .acc-sw');
         h.classList.add('um-chars', 'um-scroll');
         stagger(chars, 0, chars.length > 1 ? 0.25 / (chars.length - 1) : 0);
     });

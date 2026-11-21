@@ -1,0 +1,68 @@
+/* =========================================================
+   PHONE POLISH (loaded last on every page)
+   ========================================================= */
+
+/* never a sideways scroll on phones */
+html, body { overflow-x: clip; }
+
+@media (max-width: 640px) {
+    /* ---------- top bar: phone on one line, hours + socials on one tidy line ---------- */
+    .dm-topbar { padding: 6px 0; }
+    .dm-topbar-inner { gap: 4px; padding: 0 12px; }
+    .dm-tb-left, .dm-tb-item { justify-content: center; }
+    .dm-tb-right { gap: 10px; flex-wrap: nowrap; font-size: 11px; white-space: nowrap; }
+    .dm-tb-right > span { white-space: nowrap; }
+    /* "Sunday: Closed" and its divider make the line too long on a phone */
+    .dm-tb-right > span:nth-of-type(2),
+    .dm-tb-right > span:nth-of-type(3) { display: none; }
+    .dm-tb-social { gap: 12px; }
+
+    /* ---------- hero ---------- */
+    .dmh-stage { min-height: 0; padding-top: 28px; }
+    .dmh-grid { gap: 28px; padding-bottom: 24px; }
+    .dmh-title { font-size: clamp(2.1rem, 9.5vw, 2.6rem); }
+    .dmh-lead { margin-top: 20px; font-size: 16px; }
+    .sx-ask { margin-top: 24px; }
+    .dmh-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+    .dmh-btn { width: 100%; padding: 14px 12px; font-size: 15px; box-sizing: border-box; }
+    .dmh-facts { margin-top: 28px; gap: 16px 12px; }
+    .dmh-facts dd { font-size: 26px; }
+    .dmh-facts dt { font-size: 13px; }
+    .sx-hero-rating { font-size: 13px; line-height: 1.5; }
+
+    /* ---------- shared section spacing ---------- */
+    .sx-everything, .sx-integrations, .sx-guides, .sx-faq { padding: 56px 0; }
+    .sx-cases { padding-bottom: 56px; }
+    .sx-head { margin-bottom: 28px; }
+
+    /* statement: attribution stacks neatly */
+    .sx-quote { padding: 8px 0 56px; }
+    .sx-quote footer { flex-direction: column; gap: 6px; }
+    .sx-quote footer > span[aria-hidden]:not(.sx-quote-mark) { display: none; }
+
+    /* dark before / after band */
+    .sx-band > .sx-wrap { padding: 48px 20px; }
+    .sx-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .sx-stats > div { padding: 14px 10px; text-align: center; }
+    html[data-theme] body .sx-stats b { font-size: 20px; }
+    .sx-stats span { font-size: 12px; }
+    .sx-pill { white-space: normal; }
+
+    /* guides: shorter pictures */
+    .sx-guide-img { aspect-ratio: 16 / 8; }
+    .sx-guide-grid { gap: 28px; }
+
+    /* final call to action */
+    .sx-final { padding-bottom: 24px; }
+    .sx-final-inner { padding: 56px 20px; }
+
+    /* service panels and How We Work */
+    .sb-boxes { margin-top: 24px; }
+    .dm-features { padding: 44px 0; }
+    .dm-features-container { padding: 0 16px; }
+}
+
+@media (max-width: 380px) {
+    .dmh-actions { grid-template-columns: 1fr; }
+    .dm-unb-cta { display: none; }
+}

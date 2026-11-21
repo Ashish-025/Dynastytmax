@@ -33,3 +33,24 @@ main > section#dm-projects.dm-projects {
     #products-section.products-section { padding-top: calc(var(--sec-half) - 11px) !important; }
     main > section#dm-projects.dm-projects { padding-bottom: calc(var(--sec-gap) - 16px) !important; }
 }
+
+/* =========================================================
+   EQUAL GAPS (re-measured in the browser): the visible space between every two sections -
+   from the last thing you see in one (text, card, bordered box) to the first thing in the
+   next - is 80px on desktop and 56px on phones. Each value below is the measured gap
+   corrected to that target; ids + !important so they win over the older spacing rules.
+========================================================= */
+html body #achievements.achievements-section { padding-top: 40px !important; padding-bottom: 40px !important; }
+html body main > section#dm-services.dm-services { padding-top: 39px !important; }
+html body main > section#products-section.products-section { padding-top: 49px !important; }
+html body main > section#dm-projects.dm-projects { padding-top: 10px !important; }
+html body section.tb-band { padding-top: 60px; }
+html body section.dm-cta.dm-cta { margin-top: 24px !important; }
+@media (max-width: 767px) {
+    html body #achievements.achievements-section { padding-top: 16px !important; padding-bottom: 28px !important; }
+    html body main > section#dm-services.dm-services { padding-top: 27px !important; }
+    html body main > section#products-section.products-section { padding-top: 35px !important; }
+    html body main > section#dm-projects.dm-projects { padding-top: 0 !important; }
+    html body section.tb-band { padding-top: 72px; }
+    html body section.dm-cta.dm-cta { margin-top: 10px !important; }
+}

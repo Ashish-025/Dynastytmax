@@ -1,0 +1,91 @@
+/* =========================================================
+   SITE PALETTE (light mode): SPARKLAYER
+   White paper, Stripe-style ink, one violet accent, deep navy bands with
+   violet / pink glows, and the cyan -> violet -> pink -> orange gradient
+   for highlights. Same family as the dark theme (dark-spark.css).
+   ========================================================= */
+:root {
+    --c-paper: #ffffff;       /* page and cards */
+    --c-paper-2: #f6f9fc;     /* alternate sections */
+    --c-line: #e6ebf1;        /* borders, dividers */
+    --c-line-2: #eef0f6;
+    --c-ink: #0a2540;         /* headings */
+    --c-ink-2: #1b2148;
+    --c-text: #2a3a52;        /* body text */
+    --c-text-soft: #666666;   /* secondary text */
+    --c-text-faint: #8898aa;  /* captions on large text only */
+    --c-violet: #671ef3;      /* accent: buttons, links, active states (6.9:1 on white) */
+    --c-violet-2: #7c3aed;    /* hover */
+    --c-violet-soft: #a78bfa; /* accent on navy */
+    --c-violet-pale: #c4b5fd;
+    --c-violet-tint: #f3eeff; /* badges, soft highlights */
+    --c-cyan: #0bcefc;
+    --c-pink: #ff026a;
+    --c-orange: #ff9243;
+    --c-navy: #0a0e26;        /* dark bands: top bar, hero, footer */
+    --c-navy-2: #131a3f;
+    --c-grad: linear-gradient(90deg, #0bcefc 0%, #671ef3 38%, #ff026a 72%, #ff9243 100%);
+    --c-e1: 0 2px 6px -1px rgba(50, 50, 93, .16), 0 1px 3px -1px rgba(0, 0, 0, .16);
+    --c-e2: 0 14px 34px -8px rgba(50, 50, 93, .16), 0 6px 16px -8px rgba(0, 0, 0, .14);
+    --c-e3: 0 44px 96px -20px rgba(50, 50, 93, .17), 0 18px 44px -18px rgba(0, 0, 0, .15);
+}
+
+/* body text default (anything with its own colour keeps it) */
+:where(html[data-theme="light"]) body { color: var(--c-text); }
+
+html[data-theme="light"] ::selection { background: var(--c-violet); color: #fff; }
+html[data-theme="light"] :focus-visible { outline-color: var(--c-violet); }
+
+/* alternate section */
+html[data-theme="light"] .dm-features { background: var(--c-paper-2); }
+
+/* ---------- dark bands: SparkLayer navy with violet / pink glows ---------- */
+html[data-theme="light"] .dm-topbar { background: var(--c-navy); }
+html[data-theme="light"] .dm-footer {
+    background-color: var(--c-navy);
+    background-image:
+        radial-gradient(700px 360px at 15% 0%, rgba(103, 30, 243, .28), transparent 60%),
+        radial-gradient(560px 320px at 90% 100%, rgba(255, 2, 106, .12), transparent 55%);
+}
+html[data-theme="light"] .dmh-stage { --h-ink: #0a0e26; background: #0a0e26; }
+html[data-theme="light"] .dmh-ground {
+    background:
+        radial-gradient(820px 420px at 20% 0%, rgba(103, 30, 243, .45), transparent 60%),
+        radial-gradient(660px 400px at 92% 100%, rgba(255, 2, 106, .18), transparent 55%),
+        radial-gradient(600px 300px at 80% 0%, rgba(11, 206, 252, .12), transparent 60%);
+}
+/* "Smart Technology": the SparkLayer gradient */
+html[data-theme="light"] .dmh-key {
+    background: var(--c-grad);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+html[data-theme="light"] .dmh-btn--white { color: var(--c-violet); }
+html[data-theme="light"] .dmh-btn--white:hover { background: #f3eeff; color: var(--c-violet); }
+html[data-theme="light"] .dmh-btn--glass:hover { color: var(--c-violet); }
+
+/* ---------- header ---------- */
+html[data-theme="light"] .dm-topbar strong { color: var(--c-violet-soft); }
+html[data-theme="light"] body .site-header .logo-mark { background: var(--c-violet); }
+html[data-theme="light"] body .site-header .logo-mark svg { fill: #fff; }
+html[data-theme="light"] body .site-header .app-button,
+html[data-theme="light"] body .site-header .app-button:hover,
+html[data-theme="light"] body .site-header .app-button:focus-visible,
+html[data-theme="light"] body .site-header .mobile-app-button,
+html[data-theme="light"] body .site-header .mobile-app-button:hover {
+    background: var(--c-violet) !important;
+    color: #fff !important;
+    box-shadow: 0 6px 20px -6px rgba(103, 30, 243, .55) !important;
+}
+html[data-theme="light"] body .site-header .app-button:hover { background: var(--c-violet-2) !important; }
+
+/* ---------- accent fills carry white text ---------- */
+html[data-theme="light"] .dm-ft-tab.is-active,
+html[data-theme="light"] .dm-ft-tab.is-active:hover { color: #fff; }
+html[data-theme="light"] .sb-box.is-active .sb-num { color: #fff; }
+html[data-theme="light"] .sb-go:hover { color: #fff; }
+
+/* footer logo: "MAX" in violet-soft on navy */
+html[data-theme="light"] .dm-logo span { color: var(--c-violet-soft); }

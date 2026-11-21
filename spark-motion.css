@@ -1,0 +1,379 @@
+/* =========================================================
+   SPARKLAYER HOMEPAGE MOTION (both themes; classes / elements from spark-motion.js)
+   Timings and easings follow sparklayer.io:
+     ping 2.4s, banner beam 2.6s, sheen, nav drop, hero ribbons 9-16s drift,
+     CTA light ring 3.4s, eyebrow shimmer, screenshot light sweep 2.2s,
+     floating bob 6s
+   ========================================================= */
+
+/* ---------- top bar: pulsing dot (sl-ping) ---------- */
+.dm-topbar .dm-tb-dot { position: relative; animation: none; }
+.dm-topbar .dm-tb-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    pointer-events: none;
+    animation: slPing 2.4s cubic-bezier(.2, .6, .35, 1) infinite;
+}
+@keyframes slPing {
+    0% { transform: scale(1); opacity: .55; }
+    75%, 100% { transform: scale(2.7); opacity: 0; }
+}
+html[data-theme="light"] .dm-topbar .dm-tb-dot { background: #a78bfa; }
+
+/* light beam sweeping across "Call Us: +91 ..." (unb-beam) */
+.dm-topbar .dm-tb-item { position: relative; overflow: hidden; padding: 0 6px; margin: 0 -6px; border-radius: 6px; }
+.dm-topbar .dm-tb-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .28) 50%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 35%, #000 80%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 35%, #000 80%, transparent);
+    pointer-events: none;
+    animation: slBeam 2.6s linear infinite;
+}
+@keyframes slBeam { from { transform: translateX(-30px); } to { transform: translateX(260px); } }
+
+/* silver sheen across the opening hours (unb-sheen) */
+.dm-topbar .dm-tb-right > span:not([aria-hidden]) {
+    background: linear-gradient(100deg, #94a3b8 0%, #cfd8e6 26%, #ffffff 42%, #b9c3d4 58%, #94a3b8 78%, #94a3b8 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: slSheen 4.5s linear infinite;
+}
+@keyframes slSheen { from { background-position: 120% 0; } to { background-position: -100% 0; } }
+
+/* ---------- header: frosted glass, drops in when it starts following the page (sl-nav-drop) ---------- */
+html[data-theme] body .site-header.scrolled {
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+            backdrop-filter: blur(18px) saturate(140%);
+    animation: slNavDrop .45s cubic-bezier(.2, .8, .25, 1);
+}
+html[data-theme="light"] body .site-header.scrolled {
+    background: rgba(250, 255, 254, .72);
+    box-shadow: 0 10px 24px -20px rgba(10, 20, 60, .3);
+}
+@keyframes slNavDrop { from { transform: translateY(-110%); } to { transform: translateY(0); } }
+
+/* ---------- hero: drifting colour ribbons (plp-ribbonDrift) ---------- */
+.dmh-ribbon {
+    position: absolute;
+    top: -480px;
+    right: -38%;
+    width: 1360px;
+    height: 1480px;
+    transform: rotate(338deg);
+    filter: blur(60px) saturate(1.12);
+    opacity: .5;
+    pointer-events: none;
+    will-change: transform;
+}
+.dmh-ribbon i {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-radius: 999px;
+    animation: slRibbonDrift 11s ease-in-out infinite alternate;
+}
+.dmh-ribbon i:nth-child(1) { top: 120px; height: 150px; background: linear-gradient(90deg, #0bcefc, #671ef3); }
+.dmh-ribbon i:nth-child(2) { top: 270px; height: 140px; background: linear-gradient(90deg, #671ef3, #ff026a); animation-duration: 14s; animation-delay: -4s; }
+.dmh-ribbon i:nth-child(3) { top: 410px; height: 130px; background: linear-gradient(90deg, #ff026a, #ff9243); animation-duration: 9s; animation-delay: -2s; }
+.dmh-ribbon i:nth-child(4) { top: 540px; height: 120px; background: linear-gradient(90deg, #ff9243, #ffd9a8); opacity: .85; animation-duration: 16s; animation-delay: -7s; }
+@keyframes slRibbonDrift { to { transform: translate(52px, -14px); } }
+@media (max-width: 1199px) { .dmh-ribbon { width: 120vw; right: -40vw; opacity: .45; } }
+
+/* ---------- main buttons: a light running around the edge (sl-hero-shimmer) ---------- */
+.sl-shimmer { position: relative; isolation: isolate; overflow: hidden; }
+.sl-shimmer::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    left: -10%;
+    top: 50%;
+    width: 120%;
+    aspect-ratio: 1;
+    margin-top: -60%;
+    pointer-events: none;
+    background: conic-gradient(transparent 0 70%, var(--shim-1, rgba(255, 255, 255, .45)) 80%, var(--shim-2, #fff) 88%, var(--shim-3, rgba(255, 255, 255, .65)) 95%, transparent 100%);
+    animation: slCtaTurn 3.4s linear infinite;
+}
+.sl-shimmer::after {                 /* the button's own fill, 2px inside, so only the edge lights up */
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 2px;
+    border-radius: inherit;
+    background: var(--shim-fill, #fff);
+    pointer-events: none;
+}
+@keyframes slCtaTurn { to { transform: rotate(360deg); } }
+/* white hero button: violet / cyan light */
+.dmh-btn--white.sl-shimmer { --shim-1: rgba(103, 30, 243, .45); --shim-2: #671ef3; --shim-3: rgba(11, 206, 252, .7); --shim-fill: #fff; }
+.dmh-btn--white.sl-shimmer:hover { --shim-fill: #f3eeff; }
+/* violet header button: white light */
+html[data-theme="light"] body .site-header .app-button.sl-shimmer { --shim-fill: #671ef3; }
+html[data-theme="light"] body .site-header .app-button.sl-shimmer:hover { --shim-fill: #7c3aed; }
+html[data-theme="dark"] body .site-header .app-button.sl-shimmer { --shim-fill: #000; }
+
+/* ---------- small labels above headings: shimmering gradient (sl-hero-eyebrow-shimmer) ---------- */
+html[data-theme] body :is(.dm-services-label, .section-label, .ssi-kicker, .ssi-eyebrow, .contact-eyebrow).sl-eyebrow {
+    background: linear-gradient(100deg, #671ef3 25%, #0bcefc 40%, #ff026a 50%, #0bcefc 60%, #671ef3 75%) !important;
+    background-size: 260% 100% !important;
+    -webkit-background-clip: text !important;
+            background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: slEyebrow 6s linear infinite;
+}
+html[data-theme="dark"] body :is(.dm-services-label, .section-label, .ssi-kicker, .ssi-eyebrow, .contact-eyebrow).sl-eyebrow {
+    background-image: linear-gradient(100deg, #7dd3fc 25%, #c4b5fd 40%, #f0abfc 50%, #c4b5fd 60%, #7dd3fc 75%) !important;
+}
+@keyframes slEyebrow { 0% { background-position: 180% center; } 100% { background-position: -80% center; } }
+
+/* ---------- hero cards: light sweeps once around the front card (hif-sweep); the fan floats (plp-bob) ---------- */
+@property --sl-sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.dmh-card::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    border-radius: 18px;
+    pointer-events: none;
+    opacity: 0;
+    background: conic-gradient(from var(--sl-sweep), transparent 0deg 250deg, rgba(167, 139, 250, .9) 320deg, #0bcefc 350deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box exclude, linear-gradient(#fff 0 0);
+}
+.dmh-card.is-live::after { animation: slHifSweep 2.2s cubic-bezier(.3, .1, .3, 1) .9s both; }
+@keyframes slHifSweep {
+    0% { opacity: 0; --sl-sweep: 0deg; }
+    15%, 70% { opacity: 1; }
+    100% { opacity: 0; --sl-sweep: 360deg; }
+}
+.dmh-deck { animation: slBob 6s ease-in-out infinite; }
+@keyframes slBob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
+
+/* ---------- open service panel: its number pings (hif-ping) ---------- */
+.sb-box.is-active .sb-num::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    border: 2px solid #a78bfa;
+    pointer-events: none;
+    animation: slHotPing 2.4s cubic-bezier(0, 0, .2, 1) infinite;
+}
+@keyframes slHotPing { 0% { opacity: .9; transform: scale(.6); } 70%, 100% { opacity: 0; transform: scale(1.7); } }
+
+/* ---------- orbiting border light on the service panels and How We Work photo ---------- */
+.sb-box > .ds-orbit { border-radius: 16px; }
+.dm-ft-media { position: relative; border-radius: 12px; }
+.dm-ft-media img { border-radius: 12px; }
+html[data-theme] .sb-box > .ds-orbit,
+html[data-theme] .dm-ft-media > .ds-orbit { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+    .dm-topbar .dm-tb-dot::after, .dm-topbar .dm-tb-item::before, .dm-topbar .dm-tb-right > span,
+    .dmh-ribbon i, .sl-shimmer::before, .sl-eyebrow, .dmh-card.is-live::after, .dmh-deck,
+    .sb-box.is-active .sb-num::after, html[data-theme] body .site-header.scrolled { animation: none !important; }
+}
+
+/* =========================================================
+   ANNOUNCEMENT STRIP (sparklayer.io "unify-nav-banner", same sizes and timings)
+   pulsing dot, a gradient light running along a wavy line (2.6s),
+   the logo tile swelling with a rainbow glow, four phrases cycling with a
+   silver sheen (12s), "Explore now ->"
+   ========================================================= */
+.dm-unb {
+    position: relative;
+    z-index: 10002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    width: 100%;
+    height: 44px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #06042a;
+    color: rgba(234, 246, 244, .9);
+    font: 400 13px/1 Inter, sans-serif;
+    white-space: nowrap;
+    text-decoration: none;
+}
+html[data-theme] body .dm-unb, html[data-theme] body .dm-unb * { font-family: Inter, sans-serif !important; text-decoration: none; }
+.dm-unb::before {                   /* faint violet grid, fading to the edges */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(124, 58, 237, .12) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 85%);
+            mask-image: radial-gradient(ellipse at center, #000 30%, transparent 85%);
+    pointer-events: none;
+}
+.dm-unb > * { position: relative; z-index: 1; }
+.dm-unb-eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #a78bfa; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+html[data-theme] body .dm-unb-eyebrow { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important; }
+.dm-unb-pulse { position: relative; flex: none; width: 8px; height: 8px; border-radius: 50%; background: #00c2a8; }
+.dm-unb-pulse::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; background: #00c2a8; opacity: .4; animation: dmUnbPulse 1.8s ease-out infinite; }
+@keyframes dmUnbPulse { 0% { transform: scale(.8); opacity: .5; } 100% { transform: scale(2.4); opacity: 0; } }
+.dm-unb-sep { color: rgba(255, 255, 255, .28); }
+.dm-unb-brand, .dm-unb-announce { color: #c4b5fd; }
+html[data-theme] body .dm-unb-what { color: #fff; font-family: Inter, sans-serif !important; font-size: 13px; font-weight: 500; letter-spacing: .01em; text-transform: none; }
+
+/* the wavy line with a light running along it */
+.dm-unb-ecg { position: relative; flex: none; width: 190px; height: 26px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%); mask-image: linear-gradient(90deg, transparent, #000 12%); }
+.dm-unb-ecg svg { display: block; width: 100%; height: 100%; }
+.dm-unb-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 35%, #000 80%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 35%, #000 80%, transparent);
+    animation: dmUnbBeam 2.6s linear infinite;
+}
+.dm-unb-beam-in { display: block; width: 190px; height: 100%; animation: dmUnbBeamIn 2.6s linear infinite; }
+.dm-unb-ecg-glow { opacity: .5; filter: blur(2px); }
+@keyframes dmUnbBeam { from { transform: translateX(-21px); } to { transform: translateX(179px); } }
+@keyframes dmUnbBeamIn { from { transform: translateX(21px); } to { transform: translateX(-179px); } }
+
+/* logo tile: swells with a rainbow glow (in the place of SparkLayer's mascot) */
+.dm-unb-spk-wrap { position: relative; flex: none; display: grid; margin-left: -20px; }
+.dm-unb-spk {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .18), 0 2px 10px -2px rgba(255, 2, 106, .45);
+    animation: dmUnbSwell 2.6s ease-in-out infinite;
+}
+.dm-unb-spk svg { width: 15px; height: 15px; fill: #671ef3; }
+.dm-unb-spk-glow {
+    position: absolute;
+    inset: -6px;
+    border-radius: 12px;
+    background: conic-gradient(from 0deg, #0bcefc, #671ef3, #ff026a, #ff9243, #0bcefc);
+    filter: blur(5px);
+    opacity: 0;
+    animation: dmUnbGlow 2.6s ease-out infinite;
+}
+@keyframes dmUnbGlow {
+    0%, 80% { opacity: 0; transform: scale(.7) rotate(0deg); }
+    87% { opacity: 1; transform: scale(1.05) rotate(40deg); }
+    94% { opacity: .75; transform: scale(1.18) rotate(80deg); }
+    100% { opacity: 0; transform: scale(1.35) rotate(120deg); }
+}
+@keyframes dmUnbSwell { 0%, 80% { transform: none; } 87% { transform: scale(1.08); } 100% { transform: none; } }
+
+/* four phrases taking turns, each with a silver sheen */
+.dm-unb-readout { display: grid; align-items: center; flex: none; height: 20px; }
+.dm-unb-readout span {
+    grid-area: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    letter-spacing: .01em;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 0;
+    background: linear-gradient(100deg, #f4f7fb 0%, #cfd8e6 26%, #ffffff 42%, #b9c3d4 58%, #eef2f8 78%, #cfd8e6 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: dmUnbReadout 12s ease-in-out infinite, dmUnbSheen 4.2s linear infinite;
+}
+.dm-unb-readout span:nth-child(2) { animation-delay: 3s, -1.4s; }
+.dm-unb-readout span:nth-child(3) { animation-delay: 6s, -2.8s; }
+.dm-unb-readout span:nth-child(4) { animation-delay: 9s, -4.2s; }
+@keyframes dmUnbReadout {
+    0% { opacity: 0; transform: translateY(5px); }
+    3%, 19% { opacity: 1; transform: none; }
+    23%, 100% { opacity: 0; transform: translateY(-5px); }
+}
+@keyframes dmUnbSheen { to { background-position: -220% 0; } }
+
+.dm-unb-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 24px;
+    padding: 0 12px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .1);
+    color: rgba(255, 255, 255, .92);
+    font-size: 11.5px;
+    font-weight: 600;
+    transition: background .2s, border-color .2s, transform .2s;
+}
+.dm-unb:hover .dm-unb-cta { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .34); transform: translateY(-1px); }
+.dm-unb:focus-visible { outline: 2px solid #a78bfa; outline-offset: -3px; }
+
+/* smaller screens: dot, brand and link only (as on SparkLayer) */
+@media (max-width: 900px) {
+    .dm-unb { gap: 12px; font-size: 12px; padding: 0 12px; }
+    .dm-unb-ecg, .dm-unb-what, .dm-unb-sep, .dm-unb-readout, .dm-unb-spk-wrap { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .dm-unb-pulse::after, .dm-unb-beam, .dm-unb-beam-in, .dm-unb-spk, .dm-unb-spk-glow { animation: none; }
+    .dm-unb-beam { display: none; }
+    .dm-unb-readout span { animation: none; }
+    .dm-unb-readout span:first-child { opacity: 1; }
+}
+
+/* the small beam on "Call Us" is now replaced by the strip's running light */
+.dm-topbar .dm-tb-item::before { content: none; }
+
+/* =========================================================
+   HEADING SWEEP (sparklayer.io acc-sweep; spans from heading-sweep.js)
+   a cyan -> violet -> pink -> orange band crosses the phrase's letters once,
+   from slightly blurred to sharp, then settles on the phrase's own colours
+   ========================================================= */
+:root { --acc-a: #1e4ff3; --acc-b: #a855f7; --acc-c: #e0359e; }
+.acc-sw--pale,
+html[data-theme="dark"] .acc-sw:not(.acc-auto) { --acc-a: #c4b5fd; --acc-b: #e9a5ff; --acc-c: #eda0ee; }
+@property --acc-p { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
+html body :is(h1, h2) .acc-sw.acc-sw {
+    --acc-rest: var(--acc-a) 0%, var(--acc-b) 22%, var(--acc-c) 33.33%;
+    --acc-band: #9be9ff 40%, #0bcefc 44%, #7c5cff 49%, #ff026a 54%, #ff9243 59%;
+    background-image: linear-gradient(90deg, var(--acc-rest), var(--acc-band), var(--acc-a) 66.67%, var(--acc-b) 88.67%, var(--acc-c) 100%) !important;
+    background-size: 300% 100% !important;
+    background-position: var(--acc-p) 0 !important;
+    -webkit-background-clip: text !important;
+            background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+html body :is(h1, h2) span.acc-auto.acc-auto { display: inline !important; margin: 0 !important; padding: 0 !important; font: inherit !important; letter-spacing: inherit !important; line-height: inherit !important; text-transform: inherit !important; white-space: inherit !important; }
+html body :is(h1, h2) .acc-sw.acc-go { animation: accSweep 1.2s ease .1s both !important; }
+@keyframes accSweep { from { --acc-p: 100%; filter: blur(1px); } to { --acc-p: 0%; filter: none; } }
+@media (prefers-reduced-motion: reduce) { html body :is(h1, h2) .acc-sw.acc-sw { --acc-p: 0% !important; animation: none !important; } }
+@media print { html body :is(h1, h2) .acc-sw.acc-sw { --acc-p: 0% !important; animation: none !important; } }
+
+/* hero "Smart Technology": the same blue -> purple -> pink as the other headings */
+.dmh-title .acc-sw.acc-sw--pale { --acc-a: #1e4ff3; --acc-b: #a855f7; --acc-c: #e0359e; }
+
+/* a swept phrase inside a letter-by-letter heading (usta-motion.js keeps it whole):
+   normal wrapping text that fades in with the letters */
+.um-on .um-scroll .acc-sw.um-unit { display: inline; white-space: normal; transform: none; }

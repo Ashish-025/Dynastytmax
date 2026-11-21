@@ -90,7 +90,7 @@ html:not([data-theme="dark"]) .products-grid .product-image-area:focus-within {
 .products-grid .product-card { cursor: pointer; }
 .products-grid .product-card .details:focus-visible { outline: none; }
 .products-grid .product-card:has(.details:focus-visible) {
-    outline: 3px solid #e91d2b;
+    outline: 3px solid #671ef3;
     outline-offset: 3px;
 }
 html[data-theme="dark"] .products-grid .product-card:has(.details:focus-visible) { outline-color: #a78bfa; }

@@ -17,7 +17,7 @@
 .dm-office-gmap-link { position: absolute; inset: 0; display: block; }
 .dm-office-gmap-link img { display: block; width: 100%; height: 100%; object-fit: cover; transition: filter .3s ease; }
 .dm-office-gmap-link:hover img { filter: brightness(1.06) saturate(1.1); }
-.dm-office-gmap-link:focus-visible { outline: 2px solid #e91d2b; outline-offset: 3px; }
+.dm-office-gmap-link:focus-visible { outline: 2px solid #671ef3; outline-offset: 3px; }
 
 .dm-office-map-hint {
     position: absolute;
@@ -43,10 +43,10 @@
 .dm-office-pins a { pointer-events: auto; cursor: pointer; }
 .dm-office-pins a:focus-visible { outline: none; }
 .dm-office-pins .hit { fill: transparent; }
-.dm-office-pins .dot { fill: #e91d2b; stroke: #fff; stroke-width: 4; }
+.dm-office-pins .dot { fill: #671ef3; stroke: #fff; stroke-width: 4; }
 .dm-office-pins .ring {
     fill: none;
-    stroke: #e91d2b;
+    stroke: #671ef3;
     stroke-width: 3;
     transform-box: fill-box;
     transform-origin: center;
@@ -58,7 +58,7 @@
 @keyframes dmRing { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
 
 /* names stay hidden; hovering (or keyboard-focusing) a pin reveals its label + leader line */
-.dm-office-pins line { stroke: #e91d2b; stroke-width: 2.5; }
+.dm-office-pins line { stroke: #671ef3; stroke-width: 2.5; }
 .dm-office-pins rect { fill: rgba(0, 0, 0, .78); }
 .dm-office-pins text { fill: #fff; font: 700 22px/1 Arial, Helvetica, sans-serif; text-anchor: middle; }
 .dm-office-pins line,
@@ -71,7 +71,7 @@
 .dm-office-pins a:focus-visible rect,
 .dm-office-pins a:focus-visible text { opacity: 1; }
 .dm-office-pins a:hover rect,
-.dm-office-pins a:focus-visible rect { fill: #e91d2b; }
+.dm-office-pins a:focus-visible rect { fill: #671ef3; }
 .dm-office-pins a:hover .dot,
 .dm-office-pins a:focus-visible .dot { stroke-width: 5; }
 

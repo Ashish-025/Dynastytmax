@@ -145,7 +145,7 @@
 
 /* right-hand dark panel */
 #dm-projects .dm-i3ms-login {
-    background: #333 !important;
+    background: #2a3a52 !important;
     box-shadow: none !important;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -174,7 +174,7 @@
     min-height: 0;
     padding: 6px 7px;
     border: 0;
-    border-bottom: 1px solid #4d4d4d;
+    border-bottom: 1px solid #2a3a52;
     color: #fff;
     font-size: 15px;
     line-height: 21px;
@@ -182,8 +182,8 @@
 }
 #dm-projects .dm-i3ms-login nav a svg { width: 18px; height: 20px; flex: 0 0 18px; fill: #8c8c8c; }
 #dm-projects .dm-i3ms-login nav a:hover,
-#dm-projects .dm-i3ms-login nav a:focus-visible { background: #494949; color: #fff; }
-#dm-projects .dm-i3ms-login nav a.is-muted { color: #999; }
+#dm-projects .dm-i3ms-login nav a:focus-visible { background: #2a3a52; color: #fff; }
+#dm-projects .dm-i3ms-login nav a.is-muted { color: #666666; }
 #dm-projects .dm-i3ms-login nav a b {
     margin-left: 4px;
     padding: 0 4px;
@@ -241,7 +241,7 @@
         -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%);
                 mask-image: linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%);
     }
-    #dm-projects .dm-i3ms-ticker { animation: dmI3Ticker 48s linear infinite; }
+    #dm-projects .dm-i3ms-ticker { animation: dmI3Ticker 28s linear infinite; }   /* 14 products */
     #dm-projects .dm-i3ms-products:hover .dm-i3ms-ticker,
     #dm-projects .dm-i3ms-products:focus-within .dm-i3ms-ticker { animation-play-state: paused; }
 }
@@ -269,7 +269,7 @@
     #dm-projects .dm-i3ms-login nav a {
         min-height: 44px;
         padding: 8px 9px;
-        border-right: 1px solid #4d4d4d;
+        border-right: 1px solid #2a3a52;
         font-size: 13px;
         line-height: 17px;
     }
@@ -300,7 +300,7 @@
     #dm-projects .dm-i3ms-mine-photo   { grid-area: 4 / 3 / 5 / 5; }
     #dm-projects .dm-i3ms-integration  { grid-area: 4 / 5 / 5 / 7; }
     #dm-projects .dm-i3ms-login nav { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    #dm-projects .dm-i3ms-login nav a:nth-child(2n) { border-right: 1px solid #4d4d4d; }
+    #dm-projects .dm-i3ms-login nav a:nth-child(2n) { border-right: 1px solid #2a3a52; }
     #dm-projects .dm-i3ms-login nav a:nth-child(3n) { border-right: 0; }
     #dm-projects .dm-i3ms-login nav a:last-child:nth-child(odd) { grid-column: auto; }
 }
@@ -364,9 +364,9 @@
     height: 485px;
     margin-left: 12px;
     padding: 0 18px 16px;
-    background: #f4f4f4;
+    background: #f6f9fc;
     border-top: 0;
-    color: #222;
+    color: #0a2540;
     overflow: hidden;
 }
 #dm-projects .dm-query-box h2 {
@@ -380,7 +380,7 @@
 }
 #dm-projects .dm-query-intro { margin: 0 0 10px; font-size: 13px; line-height: 1.4; color: #555; }
 #dm-projects .dm-query-form { display: flex; flex-direction: column; gap: 9px; flex: 1; min-height: 0; }
-#dm-projects .dm-query-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; color: #333; }
+#dm-projects .dm-query-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; color: #2a3a52; }
 #dm-projects .dm-query-form input,
 #dm-projects .dm-query-form select,
 #dm-projects .dm-query-form textarea {
@@ -390,7 +390,7 @@
     border: 1px solid #c8c8c8;
     border-radius: 0;
     background: #fff;
-    color: #222;
+    color: #0a2540;
     font-family: inherit;
     font-size: 14px;
     line-height: 1.3;
@@ -411,7 +411,7 @@
     background-size: 12px 8px;
     cursor: pointer;
 }
-#dm-projects .dm-query-form select:disabled { color: #999; background-color: #ececec; cursor: not-allowed; }
+#dm-projects .dm-query-form select:disabled { color: #666666; background-color: #e6ebf1; cursor: not-allowed; }
 #dm-projects .dm-query-form button {
     margin-top: auto;
     padding: 10px;
@@ -434,3 +434,364 @@
 
 /* icon cut-outs take the tile colour (the SVGs carry the old orange as a fixed fill) */
 #dm-projects .dm-i3ms-icon [fill="#c95a00"] { fill: var(--i3-orange); }
+
+/* ---------- i3MS portal screenshot in place of the tiles (index.html .dm-i3ms-shot) ----------
+   fills the tiles' space (735 x 485 on desktop, full width on smaller screens); the whole picture
+   links to the live portal; a small label in the corner, a gentle zoom on hover */
+#dm-projects .dm-i3ms-shot {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: #2a3a52;                    /* the picture's own charcoal, so any edge blends in */
+    text-decoration: none;
+}
+#dm-projects .dm-i3ms-shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+#dm-projects .dm-i3ms-shot:hover img,
+#dm-projects .dm-i3ms-shot:focus-visible img { transform: scale(1.04); }
+#dm-projects .dm-i3ms-shot:focus-visible { outline: 3px solid #fff; outline-offset: -3px; }
+#dm-projects .dm-i3ms-shot-tag {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background: #671ef3;                 /* red label on the black picture */
+    color: #ffffff;
+    font: 600 13px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: .02em;
+}
+@media (min-width: 1000px) {
+    #dm-projects .dm-i3ms-shot { height: 485px; }
+}
+@media (max-width: 999px) {
+    #dm-projects .dm-i3ms-shot { aspect-ratio: 726 / 481; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #dm-projects .dm-i3ms-shot img { transition: none; }
+}
+
+/* ---------- middle column, "Our Products": a still list (no auto-scroll) in the i3MS portal's
+   own font (Segoe UI), set small so all 14 products fit the panel without scrolling ---------- */
+#dm-projects .dm-i3ms-ticker { animation: none !important; }
+#dm-projects .dm-i3ms-ticker[aria-hidden="true"] { display: none; }        /* the loop copy isn't needed */
+#dm-projects .dm-i3ms-products {
+    height: auto;
+    -webkit-mask-image: none;
+            mask-image: none;
+}
+#dm-projects .dm-i3ms-login,
+#dm-projects .dm-i3ms-login h2,
+#dm-projects .dm-i3ms-login nav a { font-family: "Segoe UI", "Segoe UI Web", "Open Sans", Tahoma, Arial, sans-serif; }
+#dm-projects .dm-i3ms-login nav a {
+    padding: 5px 8px;
+    font-size: 13px;
+    line-height: 19px;
+}
+#dm-projects .dm-i3ms-login nav a svg { width: 15px; height: 16px; flex-basis: 15px; }
+
+/* =========================================================
+   MIDDLE "OUR PRODUCTS" LIST: a light grey panel with white rows (small gaps between them),
+   dark text and grey icons; hover and the selected product (aria-current) turn red with a
+   red bar on the left. Same in both themes.
+========================================================= */
+#dm-projects .dm-i3ms-login { background: #e9ecef !important; color: #0a2540; }
+#dm-projects .dm-i3ms-login h2 { background: #4a4a4a !important; color: #fff; }
+#dm-projects .dm-i3ms-login nav,
+#dm-projects .dm-i3ms-products { display: block; }
+#dm-projects .dm-i3ms-ticker {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+    padding: 6px;
+    background: transparent;
+}
+#dm-projects .dm-i3ms-login nav a,
+#dm-projects .dm-i3ms-login nav a:nth-child(n) {
+    min-height: 0;
+    padding: 4px 9px;
+    border: 0;
+    border-left: 3px solid transparent;
+    border-radius: 3px;
+    background: #fff;
+    color: #0a2540;
+    box-shadow: 0 1px 2px rgba(16, 39, 68, .06);
+    transition: color .2s ease, border-color .2s ease;
+}
+#dm-projects .dm-i3ms-login nav a svg { fill: #8a94a6; transition: fill .2s ease; }
+#dm-projects .dm-i3ms-login nav a:hover,
+#dm-projects .dm-i3ms-login nav a:focus-visible,
+#dm-projects .dm-i3ms-login nav a[aria-current="true"] {
+    background: #fff;
+    color: #671ef3;
+    border-left-color: #671ef3;
+}
+#dm-projects .dm-i3ms-login nav a:hover svg,
+#dm-projects .dm-i3ms-login nav a:focus-visible svg,
+#dm-projects .dm-i3ms-login nav a[aria-current="true"] svg { fill: #671ef3; }
+#dm-projects .dm-i3ms-login nav a[aria-current="true"] { font-weight: 600; }
+@media (max-width: 999px) {
+    #dm-projects .dm-i3ms-ticker { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #dm-projects .dm-i3ms-login nav a,
+    #dm-projects .dm-i3ms-login nav a:nth-child(n) { min-height: 40px; grid-column: auto; }
+}
+
+/* =========================================================
+   LEFT BOX: the i3MS picture, or the clicked product's details (product-detail.js) -
+   photo on the left on a light grey, then name, red line, description, feature ticks and
+   two buttons on white. Fills the same space (735 x 485 on desktop); stacks on phones.
+========================================================= */
+#dm-projects .dm-i3ms-stage { position: relative; min-width: 0; }
+#dm-projects .dm-i3ms-stage.is-detail .dm-i3ms-shot { display: none; }
+#dm-projects .dm-i3ms-detail[hidden] { display: none; }
+#dm-projects .dm-i3ms-detail {
+    position: relative;
+    display: grid;
+    grid-template-columns: 44% minmax(0, 1fr);
+    background: #fff;
+    color: #0a2540;
+    font-family: "Segoe UI", "Segoe UI Web", "Open Sans", Tahoma, Arial, sans-serif;
+}
+@media (min-width: 1000px) {
+    #dm-projects .dm-i3ms-stage,
+    #dm-projects .dm-i3ms-detail { height: 485px; }
+}
+#dm-projects .dm-i3ms-detail-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    padding: 18px;
+    background: #f6f9fc;
+}
+#dm-projects .dm-i3ms-detail-photo img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+#dm-projects .dm-i3ms-detail-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 0;
+    padding: 30px 30px 26px;
+    overflow-y: auto;
+}
+#dm-projects .dm-i3ms-detail-kicker {
+    color: #671ef3;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+#dm-projects .dm-i3ms-detail-name {
+    margin: 6px 0 12px;
+    color: #0a2540;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    outline: none;
+}
+#dm-projects .dm-i3ms-detail-line { width: 55px; height: 4px; margin-bottom: 16px; border-radius: 4px; background: #671ef3; }
+#dm-projects .dm-i3ms-detail-text { margin: 0 0 16px; color: #666666; font-size: 15px; line-height: 1.55; }
+#dm-projects .dm-i3ms-detail-list { display: grid; gap: 9px; margin: 0 0 22px; padding: 0; list-style: none; }
+#dm-projects .dm-i3ms-detail-list li {
+    position: relative;
+    padding-left: 26px;
+    color: #0a2540;
+    font-size: 14px;
+    line-height: 1.4;
+}
+#dm-projects .dm-i3ms-detail-list li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 17px;
+    height: 17px;
+    border: 1.5px solid #671ef3;
+    border-radius: 50%;
+    color: #671ef3;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 15px;
+    text-align: center;
+}
+#dm-projects .dm-i3ms-detail-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+#dm-projects .dm-i3ms-detail-more,
+#dm-projects .dm-i3ms-detail-photos {
+    padding: 10px 16px;
+    border: 1.5px solid #671ef3;
+    border-radius: 4px;
+    font: 600 14px/1 "Segoe UI", "Segoe UI Web", "Open Sans", Tahoma, Arial, sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+#dm-projects .dm-i3ms-detail-more { background: #671ef3; color: #ffffff; }
+#dm-projects .dm-i3ms-detail-more span { display: inline-block; transition: transform .2s ease; }
+#dm-projects .dm-i3ms-detail-more:hover span,
+#dm-projects .dm-i3ms-detail-more:focus-visible span { transform: translateX(4px); }
+#dm-projects .dm-i3ms-detail-photos { background: #fff; color: #671ef3; }
+#dm-projects .dm-i3ms-detail-photos:hover,
+#dm-projects .dm-i3ms-detail-photos:focus-visible { background: #671ef3; color: #ffffff; }
+#dm-projects .dm-i3ms-detail-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #e6ebf1;
+    border-radius: 50%;
+    background: #fff;
+    color: #0a2540;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+#dm-projects .dm-i3ms-detail-close:hover,
+#dm-projects .dm-i3ms-detail-close:focus-visible { border-color: #0a2540; }
+@media (max-width: 999px) {
+    #dm-projects .dm-i3ms-detail { grid-template-columns: minmax(0, 1fr); }
+    #dm-projects .dm-i3ms-detail-photo { height: 220px; }
+    #dm-projects .dm-i3ms-detail-body { padding: 22px 18px 20px; }
+    #dm-projects .dm-i3ms-detail-name { font-size: 22px; }
+}
+
+/* =========================================================
+   TWO PANELS ACROSS THE WHOLE WIDTH (the Send Your Query box is gone): the left box stretches
+   to fill the row, the Our Products list keeps a fixed 300px on the right. The i3MS picture
+   is shown whole (not cropped) and centred on its own charcoal, so the extra width blends in.
+========================================================= */
+@media (min-width: 1000px) {
+    #dm-projects .dm-i3ms-layout {
+        grid-template-columns: minmax(0, 1fr) 300px;   /* left box | products list */
+        min-width: 0;
+    }
+}
+#dm-projects .dm-i3ms-shot img { object-fit: contain; }
+#dm-projects .dm-i3ms-shot:hover img,
+#dm-projects .dm-i3ms-shot:focus-visible img { transform: scale(1.02); }
+
+/* product details: a bigger photo (60% of the box, less padding) and a shorter text column
+   (smaller type, at most 3 features - see product-detail.js) */
+#dm-projects .dm-i3ms-detail { grid-template-columns: 60% minmax(0, 1fr); }
+#dm-projects .dm-i3ms-detail-photo { padding: 8px; }
+#dm-projects .dm-i3ms-detail-photo img { width: 100%; height: 100%; }
+#dm-projects .dm-i3ms-detail-body { padding: 24px 22px 20px; }
+#dm-projects .dm-i3ms-detail-name { margin: 4px 0 10px; font-size: 21px; }
+#dm-projects .dm-i3ms-detail-line { width: 44px; height: 3px; margin-bottom: 12px; }
+#dm-projects .dm-i3ms-detail-text { margin-bottom: 12px; font-size: 13.5px; line-height: 1.5; }
+#dm-projects .dm-i3ms-detail-list { gap: 7px; margin-bottom: 16px; }
+#dm-projects .dm-i3ms-detail-list li { font-size: 13px; }
+#dm-projects .dm-i3ms-detail-more,
+#dm-projects .dm-i3ms-detail-photos { padding: 8px 13px; font-size: 13px; }
+@media (max-width: 999px) {
+    #dm-projects .dm-i3ms-detail { grid-template-columns: minmax(0, 1fr); }
+    #dm-projects .dm-i3ms-detail-photo { height: 300px; }
+}
+
+/* Our Products list: one white list with a single thin line between the products (no gaps,
+   corners or shadows on the rows). The 1px gaps over a grey backing draw the lines, so there
+   is never a line after the last row, and the 2-column list on phones gets them right too. */
+#dm-projects .dm-i3ms-ticker {
+    gap: 1px;
+    margin: 6px;
+    padding: 0;
+    border: 1px solid #e6ebf1;
+    background: #e6ebf1;
+}
+#dm-projects .dm-i3ms-login nav a,
+#dm-projects .dm-i3ms-login nav a:nth-child(n) {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* fixes (seen in screenshots): most product photos are on white, so the photo area is white
+   too (a thin line separates it from the text) - no white box inside a grey panel; and the
+   buttons follow the text instead of sitting at the bottom of the box with a gap above them */
+#dm-projects .dm-i3ms-detail-photo { background: #fff; border-right: 1px solid #eef0f3; }
+#dm-projects .dm-i3ms-detail-actions { margin-top: 4px; }
+@media (max-width: 999px) {
+    #dm-projects .dm-i3ms-detail-photo { border-right: 0; border-bottom: 1px solid #eef0f3; }
+}
+/* a thin frame so the white details box doesn't melt into the white page (light theme) */
+#dm-projects .dm-i3ms-detail { border: 1px solid #e3e7ec; }
+/* the dividing lines between the products: a clearly visible mid-grey (the first version was
+   too pale to notice) */
+#dm-projects .dm-i3ms-ticker { background: #b9c1cc; border-color: #b9c1cc; }
+
+/* Our Products: ONE white box (the whole panel), the products divided by a single line -
+   no grey frame or margin around the list, so the rows don't look like separate boxes */
+#dm-projects .dm-i3ms-login { background: #fff !important; box-shadow: inset 0 0 0 1px #e6ebf1 !important; }
+#dm-projects .dm-i3ms-ticker {
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+#dm-projects .dm-i3ms-login nav a,
+#dm-projects .dm-i3ms-login nav a:nth-child(n) {
+    border-bottom: 1px solid #e6ebf1;
+    margin: 0 1px;
+}
+@media (max-width: 999px) {
+    /* phones: two columns, a single line between them too */
+    #dm-projects .dm-i3ms-login nav a:nth-child(odd) { border-right: 1px solid #e6ebf1; }
+}
+
+/* the chosen product is visibly connected to its photo + details: the selected row turns solid
+   red and is shaped as an arrow pointing left into the details box, and the details box has a
+   matching red edge on that side (desktop, where the two sit side by side) */
+#dm-projects .dm-i3ms-login nav a[aria-current="true"] {
+    background: #671ef3;
+    color: #ffffff;
+    border-left-color: #671ef3;
+}
+#dm-projects .dm-i3ms-login nav a[aria-current="true"] svg { fill: #fff; }
+@media (min-width: 1000px) {
+    #dm-projects .dm-i3ms-layout { gap: 0; }
+    #dm-projects .dm-i3ms-login nav a[aria-current="true"] {
+        margin-left: 0;
+        padding-left: 20px;
+        clip-path: polygon(11px 0, 100% 0, 100% 100%, 11px 100%, 0 50%);
+    }
+    #dm-projects .dm-i3ms-detail { border-right: 3px solid #671ef3; }
+}
+
+/* the arrow now points FROM the photo + details box TO the chosen product: a red triangle on
+   the box's red right edge, level with the selected row (product-detail.js sets --arrow-y);
+   the selected row itself is a plain solid red bar (no arrow shape) */
+@media (min-width: 1000px) {
+    #dm-projects .dm-i3ms-login nav a[aria-current="true"] { clip-path: none; padding-left: 9px; margin-left: 1px; }
+    #dm-projects .dm-i3ms-stage { z-index: 2; }
+    #dm-projects .dm-i3ms-detail::after {
+        content: "";
+        position: absolute;
+        top: var(--arrow-y, 50%);
+        right: -15px;
+        width: 0;
+        height: 0;
+        margin-top: -11px;
+        border-top: 11px solid transparent;
+        border-bottom: 11px solid transparent;
+        border-left: 12px solid #671ef3;
+        transition: top .25s cubic-bezier(.22, 1, .36, 1);
+    }
+}
+/* desktop: the selected row is white with bold red text, so the red arrow coming from the
+   details box is clearly seen pointing into it (on solid red the arrow disappeared) */
+@media (min-width: 1000px) {
+    #dm-projects .dm-i3ms-login nav a[aria-current="true"] {
+        background: #fff;
+        color: #671ef3;
+        font-weight: 700;
+        padding-left: 22px;
+        border-left-color: transparent;
+    }
+    #dm-projects .dm-i3ms-login nav a[aria-current="true"] svg { fill: #671ef3; }
+}

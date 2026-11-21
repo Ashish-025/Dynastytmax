@@ -16,7 +16,7 @@
     font-weight: 700;
     letter-spacing: normal;
 }
-html:not([data-theme="dark"]) .products-heading h2 { color: #101a42; }   /* same navy as Our Services */
+html:not([data-theme="dark"]) .products-heading h2 { color: #0a2540; }   /* same navy as Our Services */
 
 
 /* every section's main heading: same font style AND size as the Our Services title

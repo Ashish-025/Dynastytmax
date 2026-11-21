@@ -1,0 +1,81 @@
+/* =========================================================
+   SPARKLAYER ANIMATIONS IN LIGHT MODE
+   The same three effects the dark theme has (dark-spark.js adds the classes):
+     1. the highlighted phrase in each section heading: a cyan -> violet -> pink ->
+        orange band sweeps across it once when it scrolls into view, leaving it violet
+     2. heading blocks and cards fade up 12px into view (0.55s)
+     3. a thin violet / cyan light orbiting the border of cards
+   Plus SparkLayer's light card look: white, hairline border, 12px corners,
+   soft layered shadow.
+   ========================================================= */
+
+/* 1. highlighted phrase */
+html[data-theme="light"] h2 .ds-accent {
+    font-weight: 600 !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    background-image: linear-gradient(90deg, #671ef3 0%, #671ef3 22%, #671ef3 33.33%, #0bcefc 40%, #7c5cff 46%, #ff026a 52%, #ff9243 58%, transparent 66.67%, transparent) !important;
+    background-size: 300% 100% !important;
+    background-position: 100% 0;            /* no !important: the sweep moves it */
+    -webkit-background-clip: text !important;
+            background-clip: text !important;
+}
+html[data-theme="light"] h2 .ds-accent.ds-go { animation: slSweep 1.2s ease .1s both; }
+@keyframes slSweep {
+    0%   { background-position: 100% 0; filter: blur(1px); }
+    100% { background-position: 0 0; filter: none; }
+}
+
+/* small labels above headings: violet, sentence case (SparkLayer eyebrows) */
+html[data-theme="light"] :is(.dm-services-label, .section-label, .ssi-kicker, .ssi-eyebrow, .contact-eyebrow) {
+    color: #671ef3 !important;
+    -webkit-text-fill-color: #671ef3 !important;
+}
+/* SparkLayer has no bar under the label */
+html[data-theme="light"] .dm-heading-line { display: none !important; }
+
+/* 2. heading blocks fade up into view */
+html[data-theme="light"] .ds-rv {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .55s cubic-bezier(.22, .8, .3, 1), transform .55s cubic-bezier(.22, .8, .3, 1);
+}
+html[data-theme="light"] .ds-rv.ds-in { opacity: 1; transform: none; }
+html[data-theme="light"] .fx-rise {
+    translate: 0 12px;
+    transition: opacity .55s cubic-bezier(.22, .8, .3, 1) var(--fx-delay, 0ms), translate .55s cubic-bezier(.22, .8, .3, 1) var(--fx-delay, 0ms);
+}
+html[data-theme="light"] .fx-rise.fx-in { translate: 0 0; }
+
+/* SparkLayer light cards */
+html[data-theme="light"] :is(.dm-product-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .dbs-features > div, .contact-detail-note) {
+    background-color: #fff;
+    border: 1px solid #e6ebf1 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 14px 34px -8px rgba(50, 50, 93, .16), 0 6px 16px -8px rgba(0, 0, 0, .14) !important;
+}
+
+/* 3. orbiting border light (one .ds-orbit span per card, from dark-spark.js) */
+@property --sl-orbit { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+html[data-theme="light"] .ds-orbit {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    padding: 1.5px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(from var(--sl-orbit), transparent 0deg 300deg, rgba(124, 58, 237, .75) 336deg, rgba(11, 206, 252, .9) 350deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box exclude, linear-gradient(#fff 0 0);
+    animation: slOrbit 6.5s steps(78) infinite;
+}
+@keyframes slOrbit { to { --sl-orbit: 360deg; } }
+html[data-theme="light"] :is(.dm-service-card, .ssi-service-card, .ssi-product-card, .products-grid .product-card, .contact-form, .contact-detail-note, .app-card, .dbs-features > div):not(:is(td, th)) { position: relative; }
+
+@media (prefers-reduced-motion: reduce) {
+    html[data-theme="light"] .ds-orbit { animation: none; }
+    html[data-theme="light"] h2 .ds-accent { background-position: 0 0; animation: none !important; }
+    html[data-theme="light"] .ds-rv { opacity: 1; transform: none; transition: none; }
+}

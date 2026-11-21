@@ -62,7 +62,7 @@
     width: 32px;
     height: 32px;
     fill: none;
-    stroke: #14244a;
+    stroke: #0a2540;
     stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -110,11 +110,11 @@ html[data-theme="dark"] .dm-product-card .dm-service-icon svg { stroke: #e6eefc;
 }
 
 /* keep the normal text colours (the services hover turns them white for the overlay) */
-.logo-marquee .dm-product-card .dm-card-content h3 { color: #102744; }
+.logo-marquee .dm-product-card .dm-card-content h3 { color: #0a2540; }
 .logo-marquee .dm-product-card .dm-card-content p,
-.logo-marquee .dm-product-card .dm-service-list li { color: #5b6b80; }
-.logo-marquee .dm-product-card .dm-service-list li::before { color: #e91d2b; border-color: #e91d2b; }
-.logo-marquee .dm-product-card .dm-card-line { background: #ff3b35; }
+.logo-marquee .dm-product-card .dm-service-list li { color: #666666; }
+.logo-marquee .dm-product-card .dm-service-list li::before { color: #671ef3; border-color: #671ef3; }
+.logo-marquee .dm-product-card .dm-card-line { background: #671ef3; }
 html[data-theme="dark"] .logo-marquee .dm-product-card .dm-card-content h3 { color: #ffffff; }
 html[data-theme="dark"] .logo-marquee .dm-product-card .dm-card-content p,
 html[data-theme="dark"] .logo-marquee .dm-product-card .dm-service-list li { color: rgba(255, 255, 255, .72); }
@@ -136,7 +136,7 @@ html[data-theme="dark"] .logo-marquee .dm-product-card .dm-service-list li::befo
     z-index: 3;
     padding: 5px 11px;
     border-radius: 999px;
-    background: #e91d2b;
+    background: #671ef3;
     color: #ffffff;
     font: 700 11px/1 'Montserrat', Arial, Helvetica, sans-serif;
     letter-spacing: .04em;
@@ -205,7 +205,7 @@ html[data-theme="dark"] .products-section { background: transparent; }
 .logo-marquee .dm-product-card:hover,
 .logo-marquee .dm-product-card.is-pressed {
     transform: translateY(-8px);
-    border-color: rgba(15, 23, 42, .16);
+    border-color: rgba(10, 14, 38, .16);
     box-shadow: 0 24px 60px -16px rgba(16, 39, 68, .28);
 }
 html[data-theme="dark"] .logo-marquee .dm-product-card:hover,

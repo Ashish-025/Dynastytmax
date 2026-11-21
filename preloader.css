@@ -36,7 +36,7 @@ html.dm-loading .dm-preloader,
     white-space: nowrap;
 }
 .dm-pl-name { margin-right: .5em; }
-.dm-pl-name em { font-style: normal; color: #e91d2b; }
+.dm-pl-name em { font-style: normal; color: #671ef3; }
 .dm-pl-count { font-variant-numeric: tabular-nums; }
 
 /* exit: every letter falls 200px and fades, one after another (delays set in preloader.js) */

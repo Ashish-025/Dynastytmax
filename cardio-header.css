@@ -1,0 +1,495 @@
+/* =========================================================
+   TOP BAR + HEADER in the CardioCare style
+   (navy info bar with a pulsing red dot; light frosted sticky bar,
+   red logo tile, Outfit menu with a red underline, red gradient button).
+   Loaded last on every page; restyles the existing header markup, so the
+   dropdowns, mobile menu, theme switch and scripts keep working.
+   ========================================================= */
+
+:root {
+    --cc-primary: #671ef3;
+    --cc-gradient: linear-gradient(135deg, #671ef3 0%, #7c3aed 100%);
+    --cc-navy: #0a2540;
+    --cc-ink: #0a2540;
+    --cc-slate-200: #e2e8f0;
+    --cc-slate-400: #94a3b8;
+    --cc-slate-600: #475569;
+    --cc-red-400: #a78bfa;
+    --cc-red-500: #671ef3;
+    --cc-red-600: #671ef3;
+    --hdr-h: 64px;
+}
+@media (min-width: 1024px) { :root { --hdr-h: 72px; } }
+
+/* ---------------- TOP BAR ---------------- */
+.dm-topbar {
+    background: var(--cc-navy);
+    color: #fff;
+    padding: 8px 0;
+    font: 400 14px/20px Inter, sans-serif;
+    position: relative;
+    z-index: 10001;
+}
+html[data-theme="dark"] .dm-topbar { background: #020617; }
+.dm-topbar-inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+@media (min-width: 640px) {
+    .dm-topbar-inner { flex-direction: row; padding: 0 24px; }
+}
+@media (min-width: 1024px) { .dm-topbar-inner { padding: 0 32px; } }
+
+.dm-tb-left { display: flex; align-items: center; gap: 24px; }
+.dm-tb-item,
+.dm-tb-mail { display: flex; align-items: center; gap: 8px; }
+.dm-tb-mail { display: none; color: var(--cc-slate-400); }
+@media (min-width: 768px) { .dm-tb-mail { display: flex; } }
+
+.dm-tb-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--cc-red-500);
+    animation: dmTbPulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
+}
+@keyframes dmTbPulse { 50% { opacity: .5; } }
+
+html[data-theme] body .dm-topbar,
+html[data-theme] body .dm-topbar * { font-family: Inter, sans-serif !important; }
+.dm-topbar strong { color: var(--cc-red-400); font-weight: 700; }
+.dm-topbar a {
+    color: inherit;
+    text-decoration: none;
+    transition: color .15s cubic-bezier(.4, 0, .2, 1);
+}
+.dm-tb-item a:hover { color: var(--cc-red-400); }
+.dm-tb-mail a:hover { color: #fff; }
+
+.dm-tb-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--cc-slate-400);
+    font-size: 12px;
+    line-height: 16px;
+}
+
+/* ---------------- HEADER BAR ---------------- */
+html[data-theme] body .site-header {
+    position: sticky;
+    top: 0 !important;
+    z-index: 9999;
+    height: var(--hdr-h);
+    background: transparent;
+    border-bottom: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    transition: background .4s, box-shadow .4s;
+    animation: none;
+}
+html[data-theme] body .site-header::after { display: none; }
+html[data-theme] body .site-header.scrolled {
+    background: rgba(255, 255, 255, .97);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .08);
+}
+html[data-theme="dark"] body .site-header.scrolled { background: rgba(15, 23, 42, .97); }
+
+html[data-theme] body .site-header .header-container {
+    max-width: 80rem;
+    height: var(--hdr-h);
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+@media (min-width: 640px) { html[data-theme] body .site-header .header-container { padding: 0 24px; } }
+@media (min-width: 1024px) { html[data-theme] body .site-header .header-container { padding: 0 32px; } }
+
+/* logo: red rounded tile + name and a small line underneath */
+html[data-theme] body .site-header .logo {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+.site-header .logo-mark {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cc-red-600);
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
+}
+.site-header .logo-mark svg { width: 20px; height: 20px; display: block; }
+html[data-theme] body .site-header .logo .logo-text {
+    display: block;
+    color: var(--cc-ink);
+    font: 400 18px/1.25 Inter, sans-serif !important;
+    letter-spacing: 0;
+    text-transform: none;
+}
+html[data-theme] body .site-header .logo .logo-sub {
+    display: block;
+    color: var(--cc-slate-600);
+    font: 400 12px/1 Inter, sans-serif !important;
+}
+html[data-theme="dark"] body .site-header .logo .logo-text { color: #fff; }
+
+/* menu */
+html[data-theme] body .site-header .desktop-nav {
+    gap: 32px;
+    margin-right: 0;
+    height: 100%;
+    align-items: center;
+}
+html[data-theme] body .site-header .nav-link {
+    position: relative;
+    height: auto;
+    padding: 0;
+    color: var(--cc-ink);
+    font-family: Outfit, sans-serif !important;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    opacity: 1;
+    transition: color .3s;
+}
+html[data-theme="dark"] body .site-header .nav-link { color: #cbd5e1; }
+html[data-theme] body .site-header .nav-link:hover { color: var(--cc-ink); opacity: 1; }
+html[data-theme="dark"] body .site-header .nav-link:hover { color: #fff; }
+html[data-theme] body .site-header .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--cc-primary) !important;
+    border-radius: 2px;
+    transform: none;
+    transition: width .3s;
+}
+html[data-theme] body .site-header .nav-link:hover::after,
+html[data-theme] body .site-header .nav-link:focus-visible::after,
+html[data-theme] body .site-header .nav-item.open > .nav-link::after,
+html[data-theme] body .site-header .nav-link.is-active::after,
+html[data-theme] body .site-header .nav-item.is-active > .nav-link::after { width: 100%; }
+
+/* dropdown panels: white card, red on hover */
+html[data-theme] body .site-header .dropdown-menu {
+    left: 50%;
+    right: auto;
+    top: 100%;
+    transform: translateX(-50%) translateY(8px);
+    min-width: 220px;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid rgba(103, 30, 243, .08);
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(10, 14, 38, .12);
+    text-align: left;
+}
+html[data-theme] body .site-header .nav-item.open .dropdown-menu { transform: translateX(-50%); }
+@media (hover: hover) and (pointer: fine) {
+    html[data-theme] body .site-header .nav-item.has-dropdown:hover > .dropdown-menu,
+    html[data-theme] body .site-header .nav-item.has-dropdown:focus-within > .dropdown-menu { transform: translateX(-50%); }
+}
+html[data-theme] body .site-header .dropdown-menu a {
+    display: block;
+    padding: 9px 12px;
+    border-radius: 8px;
+    color: var(--cc-slate-600);
+    font-family: Inter, sans-serif !important;
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 1;
+    transform: none;
+    transition: color .2s, background .2s;
+}
+html[data-theme] body .site-header .dropdown-menu a:hover,
+html[data-theme] body .site-header .dropdown-menu a:focus-visible {
+    color: var(--cc-primary);
+    background: #f3eeff;
+    padding-right: 12px;
+}
+html[data-theme="dark"] body .site-header .dropdown-menu {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, .06);
+}
+html[data-theme="dark"] body .site-header .dropdown-menu a { color: #cbd5e1; }
+html[data-theme="dark"] body .site-header .dropdown-menu a:hover { color: #fff; background: rgba(220, 38, 38, .15); }
+
+/* right side */
+html[data-theme] body .site-header .header-actions { display: flex; align-items: center; gap: 12px; }
+
+/* call to action: red gradient pill-corner button */
+html[data-theme] body .site-header .app-button,
+html[data-theme] body .site-header .app-button:hover,
+html[data-theme] body .site-header .app-button:focus-visible,
+html[data-theme] body .site-header .mobile-app-button,
+html[data-theme] body .site-header .mobile-app-button:hover,
+html[data-theme] body .site-header .mobile-app-button:focus-visible {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    height: auto;
+    padding: 10px 20px !important;
+    background: var(--cc-gradient) !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    font-family: Outfit, sans-serif !important;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    box-shadow: 0 4px 20px rgba(103, 30, 243, .35) !important;
+    transition: transform .3s, box-shadow .3s;
+}
+html[data-theme] body .site-header .app-button:hover,
+html[data-theme] body .site-header .mobile-app-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 30px rgba(103, 30, 243, .45) !important;
+}
+html[data-theme] body .site-header .app-button:focus-visible,
+html[data-theme] body .site-header .mobile-app-button:focus-visible { outline: 2px solid var(--cc-primary) !important; outline-offset: 3px; }
+.site-header .cc-btn-icon { width: 16px; height: 16px; flex: 0 0 16px; }
+
+/* theme switch sits quietly next to the button */
+html[data-theme] body .site-header .theme-toggle {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    margin: 0;
+    border: 1px solid #e6ebf1;
+    background: transparent;
+    color: var(--cc-primary);
+}
+html[data-theme="dark"] body .site-header .theme-toggle { border-color: rgba(255, 255, 255, .12); color: #cbd5e1; }
+
+/* hamburger: plain icon like the template */
+html[data-theme] body .site-header .mobile-menu-button {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+html[data-theme] body .site-header .mobile-menu-button span { width: 20px; background: var(--cc-slate-600); }
+html[data-theme="dark"] body .site-header .mobile-menu-button span { background: #cbd5e1; }
+
+/* menu button takes over at 960px (where the six-item menu stops fitting) */
+@media (max-width: 960px) {
+    html[data-theme] body .site-header .desktop-nav,
+    html[data-theme] body .site-header .app-button { display: none; }
+    html[data-theme] body .site-header .mobile-menu-button { display: flex; }
+
+    html[data-theme] body .site-header .mobile-nav {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        max-height: calc(100vh - var(--hdr-h));
+        padding: 16px;
+        background: #0a2540;
+        border-top: 1px solid rgba(255, 255, 255, .1);
+        border-bottom: 0;
+        overflow-y: auto;
+        text-align: left;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+    }
+    html[data-theme] body .site-header .mobile-nav.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+    }
+    html[data-theme] body .site-header .mobile-nav-item,
+    html[data-theme] body .site-header .mobile-simple-link { border-bottom: 0; }
+    html[data-theme] body .site-header .mobile-dropdown-toggle,
+    html[data-theme] body .site-header .mobile-simple-link {
+        justify-content: space-between;
+        padding: 10px 0;
+        color: var(--cc-slate-200);
+        font-family: Outfit, sans-serif !important;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    html[data-theme] body .site-header .mobile-dropdown-toggle::after,
+    html[data-theme] body .site-header .mobile-simple-link::after { background: var(--cc-primary) !important; height: 2px; }
+    html[data-theme] body .site-header .mobile-dropdown a {
+        color: var(--cc-slate-400);
+        font-family: Inter, sans-serif !important;
+        font-size: 14px;
+        padding-left: 12px;
+        padding-right: 0;
+    }
+    html[data-theme] body .site-header .mobile-dropdown a:hover { color: #fff; opacity: 1; }
+    html[data-theme] body .site-header .mobile-app-button {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin: 12px 0 0;
+    }
+}
+@media (min-width: 961px) {
+    html[data-theme] body .site-header .mobile-nav { display: none; }
+}
+
+/* hero and anchors sit just under the bar */
+.hero-section { min-height: calc(100vh - var(--hdr-h)); min-height: calc(100svh - var(--hdr-h)); }
+html { scroll-padding-top: var(--hdr-h); }
+
+/* six menu items: tighter spacing on smaller laptops so everything stays on one line */
+@media (max-width: 1280px) {
+    html[data-theme] body .site-header .desktop-nav { gap: 22px; }
+}
+@media (max-width: 1120px) {
+    html[data-theme] body .site-header .desktop-nav { gap: 14px; }
+    html[data-theme] body .site-header .nav-link { font-size: 13px; }
+    html[data-theme] body .site-header .app-button { padding: 9px 14px !important; }
+}
+
+/* ---- match the template exactly ---- */
+/* bar colour at the top of the page: the template's page grey (#f8fafc) */
+html[data-theme="light"] body .site-header:not(.scrolled) { background: rgba(248, 250, 252, .97); }
+html[data-theme="dark"] body .site-header:not(.scrolled) { background: rgba(15, 23, 42, .6); }
+
+/* button: the template's full-size .btn-primary (14px 28px, 15px / 600) */
+html[data-theme] body .site-header .app-button,
+html[data-theme] body .site-header .app-button:hover,
+html[data-theme] body .site-header .app-button:focus-visible {
+    padding: 14px 28px !important;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 600;
+}
+@media (max-width: 1120px) {
+    html[data-theme] body .site-header .app-button,
+    html[data-theme] body .site-header .app-button:hover { padding: 12px 18px !important; font-size: 14px; }
+}
+
+/* light / dark switch: a small icon at the end of the top bar instead of in the header */
+html[data-theme] body .dm-topbar .theme-toggle {
+    order: 99;
+    width: 22px;
+    height: 20px;
+    flex: 0 0 22px;
+    margin: 0 0 0 4px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #94a3b8;
+}
+html[data-theme] body .dm-topbar .theme-toggle:hover { color: #a78bfa; transform: none; box-shadow: none; }
+html[data-theme] body .dm-topbar .theme-toggle svg { width: 15px; height: 15px; }
+
+/* breathing room between the menu and the button; tagline hidden only where space is tight */
+html[data-theme] body .site-header .desktop-nav { margin: 0 28px; }
+@media (min-width: 961px) and (max-width: 1120px) {
+    html[data-theme] body .site-header .logo .logo-sub { display: none; }
+    html[data-theme] body .site-header .desktop-nav { margin: 0 16px; }
+}
+
+/* the "|" dividers: plain slate grey everywhere */
+html[data-theme] body .dm-topbar span[aria-hidden="true"] { color: #94a3b8 !important; background: none !important; -webkit-text-fill-color: #94a3b8 !important; }
+
+/* social icons at the right of the top bar: slate grey, red on hover (like the phone link) */
+.dm-tb-social { display: flex; align-items: center; gap: 14px; }
+html[data-theme] body .dm-tb-social a {
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    color: #94a3b8;
+    filter: none;
+    transform: none;
+    transition: color .15s cubic-bezier(.4, 0, .2, 1);
+}
+html[data-theme] body .dm-tb-social a:hover,
+html[data-theme] body .dm-tb-social a:focus-visible { color: #a78bfa; filter: none; transform: none; }
+html[data-theme] body .dm-tb-social svg { display: block; width: 14px; height: 14px; fill: currentColor; stroke: none; }
+html[data-theme] body .dm-tb-social .contact-instagram { fill: none; stroke: currentColor; stroke-width: 2; }
+html[data-theme] body .dm-tb-social .contact-instagram-dot { fill: currentColor; stroke: none; }
+
+/* =========================================================
+   LOGO REVEAL (Accenture-style behaviour)
+   At rest: only the red shield tile shows.
+   On hover / keyboard focus: the tile shrinks and slides over the end of
+   "Dynasty Max" like an accent mark, and the name + tagline slide up from below.
+   ========================================================= */
+html[data-theme] body .site-header .logo {
+    --logo-ease: cubic-bezier(.85, 0, 0, 1);
+    --logo-accent-x: 98px;   /* where the small tile lands: just past the "x" of "Dynasty Max" */
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    width: 200px;            /* fixed: the menu never moves when the logo animates */
+    height: 54px;
+    overflow: hidden;
+}
+html[data-theme] body .site-header .logo .logo-mark {
+    position: absolute;
+    left: 0;
+    top: 9px;
+    transform-origin: 0 0;
+    transition: transform 550ms var(--logo-ease);
+}
+html[data-theme] body .site-header .logo .logo-text {
+    position: absolute;
+    left: 0;
+    top: 15px;
+    white-space: nowrap;
+    transform: translateY(44px);
+    transition: transform 550ms var(--logo-ease);
+}
+html[data-theme] body .site-header .logo:is(:hover, :focus-visible) .logo-mark {
+    transform: translate(var(--logo-accent-x), -8px) scale(.4);
+}
+html[data-theme] body .site-header .logo:is(:hover, :focus-visible) .logo-text {
+    transform: translateY(0);
+}
+html[data-theme] body .site-header .logo:focus-visible { outline: 2px solid var(--cc-primary); outline-offset: 4px; }
+
+/* the tagline always shows inside the reveal (overrides the tighter-laptop rule) */
+html[data-theme] body .site-header .logo .logo-sub { display: block !important; margin-top: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+    html[data-theme] body .site-header .logo .logo-mark,
+    html[data-theme] body .site-header .logo .logo-text { transition: none; }
+}
+
+/* small laptops (961-1120px): everything on one line without the button running off the edge */
+@media (min-width: 961px) and (max-width: 1120px) {
+    html[data-theme] body .site-header .header-container { padding: 0 16px; }
+    html[data-theme] body .site-header .logo { width: 140px; }
+    html[data-theme] body .site-header .logo .logo-sub { display: none !important; }
+    html[data-theme] body .site-header .logo .logo-text { top: 20px; }
+    html[data-theme] body .site-header .desktop-nav { gap: 12px; margin: 0 10px; }
+    html[data-theme] body .site-header .nav-link { font-size: 13px; }
+    html[data-theme] body .site-header .app-button,
+    html[data-theme] body .site-header .app-button:hover { padding: 10px 14px !important; font-size: 13px; }
+    html[data-theme] body .site-header .app-button .cc-btn-icon { display: none; }
+}

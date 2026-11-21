@@ -2,8 +2,8 @@
    (no moving glow - the spinning scanner arc and the running card-border light were removed). Light theme uses the brand red/navy, dark theme the hero orange/blue. */
 
 .dm-service-icon {
-    --si-a: #e91d2b;                    /* arc / glow colour */
-    --si-b: #14244a;                    /* dial ticks */
+    --si-a: #671ef3;                    /* arc / glow colour */
+    --si-b: #0a2540;                    /* dial ticks */
     position: relative;
     isolation: isolate;
     overflow: visible;

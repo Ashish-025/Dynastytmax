@@ -1,0 +1,253 @@
+/* =========================================================
+   MEGA MENUS (Framo "Capabilities" style)
+   Vehicle Solutions, Surveillance and Digital & IT Solutions open a
+   full-width panel under the header: a short intro, a numbered list and a
+   photo panel that shows the hovered item's photo (and rotates on its own).
+   The page behind dims. Opens on hover / keyboard focus, or tap on touch
+   screens (main.js toggles .open on the .nav-item).
+   ========================================================= */
+
+.site-header {
+    --mega-surface: #fff;
+    --mega-border: #e6ebf1;
+    --mega-text: #0a2540;
+    --mega-soft: #666666;
+    --mega-hover-bg: #f3eeff;
+    --mega-hover-text: #671ef3;
+    --mega-ease: cubic-bezier(.16, 1, .3, 1);
+}
+html[data-theme="dark"] .site-header {
+    --mega-surface: #0f172a;
+    --mega-border: rgba(255, 255, 255, .08);
+    --mega-text: #e2e8f0;
+    --mega-soft: #94a3b8;
+    --mega-hover-bg: rgba(220, 38, 38, .15);
+    --mega-hover-text: #f87171;
+}
+
+/* the panel spans the header, so these items don't anchor it */
+html[data-theme] body .site-header .header-container,
+html[data-theme] body .site-header .desktop-nav,
+html[data-theme] body .site-header .nav-item.nav-mega { position: static; }
+
+/* caret on the three mega items */
+html[data-theme] body .site-header .nav-mega > .nav-link { gap: 6px; }
+.site-header .nav-mega > .nav-link::before {
+    content: "";
+    order: 2;
+    width: 6px;
+    height: 6px;
+    margin-top: -3px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform .2s ease, margin .2s ease;
+}
+.site-header .nav-mega:is(.open, :has(:focus-visible)) > .nav-link::before { transform: rotate(225deg); margin-top: 3px; }
+
+/* panel */
+.site-header .mega-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    background: var(--mega-surface);
+    border-top: 1px solid var(--mega-border);
+    border-radius: 0 0 12px 12px;
+    /* soft shadow + a dim layer over the page below; clipped so the header stays bright */
+    box-shadow: 0 24px 48px -12px rgba(10, 14, 38, .18), 0 0 0 200vmax rgba(0, 0, 0, .5);
+    clip-path: inset(0 -200vmax -200vmax -200vmax);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity .3s var(--mega-ease), transform .3s var(--mega-ease), visibility 0s .3s;
+    text-align: left;
+    cursor: default;
+}
+.site-header .nav-mega:is(.open, :has(:focus-visible)) > .mega-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    transition: opacity .3s var(--mega-ease), transform .3s var(--mega-ease), visibility 0s;
+}
+
+.site-header .mega-inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 40px 32px 44px;
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1fr) minmax(22rem, 1.3fr);
+    column-gap: 40px;
+}
+
+/* columns rise in one after another */
+.site-header .mega-lead,
+.site-header .mega-list,
+.site-header .mega-media {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .4s var(--mega-ease), transform .4s var(--mega-ease);
+}
+.site-header .nav-mega:is(.open, :has(:focus-visible)) :is(.mega-lead, .mega-list, .mega-media) { opacity: 1; transform: none; }
+.site-header .nav-mega:is(.open, :has(:focus-visible)) .mega-list { transition-delay: 60ms; }
+.site-header .nav-mega:is(.open, :has(:focus-visible)) .mega-media { transition-delay: 120ms; }
+
+/* intro */
+.site-header .mega-lead { display: flex; flex-direction: column; gap: 12px; padding-right: 16px; }
+html[data-theme] body .site-header .mega-col-title {
+    margin: 0;
+    color: var(--mega-text);
+    font: 600 12px/1.3 Inter, sans-serif !important;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+html[data-theme] body .site-header .mega-statement {
+    margin: 0;
+    max-width: 14ch;
+    color: var(--mega-text);
+    font: 500 28px/1.08 Outfit, sans-serif !important;
+    letter-spacing: -.035em;
+}
+html[data-theme] body .site-header .mega-note {
+    margin: auto 0 0;
+    max-width: 28ch;
+    color: var(--mega-soft);
+    font: 400 15px/1.5 Inter, sans-serif !important;
+}
+
+/* numbered list */
+.site-header .mega-list { display: flex; flex-direction: column; gap: 2px; counter-reset: mega; }
+html[data-theme] body .site-header .mega-item,
+html[data-theme] body .site-header .mega-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: var(--mega-text);
+    font: 400 14px/1.4 Inter, sans-serif !important;
+    text-decoration: none;
+    transition: background .15s ease, color .15s ease;
+}
+.site-header .mega-item::before {
+    counter-increment: mega;
+    content: "0" counter(mega);
+    min-width: 24px;
+    color: var(--mega-soft);
+    font-size: 13px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+html[data-theme] body .site-header :is(.mega-item, .mega-all):is(:hover, :focus-visible, .is-current) {
+    background: var(--mega-hover-bg);
+    color: var(--mega-hover-text);
+}
+html[data-theme] body .site-header .mega-all {
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid var(--mega-border);
+    border-radius: 0;
+    color: var(--mega-hover-text);
+    font-weight: 600 !important;
+}
+.site-header .mega-all::after { content: "\2192"; margin-left: 4px; transition: transform .15s ease; }
+.site-header .mega-all:hover::after { transform: translateX(3px); }
+html[data-theme] body .site-header .mega-all:hover { background: transparent; }
+
+/* photo panel */
+.site-header .mega-media {
+    position: relative;
+    min-height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--mega-hover-bg);
+}
+.site-header .mega-slide {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .6s ease, visibility 0s .6s;
+    text-decoration: none;
+}
+.site-header .mega-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .6s ease, visibility 0s;
+}
+.site-header .mega-slide::after {
+    content: "";
+    position: absolute;
+    inset: 35% 0 0;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .8));
+}
+.site-header .mega-slide img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #fff;
+}
+.site-header .mega-slide.is-active img { animation: megaKenBurns 9s var(--mega-ease) forwards; }
+@keyframes megaKenBurns { from { transform: scale(1); } to { transform: scale(1.08); } }
+
+.site-header .mega-slide-body {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 36px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+html[data-theme] body .site-header .mega-slide-eyebrow { color: rgba(255, 255, 255, .78); font: 500 14px/1.4 Inter, sans-serif !important; }
+html[data-theme] body .site-header .mega-slide-title {
+    color: #fff;
+    font: 700 18px/1.3 Outfit, sans-serif !important;
+    letter-spacing: -.02em;
+}
+.site-header .mega-slide-go {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .18);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: opacity .15s ease, transform .15s ease;
+}
+.site-header .mega-slide-go svg { width: 15px; height: 15px; }
+.site-header .mega-media:hover .mega-slide-go { opacity: 1; transform: none; }
+
+/* smaller laptops: list + photo only */
+@media (max-width: 1279px) {
+    .site-header .mega-inner { grid-template-columns: minmax(0, 1fr) minmax(18rem, 1.2fr); padding: 32px 24px 36px; }
+    .site-header .mega-lead { display: none; }
+}
+/* phones / tablets use the existing slide-down menu */
+@media (max-width: 960px) {
+    .site-header .mega-panel { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-header .mega-panel,
+    .site-header :is(.mega-lead, .mega-list, .mega-media),
+    .site-header .mega-slide { transition: none; }
+    .site-header .mega-slide.is-active img { animation: none; }
+}

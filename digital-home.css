@@ -214,7 +214,7 @@ html[data-theme="dark"] .dbs-tb .tb-tile--logo:hover { border-color: rgba(167, 1
 .dbs-page .service-item p { transition: color .25s ease; }
 .dbs-page .service-item:hover i,
 .dbs-page .service-item:hover h4,
-.dbs-page .service-item:hover p { color: #f44336; }   /* red in both themes */
+.dbs-page .service-item:hover p { color: #671ef3; }   /* red in both themes */
 
 /* the Core Services items start 100px to the right before sliding in: clip them to the
    section so they never make the page wider than the screen */

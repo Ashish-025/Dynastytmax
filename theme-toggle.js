@@ -50,7 +50,7 @@
     }
 
     var buttons = [];
-    var actions = document.querySelector('.site-header .header-actions');
+    var actions = document.querySelector('.dm-topbar .dm-tb-right') || document.querySelector('.site-header .header-actions');
     if (actions) {
         var btn = makeButton();
         actions.insertBefore(btn, actions.firstChild);

@@ -24,10 +24,10 @@
 }
 .theme-toggle:hover {
     transform: rotate(-12deg);
-    border-color: #4089dd;
+    border-color: #671ef3;
     box-shadow: 0 0 0 1px rgba(64, 137, 221, .4), 0 0 18px rgba(244, 140, 24, .35);
 }
-.theme-toggle:focus-visible { outline: 2px solid #4089dd; outline-offset: 3px; }
+.theme-toggle:focus-visible { outline: 2px solid #671ef3; outline-offset: 3px; }
 .theme-toggle svg {
     position: absolute;
     width: 19px;
@@ -40,12 +40,12 @@
 [data-theme="light"] .theme-toggle .tt-moon { opacity: 0; transform: scale(.4) rotate(90deg); }
 
 /* light mode (original site, same black header): red sun to match the brand red */
-[data-theme="light"] .theme-toggle { color: #e91d2b; }
+[data-theme="light"] .theme-toggle { color: #671ef3; }
 [data-theme="light"] .theme-toggle:hover {
-    border-color: #e91d2b;
+    border-color: #671ef3;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .22);
 }
-[data-theme="light"] .theme-toggle:focus-visible { outline-color: #e91d2b; }
+[data-theme="light"] .theme-toggle:focus-visible { outline-color: #671ef3; }
 
 /* app page has no header: floating button */
 .theme-toggle--floating {

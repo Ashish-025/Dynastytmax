@@ -1,0 +1,153 @@
+/* =========================================================
+   HOW WE WORK - tabbed features (Dewi "Features" section style)
+   Four equal tabs with a large icon and a heading; the selected tab turns
+   solid red. Below: text with a check list on the left, a photo on the right.
+   ========================================================= */
+
+.dm-features {
+    --ft-accent: #671ef3;
+    --ft-heading: #0a2540;
+    --ft-text: #444;
+    --ft-surface: #fff;
+    --ft-line: rgba(68, 68, 68, .15);
+    padding: 60px 0;
+    background: var(--ft-surface);
+    color: var(--ft-text);
+}
+html[data-theme="dark"] .dm-features {
+    --ft-heading: #fff;
+    --ft-text: rgba(255, 255, 255, .8);
+    --ft-surface: transparent;
+    --ft-line: rgba(255, 255, 255, .15);
+}
+html[data-theme] body .dm-features,
+html[data-theme] body .dm-features * { font-family: Inter, sans-serif !important; }
+html[data-theme] body .dm-features :is(h3, h4) { font-family: Outfit, sans-serif !important; }
+
+.dm-features-container {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+/* ---------- tabs ---------- */
+.dm-ft-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+}
+.dm-ft-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 15px 20px;
+    border: 1px solid var(--ft-line);
+    border-radius: 0;
+    background: var(--ft-surface);
+    color: var(--ft-heading);
+    cursor: pointer;
+    text-align: left;
+    transition: .3s;
+}
+.dm-ft-tab svg {
+    flex: none;
+    width: 48px;
+    height: 48px;
+    padding-right: 15px;
+    box-sizing: content-box;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+html[data-theme] body .dm-ft-tab h4 {
+    margin: 0;
+    color: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+.dm-ft-tab:hover { color: var(--ft-accent); border-color: var(--ft-accent); }
+.dm-ft-tab.is-active,
+.dm-ft-tab.is-active:hover { background: var(--ft-accent); border-color: var(--ft-accent); color: #fff; }
+.dm-ft-tab:focus-visible { outline: 2px solid var(--ft-accent); outline-offset: 3px; }
+
+/* ---------- content ---------- */
+.dm-ft-content { margin-top: 30px; }
+.dm-ft-pane {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+.dm-ft-pane[hidden] { display: none; }
+.dm-ft-pane.is-active { animation: dmFtFade .15s linear; }
+@keyframes dmFtFade { from { opacity: 0; } }
+
+html[data-theme] body .dm-ft-text h3 {
+    margin: 0 0 16px;
+    color: var(--ft-heading);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+html[data-theme] body .dm-ft-text p {
+    margin: 0 0 16px;
+    color: var(--ft-text);
+    font-size: 16px;
+    line-height: 1.6;
+}
+html[data-theme] body .dm-ft-text p.dm-ft-lead { font-style: italic; }
+.dm-ft-text p:last-child { margin-bottom: 0; }
+.dm-ft-text ul { margin: 0 0 16px; padding: 0; list-style: none; }
+.dm-ft-text ul:last-child { margin-bottom: 0; }
+html[data-theme] body .dm-ft-text li {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    padding-bottom: 10px;
+    color: var(--ft-text);
+    font-size: 16px;
+    line-height: 1.5;
+}
+.dm-ft-text li svg {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    padding-right: 4px;
+    fill: none;
+    stroke: var(--ft-accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.dm-ft-media { text-align: center; }
+.dm-ft-media img { display: block; width: 100%; height: auto; max-width: 100%; }
+
+/* ---------- smaller screens ---------- */
+@media (max-width: 991px) {
+    /* tabs show their icons only, like the template */
+    .dm-ft-tab h4 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+    .dm-ft-pane { grid-template-columns: minmax(0, 1fr); }
+    .dm-ft-media { order: -1; }          /* photo above the text */
+    .dm-ft-text { margin-top: 16px; }
+}
+@media (max-width: 768px) {
+    .dm-ft-tabs { gap: 12px; }
+    .dm-ft-tab svg { width: 36px; height: 36px; padding: 0; }
+}
+@media (max-width: 575px) {
+    .dm-ft-tab { padding: 15px; }
+    .dm-ft-tab svg { width: 24px; height: 24px; }
+    html[data-theme] body .dm-ft-text h3 { font-size: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .dm-ft-tab { transition: none; }
+    .dm-ft-pane.is-active { animation: none; }
+}
