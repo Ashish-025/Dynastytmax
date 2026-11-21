@@ -12,7 +12,7 @@
     var ACCENT = ".ds-accent, .products-accent, .sx-accent, .dmh-key, .dbs-accent";
     var HIDDEN = ".dbs-sr, .sr-only, .hero-rotator__sr";
     var DARK_GROUND = ".dm-fhero, .sx-band, .sx-final, .sx-showcase, .dm-topbar";
-    var SKIP = ".dm-footer, .dm-preloader, .sr-only, .mega-panel, [aria-hidden='true']";
+    var SKIP = ".dm-footer, .dm-preloader, .sr-only, .mega-panel, .pv-body, [aria-hidden='true']";
 
     function wrapTail(h) {
         // the last text node with words in it

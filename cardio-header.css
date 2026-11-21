@@ -378,7 +378,7 @@ html { scroll-padding-top: var(--hdr-h); }
 html[data-theme="light"] body .site-header:not(.scrolled) { background: rgba(248, 250, 252, .97); }
 /* home page: over the dark hero the header is part of it (same navy, light text) */
 html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) {
-    background: #0a0e26;
+    background: #0a0a1a;
     border-bottom: 1px solid rgba(255, 255, 255, .06);
     box-shadow: none;
 }

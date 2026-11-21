@@ -372,8 +372,8 @@ html body :is(h1, h2) .acc-sw.acc-go { animation: accSweep 1.2s ease .1s both !i
 @media (prefers-reduced-motion: reduce) { html body :is(h1, h2) .acc-sw.acc-sw { --acc-p: 0% !important; animation: none !important; } }
 @media print { html body :is(h1, h2) .acc-sw.acc-sw { --acc-p: 0% !important; animation: none !important; } }
 
-/* hero "Smart Technology": the same blue -> purple -> pink as the other headings */
-.dmh-title .acc-sw.acc-sw--pale { --acc-a: #1e4ff3; --acc-b: #a855f7; --acc-c: #e0359e; }
+/* hero "Smart Technology": SparkLayer hero accent (#C4B5FD -> #E9A5FF -> #FF86B8) */
+.dmh-title .acc-sw.acc-sw--pale { --acc-a: #c4b5fd; --acc-b: #e9a5ff; --acc-c: #ff86b8; }
 
 /* a swept phrase inside a letter-by-letter heading (usta-motion.js keeps it whole):
    normal wrapping text that fades in with the letters */

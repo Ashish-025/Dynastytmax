@@ -41,9 +41,10 @@ html[data-theme] body .sx-head--dark p { color: #a9b0d6; }
     max-width: 520px;
     margin: 32px 0 0;
     padding: 8px 8px 8px 10px;
-    border: 1px solid rgba(255, 255, 255, .18);
+    border: 1px solid rgba(255, 255, 255, .17);
     border-radius: 999px;
-    background: rgba(255, 255, 255, .08);
+    background: rgba(255, 255, 255, .055);
+    transition: border-color .2s ease, box-shadow .2s ease;
     -webkit-backdrop-filter: blur(12px);
             backdrop-filter: blur(12px);
     isolation: isolate;
@@ -76,25 +77,26 @@ html[data-theme] body .sx-head--dark p { color: #a9b0d6; }
     color: #fff;
     font-size: 15px;
 }
-.sx-ask input::placeholder { color: rgba(255, 255, 255, .62); }
+.sx-ask input::placeholder { color: #8f96c0; }
+.sx-ask:focus-within { border-color: rgba(196, 181, 253, .5); box-shadow: 0 0 0 4px rgba(103, 30, 243, .18); }
 .sx-ask-go { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #671ef3; color: #fff; cursor: pointer; transition: background .2s ease, transform .2s ease; }
 .sx-ask-go:hover { background: #5717d6; transform: translateY(-2px); box-shadow: 0 8px 18px -8px rgba(103, 30, 243, .45); }
 .sx-ask-go svg { width: 18px; height: 18px; }
 .sx-quick { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
 .sx-quick a {
     padding: 7px 14px;
-    border: 1px solid rgba(255, 255, 255, .16);
+    border: 1px solid rgba(255, 255, 255, .22);
     border-radius: 999px;
-    background: rgba(255, 255, 255, .05);
-    color: rgba(255, 255, 255, .88);
+    background: rgba(255, 255, 255, .08);
+    color: #d5d9f2;
     font-size: 13px;
     font-weight: 500;
     text-decoration: none;
     transition: background .2s ease, border-color .2s ease;
 }
-.sx-quick a:hover { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .3); }
+.sx-quick a:hover { background: rgba(255, 255, 255, .14); border-color: rgba(196, 181, 253, .6); color: #fff; }
 .dm-fhero .dmh-actions { margin-top: 28px; }
-.sx-hero-rating { margin: 22px 0 0; color: rgba(255, 255, 255, .7); font-size: 14px; }
+.sx-hero-rating { margin: 22px 0 0; color: #8f96c0; font-size: 14px; }
 .sx-hero-rating b { color: #fff; }
 .sx-stars { margin-right: 6px; color: #fbbf24; letter-spacing: 2px; }
 .sx-sep { margin: 0 6px; }

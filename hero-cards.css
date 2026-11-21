@@ -207,7 +207,7 @@ html.dm-loading .dmh-mark { animation-play-state: paused; }
 .dmh-lead {
     max-width: 32rem;
     margin: clamp(40px, 1.75rem + 1.6vw, 56px) 0 0;
-    color: rgba(255, 255, 255, .78);
+    color: #b9bed6;
     font-size: clamp(17px, 1rem + .15vw, 19px);
     line-height: 1.6;
     text-wrap: pretty;
@@ -234,8 +234,8 @@ html.dm-loading .dmh-mark { animation-play-state: paused; }
 .dmh-btn--white { background: #fff; color: #671ef3; box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .5); }
 .dmh-btn--white:hover { background: #fff1f1; color: #671ef3; }
 .dmh-btn--glass {
-    background: rgba(255, 255, 255, .06);
-    border-color: rgba(255, 255, 255, .16);
+    background: rgba(255, 255, 255, .08);
+    border-color: rgba(255, 255, 255, .22);
     color: #fff;
     -webkit-backdrop-filter: blur(12px);
             backdrop-filter: blur(12px);
@@ -254,7 +254,7 @@ html.dm-loading .dmh-mark { animation-play-state: paused; }
     letter-spacing: -.04em;
     font-variant-numeric: tabular-nums;
 }
-.dmh-facts dt { color: rgba(255, 255, 255, .62); font-size: 15px; }
+.dmh-facts dt { color: #8f96c0; font-size: 15px; }
 
 /* ---------- card fan ---------- */
 .dmh-art { position: relative; height: clamp(28rem, 38vw, 38rem); }

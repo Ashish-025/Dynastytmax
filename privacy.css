@@ -1,0 +1,54 @@
+/* Privacy Policy page (privacy.html), SparkLayer-style light page */
+.pv-page { background: #fff; }
+html[data-theme] body .pv-page, html[data-theme] body .pv-page * { font-family: Inter, sans-serif !important; }
+html[data-theme] body .pv-page :is(h1, h2) { font-family: Outfit, sans-serif !important; }
+.pv-wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
+
+/* top band */
+.pv-hero {
+    padding: 72px 0 56px;
+    background:
+        radial-gradient(760px 400px at 20% 0%, rgba(103, 30, 243, .35), transparent 62%),
+        radial-gradient(620px 380px at 92% 100%, rgba(255, 2, 106, .14), transparent 58%),
+        #0a0e26;
+    color: #fff;
+}
+.pv-kicker { margin: 0 0 12px; color: #a78bfa; font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+html[data-theme] body .pv-hero h1 { margin: 0; color: #fff; font-size: clamp(36px, 1.4rem + 3vw, 56px); font-weight: 600; line-height: 1.05; letter-spacing: -.04em; }
+.pv-lead { max-width: 640px; margin: 16px 0 0; color: #bdc4e6; font-size: 17px; line-height: 1.6; }
+.pv-date { margin: 18px 0 0; color: #a9b0d6; font-size: 14px; }
+
+/* layout: contents list + text */
+.pv-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 56px; padding-top: 56px; padding-bottom: 88px; }
+.pv-toc { position: sticky; top: 96px; align-self: start; display: flex; flex-direction: column; gap: 2px; padding: 18px; border: 1px solid #e6ebf1; border-radius: 12px; background: #f6f9fc; }
+.pv-toc p { margin: 0 0 8px; color: #0a2540; font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.pv-toc a { padding: 6px 10px; border-radius: 8px; color: #666; font-size: 14px; text-decoration: none; transition: background .2s ease, color .2s ease; }
+.pv-toc a:hover { background: #f3eeff; color: #671ef3; }
+
+.pv-body { max-width: 760px; }
+html[data-theme] body .pv-body h2 { margin: 40px 0 12px; color: #0a2540; font-size: 24px; font-weight: 600; letter-spacing: -.02em; scroll-margin-top: 100px; }
+html[data-theme] body .pv-body h2:first-child { margin-top: 0; }
+html[data-theme] body .pv-body p, html[data-theme] body .pv-body li { color: #2a3a52; font-size: 16px; line-height: 1.7; }
+.pv-body p { margin: 0 0 14px; }
+.pv-body ul { margin: 0 0 14px; padding-left: 22px; }
+.pv-body li { margin-bottom: 6px; }
+.pv-body li::marker { color: #671ef3; }
+.pv-body b { color: #0a2540; }
+.pv-body a { color: #671ef3; font-weight: 500; }
+.pv-body a:hover { color: #5717d6; }
+.pv-card { margin: 8px 0 16px; padding: 20px 22px; border: 1px solid #e6ebf1; border-radius: 12px; background: #f6f7fb; }
+.pv-card p:last-child { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+    .pv-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-top: 32px; }
+    .pv-toc { position: static; flex-direction: row; flex-wrap: wrap; }
+    .pv-toc p { width: 100%; }
+    .pv-toc a { padding: 4px 10px; border: 1px solid #e6ebf1; border-radius: 999px; background: #fff; font-size: 13px; }
+}
+@media (max-width: 640px) {
+    .pv-hero { padding: 48px 0 40px; }
+    .pv-wrap { padding-left: 16px; padding-right: 16px; }
+    .pv-layout { padding-bottom: 56px; }
+    html[data-theme] body .pv-body h2 { font-size: 21px; margin-top: 32px; }
+    html[data-theme] body .pv-body p, html[data-theme] body .pv-body li { font-size: 15.5px; }
+}
