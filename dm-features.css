@@ -21,8 +21,8 @@ html[data-theme="dark"] .dm-features {
     --ft-line: rgba(255, 255, 255, .15);
 }
 html[data-theme] body .dm-features,
-html[data-theme] body .dm-features * { font-family: Geist, Inter, system-ui, sans-serif !important; }
-html[data-theme] body .dm-features :is(h3, h4) { font-family: Geist, Inter, system-ui, sans-serif !important; }
+html[data-theme] body .dm-features * { font-family: Inter, sans-serif !important; }
+html[data-theme] body .dm-features :is(h3, h4) { font-family: Outfit, sans-serif !important; }
 
 .dm-features-container {
     width: 100%;

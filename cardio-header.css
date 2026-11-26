@@ -26,7 +26,7 @@
     background: var(--cc-navy);
     color: #fff;
     padding: 8px 0;
-    font: 400 14px/20px Geist, Inter, system-ui, sans-serif;
+    font: 400 14px/20px Inter, sans-serif;
     position: relative;
     z-index: 10001;
 }
@@ -62,7 +62,7 @@ html[data-theme="dark"] .dm-topbar { background: #020617; }
 @keyframes dmTbPulse { 50% { opacity: .5; } }
 
 html[data-theme] body .dm-topbar,
-html[data-theme] body .dm-topbar * { font-family: Geist, Inter, system-ui, sans-serif !important; }
+html[data-theme] body .dm-topbar * { font-family: Inter, sans-serif !important; }
 .dm-topbar strong { color: var(--cc-red-400); font-weight: 700; }
 .dm-topbar a {
     color: inherit;
@@ -138,14 +138,14 @@ html[data-theme] body .site-header .logo {
 html[data-theme] body .site-header .logo .logo-text {
     display: block;
     color: var(--cc-ink);
-    font: 400 18px/1.25 Geist, Inter, system-ui, sans-serif !important;
+    font: 400 18px/1.25 Inter, sans-serif !important;
     letter-spacing: 0;
     text-transform: none;
 }
 html[data-theme] body .site-header .logo .logo-sub {
     display: block;
     color: var(--cc-slate-600);
-    font: 400 12px/1 Geist, Inter, system-ui, sans-serif !important;
+    font: 400 12px/1 Inter, sans-serif !important;
 }
 html[data-theme="dark"] body .site-header .logo .logo-text { color: #fff; }
 
@@ -161,7 +161,7 @@ html[data-theme] body .site-header .nav-link {
     height: auto;
     padding: 0;
     color: #666;
-    font-family: Geist, Inter, system-ui, sans-serif !important;
+    font-family: Outfit, sans-serif !important;
     font-size: 14px;
     line-height: 20px;
     font-weight: 600;
@@ -215,7 +215,7 @@ html[data-theme] body .site-header .dropdown-menu a {
     padding: 9px 12px;
     border-radius: 8px;
     color: var(--cc-slate-600);
-    font-family: Geist, Inter, system-ui, sans-serif !important;
+    font-family: Inter, sans-serif !important;
     font-size: 14px;
     font-weight: 400;
     opacity: 1;
@@ -255,7 +255,7 @@ html[data-theme] body .site-header .mobile-app-button:focus-visible {
     border: 0 !important;
     border-radius: 8px !important;
     color: #fff !important;
-    font-family: Geist, Inter, system-ui, sans-serif !important;
+    font-family: Outfit, sans-serif !important;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
@@ -334,7 +334,7 @@ html[data-theme="dark"] body .site-header .mobile-menu-button span { background:
         justify-content: space-between;
         padding: 10px 0;
         color: var(--cc-slate-200);
-        font-family: Geist, Inter, system-ui, sans-serif !important;
+        font-family: Outfit, sans-serif !important;
         font-size: 14px;
         font-weight: 500;
     }
@@ -342,7 +342,7 @@ html[data-theme="dark"] body .site-header .mobile-menu-button span { background:
     html[data-theme] body .site-header .mobile-simple-link::after { background: var(--cc-primary) !important; height: 2px; }
     html[data-theme] body .site-header .mobile-dropdown a {
         color: var(--cc-slate-400);
-        font-family: Geist, Inter, system-ui, sans-serif !important;
+        font-family: Inter, sans-serif !important;
         font-size: 14px;
         padding-left: 12px;
         padding-right: 0;
@@ -378,27 +378,10 @@ html { scroll-padding-top: var(--hdr-h); }
 html[data-theme="light"] body .site-header:not(.scrolled) { background: rgba(248, 250, 252, .97); }
 /* home page: over the dark hero the header is part of it (same navy, light text) */
 html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) {
-    background: rgba(10, 10, 26, .72);           /* over the hero while scrolling: dark frosted glass */
-    -webkit-backdrop-filter: blur(14px);
-            backdrop-filter: blur(14px);
+    background: #0a0a1a;
     border-bottom: 1px solid rgba(255, 255, 255, .06);
     box-shadow: none;
 }
-/* at the very top the hero shows straight through the header (it runs up behind it) */
-html[data-theme="light"]:has(.dm-fhero) body .site-header.is-top:not(.scrolled) {
-    background: transparent;
-    -webkit-backdrop-filter: none;
-            backdrop-filter: none;
-    border-bottom-color: transparent;
-}
-/* (!important + body > main: the page-wide "main > section { margin: 0 !important }" in contact-strip.css) */
-html[data-theme="light"] body > main > section.dm-fhero { margin-top: calc(-1 * var(--hdr-h)) !important; }
-html[data-theme="light"] .dm-fhero .dmh-stage { padding-top: calc(var(--hdr-h) + clamp(46px, 4vw, 66px)); }
-@media (max-width: 640px) {
-    html[data-theme="light"] .dm-fhero .dmh-stage { padding-top: calc(var(--hdr-h) + 28px); }
-}
-/* the top bar above blends into the hero's navy */
-html[data-theme="light"]:has(.dm-fhero) .dm-topbar { background: #04050d; }
 html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) .nav-link { color: rgba(255, 255, 255, .78); }
 html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) .nav-link:hover,
 html[data-theme="light"]:has(.dm-fhero) body .site-header:not(.scrolled) .nav-item.open > .nav-link { color: #fff; }
@@ -522,8 +505,4 @@ html[data-theme] body .site-header .logo .logo-sub { display: block !important; 
     html[data-theme] body .site-header .app-button,
     html[data-theme] body .site-header .app-button:hover { padding: 10px 14px !important; font-size: 13px; }
     html[data-theme] body .site-header .app-button .cc-btn-icon { display: none; }
-
-/* phone menu: plain links (Projects / Portfolio, Contact Us) look like the other rows, no arrow */
-html[data-theme] body .site-header .mobile-nav-plain { display: block; text-decoration: none; }
-html[data-theme] body .site-header .mobile-nav-plain::after,
-html[data-theme] body .site-header .mobile-nav-plain::before { content: none !important; display: none !important; }
+}

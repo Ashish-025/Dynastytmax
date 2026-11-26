@@ -47,19 +47,18 @@ html[data-theme="light"] .dm-footer {
         radial-gradient(700px 360px at 15% 0%, rgba(103, 30, 243, .28), transparent 60%),
         radial-gradient(560px 320px at 90% 100%, rgba(255, 2, 106, .12), transparent 55%);
 }
-/* hero: SparkLayer .hero--hp exact colour code */
-html[data-theme="light"] .dmh-stage { --h-ink: #0a0a1a; background: linear-gradient(180deg, #04050d 0%, #060917 60%, #080c1f 100%); }
+html[data-theme="light"] .dmh-stage { --h-ink: #0a0a1a; background: linear-gradient(180deg, #0a0a1a 0%, #0e1433 68%, #131a3f 100%); }
 html[data-theme="light"] .dmh-ground {
     background:
-        radial-gradient(900px 520px at 78% 8%, rgba(255, 2, 106, .08), transparent 62%),
-        radial-gradient(760px 460px at 12% 22%, rgba(103, 30, 243, .2), transparent 65%),
-        radial-gradient(680px 420px at 62% 74%, rgba(11, 206, 252, .08), transparent 66%);
+        radial-gradient(900px 520px at 78% 8%, rgba(255, 2, 106, .30), transparent 62%),
+        radial-gradient(760px 460px at 12% 22%, rgba(103, 30, 243, .42), transparent 65%),
+        radial-gradient(680px 420px at 62% 74%, rgba(11, 206, 252, .18), transparent 66%);
 }
 @media (max-width: 900px) {
     html[data-theme="light"] .dmh-ground {
         background:
-            radial-gradient(760px 460px at 12% 22%, rgba(103, 30, 243, .2), transparent 65%),
-            radial-gradient(680px 420px at 62% 74%, rgba(11, 206, 252, .08), transparent 66%);
+            radial-gradient(760px 460px at 12% 22%, rgba(103, 30, 243, .42), transparent 65%),
+            radial-gradient(680px 420px at 62% 74%, rgba(11, 206, 252, .18), transparent 66%);
     }
 }
 /* "Smart Technology": the SparkLayer gradient */
@@ -98,7 +97,6 @@ html[data-theme="light"] .dm-ft-tab.is-active,
 html[data-theme="light"] .dm-ft-tab.is-active:hover { color: #fff; }
 html[data-theme="light"] .sb-box.is-active .sb-num { color: #fff; }
 html[data-theme="light"] .sb-go:hover { color: #fff; }
-
 
 /* footer logo: "MAX" in violet-soft on navy */
 html[data-theme="light"] .dm-logo span { color: var(--c-violet-soft); }

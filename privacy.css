@@ -1,7 +1,7 @@
 /* Privacy Policy page (privacy.html), SparkLayer-style light page */
 .pv-page { background: #fff; }
-html[data-theme] body .pv-page, html[data-theme] body .pv-page * { font-family: Geist, Inter, system-ui, sans-serif !important; }
-html[data-theme] body .pv-page :is(h1, h2) { font-family: Geist, Inter, system-ui, sans-serif !important; }
+html[data-theme] body .pv-page, html[data-theme] body .pv-page * { font-family: Inter, sans-serif !important; }
+html[data-theme] body .pv-page :is(h1, h2) { font-family: Outfit, sans-serif !important; }
 .pv-wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
 
 /* top band */

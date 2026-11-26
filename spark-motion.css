@@ -68,13 +68,13 @@ html[data-theme="light"] body .site-header.scrolled {
 /* ---------- hero: drifting colour ribbons (plp-ribbonDrift) ---------- */
 .dmh-ribbon {
     position: absolute;
-    top: -215px;
-    right: -380px;
+    top: -480px;
+    right: -38%;
     width: 1360px;
     height: 1480px;
     transform: rotate(338deg);
     filter: blur(60px) saturate(1.12);
-    opacity: .16;
+    opacity: .5;
     pointer-events: none;
     will-change: transform;
 }
@@ -90,26 +90,7 @@ html[data-theme="light"] body .site-header.scrolled {
 .dmh-ribbon i:nth-child(3) { top: 410px; height: 130px; background: linear-gradient(90deg, #ff026a, #ff9243); animation-duration: 9s; animation-delay: -2s; }
 .dmh-ribbon i:nth-child(4) { top: 540px; height: 120px; background: linear-gradient(90deg, #ff9243, #ffd9a8); opacity: .85; animation-duration: 16s; animation-delay: -7s; }
 @keyframes slRibbonDrift { to { transform: translate(52px, -14px); } }
-@media (max-width: 1199px) { .dmh-ribbon { width: 120vw; right: -40vw; top: -480px; opacity: .14; } }
-
-/* light arcs sweeping across the right of the hero (added by spark-motion.js) */
-.dmh-arcs {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: min(1100px, 80%);
-    height: 100%;
-    pointer-events: none;
-    overflow: visible;
-}
-.dmh-arcs path { fill: none; stroke-linecap: round; }
-.dmh-arcs .arc-glow { stroke-width: 6; opacity: .45; filter: blur(6px); }
-.dmh-arcs .arc-line { stroke-width: 1.6; }
-.dmh-arcs g { animation: dmhArcDrift 14s ease-in-out infinite alternate; transform-origin: 80% 20%; }
-.dmh-arcs g:nth-child(2) { animation-duration: 18s; animation-delay: -6s; }
-@keyframes dmhArcDrift { to { transform: translate(-18px, 10px) rotate(-1.5deg); } }
-@media (max-width: 1199px) { .dmh-arcs { width: 100%; opacity: .7; } }
-@media (prefers-reduced-motion: reduce) { .dmh-arcs g { animation: none; } }
+@media (max-width: 1199px) { .dmh-ribbon { width: 120vw; right: -40vw; opacity: .45; } }
 
 /* ---------- main buttons: a light running around the edge (sl-hero-shimmer) ---------- */
 .sl-shimmer { position: relative; isolation: isolate; overflow: hidden; }
@@ -228,11 +209,11 @@ html[data-theme] .dm-ft-media > .ds-orbit { display: block; }
     overflow: hidden;
     background: #06042a;
     color: rgba(234, 246, 244, .9);
-    font: 400 13px/1 Geist, Inter, system-ui, sans-serif;
+    font: 400 13px/1 Inter, sans-serif;
     white-space: nowrap;
     text-decoration: none;
 }
-html[data-theme] body .dm-unb, html[data-theme] body .dm-unb * { font-family: Geist, Inter, system-ui, sans-serif !important; text-decoration: none; }
+html[data-theme] body .dm-unb, html[data-theme] body .dm-unb * { font-family: Inter, sans-serif !important; text-decoration: none; }
 .dm-unb::before {                   /* faint violet grid, fading to the edges */
     content: "";
     position: absolute;
@@ -251,7 +232,7 @@ html[data-theme] body .dm-unb-eyebrow { font-family: "JetBrains Mono", ui-monosp
 @keyframes dmUnbPulse { 0% { transform: scale(.8); opacity: .5; } 100% { transform: scale(2.4); opacity: 0; } }
 .dm-unb-sep { color: rgba(255, 255, 255, .28); }
 .dm-unb-brand, .dm-unb-announce { color: #c4b5fd; }
-html[data-theme] body .dm-unb-what { color: #fff; font-family: Geist, Inter, system-ui, sans-serif !important; font-size: 13px; font-weight: 500; letter-spacing: .01em; text-transform: none; }
+html[data-theme] body .dm-unb-what { color: #fff; font-family: Inter, sans-serif !important; font-size: 13px; font-weight: 500; letter-spacing: .01em; text-transform: none; }
 
 /* the wavy line with a light running along it */
 .dm-unb-ecg { position: relative; flex: none; width: 190px; height: 26px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%); mask-image: linear-gradient(90deg, transparent, #000 12%); }
@@ -397,218 +378,3 @@ html body :is(h1, h2) .acc-sw.acc-go { animation: accSweep 1.2s ease .1s both !i
 /* a swept phrase inside a letter-by-letter heading (usta-motion.js keeps it whole):
    normal wrapping text that fades in with the letters */
 .um-on .um-scroll .acc-sw.um-unit { display: inline; white-space: normal; transform: none; }
-
-/* hero bottom edge: white curve with a colour band (svg from spark-motion.js) */
-.dmh-curve {
-    position: absolute;
-    left: 0;
-    bottom: -1px;
-    z-index: 2;
-    width: 100%;
-    height: clamp(56px, 9.5vw, 171px);
-    pointer-events: none;
-}
-/* room for the curve under the hero content */
-.dmh-stage .dmh-grid { padding-bottom: calc(clamp(30px, 2.9vw, 42px) + clamp(40px, 7vw, 120px)); }
-.dm-fhero { padding-bottom: 0 !important; }
-
-
-/* hero background texture (spark-motion.js): our own artwork matching SparkLayer's
-   hero photo layer - a blue light cone from a bright core at the bottom - shown, like
-   theirs, over the hero colours at 22%, covering the hero */
-.dmh-tex {
-    position: absolute;
-    inset: 0;
-    max-height: 1010px;
-    overflow: hidden;
-    background: #030309;
-    opacity: .1;
-    pointer-events: none;
-}
-.dmh-tex i { position: absolute; display: block; }
-.dmh-tex-band {
-    left: 20%;
-    top: -24%;
-    width: 68%;
-    height: 158%;
-    transform: rotate(30deg);
-    background: radial-gradient(closest-side, rgba(50, 64, 200, .7) 0%, rgba(42, 55, 175, .6) 30%, rgba(30, 40, 130, .36) 58%, rgba(16, 22, 70, .12) 80%, rgba(10, 14, 50, 0) 100%);
-}
-.dmh-tex-core {
-    inset: 0;
-    background:
-        radial-gradient(ellipse 21% 24% at 40% 104%, #f2f3ff 0%, rgba(214, 217, 255, .85) 40%, rgba(150, 160, 255, 0) 100%),
-        radial-gradient(ellipse 42% 52% at 46% 108%, rgba(86, 102, 242, .95) 0%, rgba(66, 82, 228, .7) 45%, rgba(50, 64, 210, 0) 100%);
-}
-
-/* =========================================================
-   TECH GRID BACKGROUND (hero; elements from spark-motion.js)
-   56px line grid fading to the edges, glowing nodes that pulse on some of the
-   crossings, and a thin light that scans slowly down the grid
-   ========================================================= */
-.dmh-grid-bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-        linear-gradient(to right, rgba(125, 211, 252, .13) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(125, 211, 252, .13) 1px, transparent 1px);
-    background-size: 56px 56px;
-    background-position: -1px -1px;
-    -webkit-mask-image: radial-gradient(ellipse 75% 70% at 55% 40%, #000 25%, rgba(0, 0, 0, .45) 60%, transparent 90%);
-            mask-image: radial-gradient(ellipse 75% 70% at 55% 40%, #000 25%, rgba(0, 0, 0, .45) 60%, transparent 90%);
-    overflow: hidden;
-}
-.dmh-grid-bg i {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    margin: -2.5px 0 0 -2.5px;
-    border-radius: 50%;
-    background: #c4b5fd;
-    box-shadow: 0 0 10px 2px rgba(167, 139, 250, .7);
-    animation: dmhNode 4.2s ease-in-out infinite;
-}
-.dmh-grid-bg i:nth-child(3n) { background: #7dd3fc; box-shadow: 0 0 10px 2px rgba(11, 206, 252, .6); }
-@keyframes dmhNode {
-    0%, 100% { opacity: .15; transform: scale(.7); }
-    50% { opacity: 1; transform: scale(1.15); }
-}
-.dmh-scan {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 120px;
-    background: linear-gradient(180deg, rgba(167, 139, 250, 0) 0%, rgba(167, 139, 250, .06) 75%, rgba(196, 181, 253, .18) 99%, rgba(196, 181, 253, 0) 100%);
-    animation: dmhScan 9s linear infinite;
-}
-@keyframes dmhScan { from { transform: translateY(-140px); } to { transform: translateY(1100px); } }
-@media (max-width: 767px) { .dmh-grid-bg { background-size: 40px 40px; } .dmh-grid-bg i:nth-child(n+7) { display: none; } }
-@media (prefers-reduced-motion: reduce) { .dmh-grid-bg i, .dmh-scan { animation: none; } .dmh-scan { display: none; } }
-
-/* circuit tracks with travelling data pulses (inside the tech grid) */
-.dmh-traces { position: absolute; left: -1px; top: -1px; overflow: visible; }
-.dmh-traces .tr-line { fill: none; stroke: rgba(125, 211, 252, .22); stroke-width: 1.4; stroke-linejoin: round; }
-.dmh-traces .tr-pulse {
-    fill: none;
-    stroke: #7dd3fc;
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-dasharray: 7 93;
-    filter: drop-shadow(0 0 4px rgba(125, 211, 252, .9));
-    animation: dmhPulse 4s linear infinite;
-}
-.dmh-traces path.tr-pulse:nth-of-type(4n) { stroke: #c4b5fd; filter: drop-shadow(0 0 4px rgba(167, 139, 250, .9)); }
-.dmh-traces .tr-pad { fill: #04050d; stroke: #7dd3fc; stroke-width: 1.4; }
-@keyframes dmhPulse { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
-@media (prefers-reduced-motion: reduce) { .dmh-traces .tr-pulse { animation: none; opacity: 0; } }
-
-/* =========================================================
-   ADVANCED TECH LAYERS (hero; elements from spark-motion.js)
-   ========================================================= */
-
-/* 1. 3D grid floor along the bottom, scrolling towards the viewer */
-.dmh-floor {
-    position: absolute;
-    left: -25%;
-    right: -25%;
-    bottom: 0;
-    height: 46%;
-    perspective: 520px;
-    perspective-origin: 50% 0%;
-    overflow: hidden;
-    pointer-events: none;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 45%, #000 100%);
-            mask-image: linear-gradient(180deg, transparent 0%, #000 45%, #000 100%);
-}
-.dmh-floor i {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 300%;
-    transform-origin: 50% 0;
-    transform: rotateX(72deg);
-    background-image:
-        linear-gradient(to right, rgba(125, 211, 252, .22) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(167, 139, 250, .22) 1px, transparent 1px);
-    background-size: 64px 64px;
-    animation: dmhFloor 3.2s linear infinite;
-}
-@keyframes dmhFloor { from { background-position: 0 0; } to { background-position: 0 64px; } }
-
-/* 2. radar behind the card fan */
-.dmh-radar {
-    position: absolute;
-    top: 50%;
-    right: max(2%, calc((100% - 1320px) / 2 + 40px));
-    width: min(700px, 52vw);
-    aspect-ratio: 1;
-    transform: translateY(-46%);
-    border-radius: 50%;
-    pointer-events: none;
-    background:
-        radial-gradient(circle, transparent 0 24.5%, rgba(125, 211, 252, .22) 25% 25.3%, transparent 25.6% 49.5%, rgba(125, 211, 252, .2) 50% 50.3%, transparent 50.6% 74.5%, rgba(125, 211, 252, .16) 75% 75.3%, transparent 75.6% 99%, rgba(125, 211, 252, .3) 99.3% 100%),
-        linear-gradient(transparent calc(50% - .5px), rgba(125, 211, 252, .14) calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px)),
-        linear-gradient(90deg, transparent calc(50% - .5px), rgba(125, 211, 252, .14) calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px));
-}
-.dmh-radar .rd-sweep {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: conic-gradient(from 0deg, rgba(125, 211, 252, 0) 0deg, rgba(125, 211, 252, 0) 290deg, rgba(125, 211, 252, .28) 355deg, rgba(196, 230, 255, .55) 360deg);
-    animation: dmhSweep 5s linear infinite;
-}
-@keyframes dmhSweep { to { transform: rotate(360deg); } }
-.dmh-radar b {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 8px;
-    height: 8px;
-    margin: -4px 0 0 -4px;
-    border-radius: 50%;
-    background: #7dd3fc;
-    box-shadow: 0 0 12px 3px rgba(125, 211, 252, .8);
-    transform: rotate(var(--a)) translateY(calc(var(--r) * -2.6)) rotate(calc(var(--a) * -1));
-    opacity: 0;
-    animation: dmhBlip 5s linear infinite;
-    animation-delay: calc(var(--a) / 360deg * 5s - 5s);
-}
-@keyframes dmhBlip { 0%, 2% { opacity: 1; } 40% { opacity: .15; } 100% { opacity: 0; } }
-
-/* 3. HUD readouts and 4. corner brackets */
-.dmh-hud { position: absolute; inset: 0; pointer-events: none; }
-.dmh-hud .hud-c { position: absolute; width: 22px; height: 22px; border-color: rgba(125, 211, 252, .5); border-style: solid; border-width: 0; }
-.dmh-hud .hud-tl { top: calc(var(--hdr-h, 72px) + 22px); left: 22px; border-top-width: 1.5px; border-left-width: 1.5px; }
-.dmh-hud .hud-tr { top: calc(var(--hdr-h, 72px) + 22px); right: 22px; border-top-width: 1.5px; border-right-width: 1.5px; }
-.dmh-hud .hud-bl { bottom: clamp(90px, 11vw, 190px); left: 22px; border-bottom-width: 1.5px; border-left-width: 1.5px; }
-.dmh-hud .hud-br { bottom: clamp(90px, 11vw, 190px); right: 22px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
-html[data-theme] body .dmh-hud .hud-tag {
-    position: absolute;
-    margin: 0;
-    color: rgba(186, 230, 253, .72);
-    font: 500 11px/1.4 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
-    letter-spacing: .08em;
-    white-space: nowrap;
-}
-.dmh-hud .hud-status { top: calc(var(--hdr-h, 72px) + 30px); right: 54px; display: flex; align-items: center; gap: 8px; }
-.dmh-hud .hud-status i { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399; animation: dmhNode 1.6s ease-in-out infinite; }
-.dmh-hud .hud-coords { bottom: calc(clamp(90px, 11vw, 190px) + 6px); right: 54px; }
-.dmh-hud .hud-coords span { color: #c4b5fd; }
-.dmh-hud .hud-coords b { color: #fff; font-weight: 500; }
-
-@media (max-width: 1199px) {
-    .dmh-radar { right: 50%; top: auto; bottom: 18%; transform: translateX(50%); width: 80vw; opacity: .7; }
-    .dmh-hud .hud-coords { display: none; }
-}
-@media (max-width: 640px) {
-    .dmh-hud .hud-status { right: 16px; font-size: 9.5px; }
-    .dmh-hud .hud-c { display: none; }
-    .dmh-floor { height: 30%; }
-}
-@media (prefers-reduced-motion: reduce) {
-    .dmh-floor i, .dmh-radar .rd-sweep, .dmh-radar b, .dmh-hud .hud-status i { animation: none; }
-    .dmh-radar b { opacity: .6; }
-}

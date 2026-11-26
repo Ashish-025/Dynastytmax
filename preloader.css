@@ -1,8 +1,6 @@
-/* Page preloader (every page) - see preloader.js:
-     the dark tech hero's look: a deep navy screen with a fine glowing grid, a radar with a
-     rotating sweep around the Dynasty Max shield, the name, a gradient progress bar and a
-     mono status line ("CONNECTING GPS ... 42%") counting to 100%,
-     then the radar zooms away and the screen lifts up off the page.
+/* Page preloader (home page), like usta.agency - see preloader.js:
+     a black screen with a small, thin, wide-spaced "DYNASTYMAX 0%" counting to 100%,
+     then the letters drop away one after another and the page's intro starts.
    Only shown while <html> has .dm-loading (set by an inline head script), so the
    page is never blocked if JavaScript is off. */
 
@@ -22,182 +20,43 @@ html.dm-loading .dm-preloader,
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    padding: 40px 16px;
-    background:
-        radial-gradient(620px 420px at 50% 46%, rgba(103, 30, 243, .22), transparent 70%),
-        radial-gradient(520px 360px at 50% 70%, rgba(11, 206, 252, .08), transparent 70%),
-        linear-gradient(180deg, #04050d 0%, #060917 60%, #080c1f 100%);
-    transition: transform .75s cubic-bezier(.76, 0, .24, 1), opacity .35s ease .55s;
+    padding: 40px 0;
+    background: #000;
+    transition: opacity .35s ease;
 }
-
-/* fine tech grid, fading to the edges, with a slow scan line */
-.dm-pl-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(125, 211, 252, .11) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(125, 211, 252, .11) 1px, transparent 1px);
-    background-size: 56px 56px;
-    background-position: center center;
-    -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, #000 20%, transparent 100%);
-            mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, #000 20%, transparent 100%);
-}
-.dm-pl-grid::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; top: 0;
-    height: 140px;
-    background: linear-gradient(180deg, transparent, rgba(125, 211, 252, .08) 70%, rgba(125, 211, 252, .28) 100%);
-    animation: dmPlScan 2.6s linear infinite;
-}
-@keyframes dmPlScan { from { transform: translateY(-140px); } to { transform: translateY(100vh); } }
-
-/* HUD corner brackets */
-.dm-pl-c { position: absolute; width: 26px; height: 26px; border: 0 solid rgba(125, 211, 252, .55); }
-.dm-pl-c1 { top: 22px; left: 22px; border-top-width: 1.5px; border-left-width: 1.5px; }
-.dm-pl-c2 { top: 22px; right: 22px; border-top-width: 1.5px; border-right-width: 1.5px; }
-.dm-pl-c3 { bottom: 22px; left: 22px; border-bottom-width: 1.5px; border-left-width: 1.5px; }
-.dm-pl-c4 { bottom: 22px; right: 22px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
-
-/* centre block */
-.dm-pl-box {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: min(340px, 100%);
-    transition: transform .55s cubic-bezier(.6, -.2, .7, .05), opacity .45s ease-in;
-}
-
-/* radar with the shield in the middle */
-.dm-pl-radar {
-    position: relative;
-    width: 148px;
-    height: 148px;
-    border-radius: 50%;
-    background:
-        radial-gradient(circle, transparent 0 31%, rgba(125, 211, 252, .32) 31.5% 32%, transparent 32.5% 63%,
-                        rgba(125, 211, 252, .22) 63.5% 64%, transparent 64.5% 98%, rgba(125, 211, 252, .45) 98.5% 100%),
-        linear-gradient(rgba(125, 211, 252, .16), rgba(125, 211, 252, .16)) center / 1px 100% no-repeat,
-        linear-gradient(rgba(125, 211, 252, .16), rgba(125, 211, 252, .16)) center / 100% 1px no-repeat;
-    box-shadow: 0 0 60px -10px rgba(103, 30, 243, .55), inset 0 0 40px -12px rgba(11, 206, 252, .35);
-}
-.dm-pl-sweep {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: conic-gradient(from 0deg, rgba(11, 206, 252, 0) 0deg, rgba(11, 206, 252, 0) 280deg, rgba(11, 206, 252, .45) 358deg, rgba(196, 181, 253, .9) 360deg);
-    animation: dmPlSpin 1.6s linear infinite;
-}
-@keyframes dmPlSpin { to { transform: rotate(360deg); } }
-.dm-pl-blip {
-    position: absolute;
-    width: 6px; height: 6px;
-    margin: -3px 0 0 -3px;
-    border-radius: 50%;
-    background: #7dd3fc;
-    box-shadow: 0 0 10px #7dd3fc;
-    animation: dmPlBlip 1.6s ease-out infinite;
-}
-.dm-pl-blip:nth-of-type(2) { left: 74%; top: 28%; animation-delay: -1.25s; }
-.dm-pl-blip:nth-of-type(3) { left: 22%; top: 66%; animation-delay: -.45s; background: #c4b5fd; box-shadow: 0 0 10px #c4b5fd; }
-@keyframes dmPlBlip { 0%, 100% { opacity: 0; transform: scale(.4); } 8% { opacity: 1; transform: scale(1.2); } 60% { opacity: .2; transform: scale(1); } }
-.dm-pl-mark {
-    position: absolute;
-    left: 50%; top: 50%;
-    width: 44px; height: 44px;
-    margin: -22px 0 0 -22px;
-    display: grid;
-    place-items: center;
-    border-radius: 12px;
-    background: #671ef3;
-    box-shadow: 0 0 0 6px rgba(103, 30, 243, .18), 0 8px 26px -6px rgba(103, 30, 243, .9);
-    animation: dmPlBeat 1.6s ease-in-out infinite;
-}
-.dm-pl-mark svg { width: 24px; height: 24px; fill: #fff; }
-@keyframes dmPlBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
-
-/* name */
-.dm-pl-name {
-    margin-top: 26px;
-    color: #fff;
-    font: 600 22px/1 Geist, Inter, Arial, sans-serif;
-    letter-spacing: 6px;
-    white-space: nowrap;
-}
-.dm-pl-name em {
-    font-style: normal;
-    background: linear-gradient(90deg, #c4b5fd, #e9a5ff, #ff86b8);
-    -webkit-background-clip: text;
-            background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-}
-
-/* progress bar: the SparkLayer gradient, filled by --p (0-100) from preloader.js */
-.dm-pl-bar {
-    position: relative;
-    width: 100%;
-    height: 3px;
-    margin-top: 24px;
-    border-radius: 3px;
-    background: rgba(125, 211, 252, .12);
-    overflow: hidden;
-}
-.dm-pl-bar i {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(90deg, #0bcefc 0%, #671ef3 38%, #ff026a 72%, #ff9243 100%);
-    background-size: 340px 100%;
-    box-shadow: 0 0 12px rgba(103, 30, 243, .8);
-    transform-origin: left center;
-    transform: scaleX(calc(var(--p, 0) / 100));
-}
-
-/* status line */
-.dm-pl-meta {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 12px;
-    color: rgba(196, 210, 255, .7);
-    font: 500 10.5px/1 "JetBrains Mono", ui-monospace, Consolas, monospace;
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
-}
-.dm-pl-status::before {
-    content: "";
-    display: inline-block;
-    width: 6px; height: 6px;
-    margin-right: 8px;
-    border-radius: 50%;
-    background: #22c55e;
-    box-shadow: 0 0 8px #22c55e;
-    vertical-align: 1px;
-    animation: dmPlDot 1s ease-in-out infinite;
-}
-@keyframes dmPlDot { 50% { opacity: .3; } }
-.dm-pl-pct { color: #fff; font-variant-numeric: tabular-nums; }
-
-/* exit: the radar block zooms away, then the whole screen lifts up off the page */
-.dm-preloader.is-dropping .dm-pl-box { transform: scale(.86) translateY(-14px); opacity: 0; }
-.dm-preloader.is-lifting { transform: translateY(-100%); }
 .dm-preloader.is-gone { opacity: 0; pointer-events: none; }
 
-@media (max-width: 640px) {
-    .dm-pl-c { display: none; }
-    .dm-pl-radar { width: 124px; height: 124px; }
-    .dm-pl-name { font-size: 19px; letter-spacing: 5px; }
-    .dm-pl-box { width: min(280px, 100%); }
+/* "DYNASTYMAX 0%" - small, extra-light, spaced out */
+.dm-pl-load {
+    display: flex;
+    align-items: baseline;
+    color: #fff;
+    font: 200 20px/1 Montserrat, Arial, sans-serif;
+    letter-spacing: 4px;
+    white-space: nowrap;
 }
+.dm-pl-name { margin-right: .5em; }
+.dm-pl-name em { font-style: normal; color: #671ef3; }
+.dm-pl-count { font-variant-numeric: tabular-nums; }
+
+/* exit: every letter falls 200px and fades, one after another (delays set in preloader.js) */
+.dm-pl-ch {
+    display: inline-block;
+    white-space: pre;
+    transition: transform .8s cubic-bezier(.6, -.28, .735, .045), opacity .8s ease-in;
+}
+.dm-preloader.is-dropping .dm-pl-ch { transform: translateY(200px); opacity: 0; }
 
 @media (prefers-reduced-motion: reduce) {
-    .dm-pl-grid::after, .dm-pl-sweep, .dm-pl-blip, .dm-pl-mark, .dm-pl-status::before { animation: none; }
-    .dm-pl-box, html.dm-loading .dm-preloader, .dm-preloader.is-leaving { transition: opacity .3s ease; }
-    .dm-preloader.is-lifting { transform: none; }
+    .dm-pl-ch { transition: none; }
 }
 
 /* the hero sits under the preloader, so it is fully shown from the start (no scroll-in fade) */
 .hero-section.dm-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+/* the letters' fall runs on the compositor (own layers), so a busy phone can't make it stutter */
+.dm-preloader.is-dropping .dm-pl-ch { will-change: transform, opacity; }
+/* phones: a slightly quicker fall (matches DROP_MS in preloader.js) */
+@media (max-width: 768px), (pointer: coarse) {
+    .dm-pl-ch { transition-duration: .65s, .65s; }
+}

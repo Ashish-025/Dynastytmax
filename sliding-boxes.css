@@ -24,8 +24,8 @@
     isolation: isolate;
 }
 html[data-theme] body .sb-boxes,
-html[data-theme] body .sb-boxes * { font-family: Geist, Inter, system-ui, sans-serif !important; }
-html[data-theme] body .sb-boxes :is(.sb-label, .sb-title, .sb-num) { font-family: Geist, Inter, system-ui, sans-serif !important; }
+html[data-theme] body .sb-boxes * { font-family: Inter, sans-serif !important; }
+html[data-theme] body .sb-boxes :is(.sb-label, .sb-title, .sb-num) { font-family: Outfit, sans-serif !important; }
 
 .sb-box {
     position: relative;
