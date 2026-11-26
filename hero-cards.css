@@ -17,9 +17,9 @@
     background: transparent;
 }
 html[data-theme] body .dm-fhero,
-html[data-theme] body .dm-fhero * { font-family: Inter, sans-serif !important; }
+html[data-theme] body .dm-fhero * { font-family: Geist, Inter, system-ui, sans-serif !important; }
 html[data-theme] body .dm-fhero :is(.dmh-title, .dmh-title *, .dmh-facts dd, .dmh-panel-name, .dmh-btn, .dmh-card-label, .dmh-numeral) {
-    font-family: Outfit, sans-serif !important;
+    font-family: Geist, Inter, system-ui, sans-serif !important;
 }
 .dm-fhero .sr-only {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;

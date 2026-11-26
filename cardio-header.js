@@ -15,6 +15,7 @@
     function update() {
         ticking = false;
         header.classList.toggle("scrolled", window.scrollY > threshold());
+        header.classList.toggle("is-top", window.scrollY < 8);   // see-through at the very top
     }
     window.addEventListener("scroll", function () {
         if (!ticking) { ticking = true; requestAnimationFrame(update); }
